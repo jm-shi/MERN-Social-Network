@@ -1,4 +1,4 @@
-# Connectwork
+# MERN Social Network
 Work in progress. 
 
 **Goal:** Build a MERN stack social network app. 
