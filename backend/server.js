@@ -1,10 +1,10 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import logger from 'morgan';
-import mongoose from 'mongoose';
+const bodyParser = require('body-parser');
+const express = require('express');
+const logger = require('morgan');
+const mongoose = require('mongoose');
 
-import { dbURI } from './secrets';
-import Post from './models/post';
+const { dbURI } = require('./secrets');
+const Post = require('./models/post');
 
 const app = express();
 const router = express.Router();
