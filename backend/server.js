@@ -3,7 +3,12 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
-const { dbURI } = require('./secrets');
+let dbURI = process.env.REACT_APP_DB_URI;
+/* eslint-disable global-require, prefer-destructuring */
+if (dbURI === undefined) {
+  dbURI = require('./secrets').dbURI;
+}
+/* eslint-enable global-require, prefer-destructuring */
 const Post = require('./models/post');
 
 const app = express();
@@ -54,4 +59,5 @@ app.use('/test', router);
 
 app.listen(port, () => {
   console.log(`Started up at port ${port}`);
+  console.log('***', dbURI);
 });
