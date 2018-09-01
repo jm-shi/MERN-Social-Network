@@ -1,14 +1,15 @@
 {
-  "name": "connectwork",
+  "name": "mern-social-network",
   "version": "1.0.0",
   "description": "Work in progress.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd backend && node server.js",
-    "server": "cd backend && nodemon server.js",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
+    "server": "cd backend && node server.js",
+    "server:watch": "cd backend && nodemon server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",

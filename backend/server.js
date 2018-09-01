@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 
 let dbURI = process.env.REACT_APP_DB_URI;
 /* eslint-disable global-require, prefer-destructuring */
@@ -57,7 +58,19 @@ router.post('/posts', (req, res) => {
 
 app.use('/test', router);
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('in production');
+  app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, '..', 'client', 'build', 'index.html')
+    );
+  });
+} else {
+  console.log('not in production');
+}
+
 app.listen(port, () => {
   console.log(`Started up at port ${port}`);
-  console.log('***', dbURI);
 });
