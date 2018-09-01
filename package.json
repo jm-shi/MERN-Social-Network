@@ -4,7 +4,7 @@
   "description": "Work in progress.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd client && npm test",
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "server": "cd backend && node server.js",
     "server:watch": "cd backend && nodemon server.js",
