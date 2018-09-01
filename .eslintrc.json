@@ -11,6 +11,7 @@
   },
   "rules": {
     "comma-dangle": ["error", "never"],
+    "no-console": "off",
     "no-unused-vars": [
       "error",
       {
@@ -18,6 +19,7 @@
         "args": "none"
       }
     ],
+    "consistent-return": "warn",
     "no-use-before-define": ["error", { "variables": false }],
     "implicit-arrow-linebreak": "off",
     "react/prefer-stateless-function": "warn",

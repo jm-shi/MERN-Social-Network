@@ -26,7 +26,8 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
-    "mongoose": "^5.2.12"
+    "mongoose": "^5.2.12",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
@@ -35,7 +36,6 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "morgan": "^1.9.0",
     "nodemon": "^1.18.4"
   }
 }
