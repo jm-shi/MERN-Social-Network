@@ -1,8 +1,12 @@
 {
   "extends": "airbnb",
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
+  "parser": "babel-eslint",
   "env": {
     "node": true,
     "browser": true,
@@ -22,7 +26,7 @@
     "no-undef": "off",
     "no-use-before-define": ["error", { "variables": false }],
     "implicit-arrow-linebreak": "off",
-    "react/prefer-stateless-function": "warn",
+    "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": 0
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "mern-social-network",
   "version": "1.0.0",
-  "description": "Work in progress.",
+  "description": "Social network app to be created with MERN stack. Work in progress.",
   "main": "index.js",
   "scripts": {
     "test": "cd client && npm test",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/jm-shi/MERN-Social-Network.git"
   },
-  "author": "",
+  "author": "Jamie Shi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jm-shi/MERN-Social-Network/issues"
@@ -29,6 +29,7 @@
     "morgan": "^1.9.0"
   },
   "devDependencies": {
+    "babel-eslint": "^9.0.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
