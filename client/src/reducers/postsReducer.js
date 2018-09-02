@@ -1,8 +1,6 @@
 import * as types from '../actions/actionTypes';
 
-const initialState = {
-  posts: []
-};
+const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -10,6 +8,7 @@ export default (state = initialState, action) => {
       console.log('get posts', state);
       return [...state];
     case types.CREATE_POST: {
+      console.log('created post with text', action.text);
       return [
         ...state,
         {
@@ -18,15 +17,7 @@ export default (state = initialState, action) => {
         }
       ];
     }
-    // case types.GET_POSTS:
-    //   console.log('get posts', state);
-    //   return { ...state };
-    // case types.CREATE_POST: {
-    //   return {
-    //     ...state,
-    //     posts: [...state.posts, action.text]
-    //   };
-    // }
+
     default:
       return state;
   }
