@@ -12,12 +12,15 @@ export default (state = initialState, action) => {
       return [
         ...state,
         {
+          id: action.id,
           text: action.text,
           author: 'anonymous'
         }
       ];
     }
-
+    case types.DELETE_POST: {
+      return state.filter(({ id }) => id !== action.id);
+    }
     default:
       return state;
   }
