@@ -1,8 +1,8 @@
 // import axios from 'axios';
 import * as types from './actionTypes';
 
-export const getPost = () => ({
-  type: types.GET_POST
+export const getPosts = () => ({
+  type: types.GET_POSTS
 });
 
 export const createPost = text => ({

@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from './components/App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createPost, getPost } from './actions/postActions';
+import { createPost, getPosts } from './actions/postsActions';
 import createStore from './store';
 
 const store = createStore();
 
 console.log('store', store);
 store.dispatch(createPost('testing'));
-store.dispatch(getPost());
+store.dispatch(getPosts());
 store.dispatch(createPost('testing again'));
-store.dispatch(getPost());
+store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>
