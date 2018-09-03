@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
 import { createPost } from '../actions/postsActions';
 
 class CreatePost extends Component {
@@ -19,7 +18,7 @@ class CreatePost extends Component {
     const { postText } = this.state;
     const { dispatch } = this.props;
     if (!postText.trim()) return;
-    dispatch(createPost(uuid(), postText));
+    dispatch(createPost(postText));
     this.setState({ postText: '' });
   };
 

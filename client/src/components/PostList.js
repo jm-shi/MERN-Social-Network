@@ -5,7 +5,7 @@ import Post from './Post';
 const PostList = ({ posts }) => (
   <div>
     {posts.map(post => (
-      <Post key={post.id} id={post.id} text={post.text} />
+      <Post key={post._id} _id={post._id} text={post.text} />
     ))}
   </div>
 );
@@ -15,8 +15,8 @@ const PostList = ({ posts }) => (
 //     console.log('postlist props', this.props);
 //     return (
 //       <div>
-//         {posts.map(post => (
-//           <Post key={post.text} id={post.text} text={post.text} />
+//         {this.props.posts.map(post => (
+//           <Post key={post._id} _id={post._id} text={post.text} />
 //         ))}
 //       </div>
 //     );
@@ -30,7 +30,7 @@ PostList.defaultProps = {
 PostList.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
     })
   )

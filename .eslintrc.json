@@ -24,6 +24,7 @@
     ],
     "consistent-return": "warn",
     "no-undef": "off",
+    "no-underscore-dangle": "off",
     "no-use-before-define": ["error", { "variables": false }],
     "implicit-arrow-linebreak": "off",
     "react/prefer-stateless-function": "off",

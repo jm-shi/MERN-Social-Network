@@ -6,10 +6,10 @@ import { deletePost } from '../actions/postsActions';
 
 class DeleteButton extends React.Component {
   render() {
-    const { id, removePost } = this.props;
+    const { _id, removePost } = this.props;
     return (
       <div>
-        <button type="button" onClick={() => removePost(id)}>
+        <button type="button" onClick={() => removePost(_id)}>
           DELETE
         </button>
       </div>
@@ -18,7 +18,7 @@ class DeleteButton extends React.Component {
 }
 
 DeleteButton.propTypes = {
-  id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   removePost: PropTypes.func.isRequired
 };
 
