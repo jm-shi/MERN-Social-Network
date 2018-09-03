@@ -8,16 +8,17 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log('posts.js: The request is', req);
   const newPost = new Post({
     text: req.body.text,
-    author: req.body.author
+    author: 'no author assigned'
   });
 
-  if (!newPost.text.trim() || !author) {
-    return res.json({
-      error: 'Post is either empty or lacks an author.'
-    });
-  }
+  // if (!newPost.text.trim() || !author) {
+  //   return res.json({
+  //     error: 'Post is either empty or lacks an author.'
+  //   });
+  // }
 
   return newPost.save().then(post => res.json(post));
 });
