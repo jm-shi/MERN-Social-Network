@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createPost } from '../actions/postsActions';
 
-class CreatePost extends Component {
+export class CreatePost extends Component {
   state = {
     postText: ''
   };

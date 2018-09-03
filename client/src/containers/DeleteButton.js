@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deletePost } from '../actions/postsActions';
 
-class DeleteButton extends React.Component {
+export class DeleteButton extends React.Component {
   render() {
     const { _id, removePost } = this.props;
     return (

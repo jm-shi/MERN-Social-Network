@@ -23,10 +23,11 @@
       }
     ],
     "consistent-return": "warn",
+    "implicit-arrow-linebreak": "off",
+    "import/no-named-as-default": "off",
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": ["error", { "variables": false }],
-    "implicit-arrow-linebreak": "off",
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": 0
   }
