@@ -42,16 +42,14 @@ class Post extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (e) => {
-    console.log(e);
-    if (e === 'delete') {
-      console.log('DELETE');
-    }
+  handleClose = (option) => {
+    console.log('handleclose typeof option', typeof option);
+    console.log('handleclose option', option);
     this.setState({ anchorEl: null });
   };
 
   render() {
-    const { text, _id, classes } = this.props;
+    const { text, _id, classes, deletePost } = this.props;
     console.log('post props', this.props);
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -89,7 +87,13 @@ class Post extends React.Component {
                 {options.map(option => (
                   <MenuItem
                     key={option}
-                    onClick={() => this.handleClose(option)}
+                    onClick={
+                      () => this.handleClose(option)
+                      /*&&  option ===
+                      'Delete'
+                        ? deletePost(option.toLowerCase())
+                        : null */
+                    }
                   >
                     {option}
                   </MenuItem>
@@ -126,7 +130,8 @@ class Post extends React.Component {
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Post);

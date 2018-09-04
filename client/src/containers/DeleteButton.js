@@ -2,7 +2,7 @@
 // import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import Post from '../components/Post';
+import PostList from '../components/PostList';
 import { deletePost } from '../actions/postsActions';
 
 // export class DeleteButton extends React.Component {
@@ -27,13 +27,32 @@ import { deletePost } from '../actions/postsActions';
 //   deletePost: id => dispatch(deletePost(id))
 // });
 
-const mapStateToProps = state => ({
-  posts: state.postsReducer
-});
-
 const mapDispatchToProps = dispatch => ({
   deletePost: id => dispatch(deletePost(id))
 });
+
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(
+//     {
+//       deletePost
+//     },
+//     dispatch
+//   );
+
+// const mapDispatchToProps(dispatch) {
+//   return {
+//     deletePost: id => {
+//       dispatch({
+//         type: 'DELETE_POST',
+//         id
+//       })
+//     }
+//   }
+// }
+
+// mapDispatchToProps = (dispatch) => {
+//   return { actions: bindActionCreators(eventPassed, dispatch) }
+// }
 
 // export default connect(
 //   undefined,
@@ -46,6 +65,6 @@ const mapDispatchToProps = dispatch => ({
 // )(Post);
 
 export default connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps
-)(Post);
+)(PostList);

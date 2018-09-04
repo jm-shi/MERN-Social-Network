@@ -3,7 +3,7 @@
 exports[`should render Post 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Post
+  Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
     text="test"
 />,
@@ -17,85 +17,37 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
-      "children": Array [
-        <span>
-          test
-</span>,
-        <Connect(DeleteButton)
-          _id="1"
-/>,
-      ],
+      "_id": "1",
+      "classes": Object {
+        "actions": "Post-actions-2",
+        "avatar": "Post-avatar-3",
+        "card": "Post-card-1",
+      },
+      "text": "test",
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "test",
-        },
-        "ref": null,
-        "rendered": "test",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "_id": "1",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-    ],
-    "type": "div",
+    "rendered": null,
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
-        "children": Array [
-          <span>
-            test
-</span>,
-          <Connect(DeleteButton)
-            _id="1"
-/>,
-        ],
+        "_id": "1",
+        "classes": Object {
+          "actions": "Post-actions-2",
+          "avatar": "Post-avatar-3",
+          "card": "Post-card-1",
+        },
+        "text": "test",
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "test",
-          },
-          "ref": null,
-          "rendered": "test",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "_id": "1",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-      ],
-      "type": "div",
+      "rendered": null,
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {

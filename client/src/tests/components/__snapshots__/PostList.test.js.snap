@@ -18,10 +18,27 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [],
+      "children": Array [
+        <div>
+          Testing postlist
+</div>,
+        Array [],
+      ],
     },
     "ref": null,
-    "rendered": Array [],
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Testing postlist",
+        },
+        "ref": null,
+        "rendered": "Testing postlist",
+        "type": "div",
+      },
+    ],
     "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -30,10 +47,27 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": Array [],
+        "children": Array [
+          <div>
+            Testing postlist
+</div>,
+          Array [],
+        ],
       },
       "ref": null,
-      "rendered": Array [],
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Testing postlist",
+          },
+          "ref": null,
+          "rendered": "Testing postlist",
+          "type": "div",
+        },
+      ],
       "type": "div",
     },
   ],

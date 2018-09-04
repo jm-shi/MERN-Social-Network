@@ -13,7 +13,10 @@ router.post('/', (req, res) => {
     author: 'no author assigned'
   });
 
-  return newPost.save().then(post => res.json(post));
+  return newPost
+    .save()
+    .then(post => res.json(post))
+    .catch(e => console.log(e));
 });
 
 router.delete('/:id', (req, res) => {
