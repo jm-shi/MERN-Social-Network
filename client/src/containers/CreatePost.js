@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import compose from 'recompose/compose';
-import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { createPost } from '../actions/postsActions';
 
-import './CreatePost.css';
-
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
   container: {
     display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
+    justifyContent: 'center'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200
+    width: 500
   }
 });
 
@@ -46,30 +46,31 @@ export class CreatePost extends Component {
     const { postText } = this.state;
     const { classes } = this.props;
     return (
-      <div>
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="textarea"
-            placeholder="What's on your mind?"
-            multiline
-            className={classes.textField}
-            margin="normal"
-          />
-        </form>
-
-        <form className="postbar" onSubmit={this.handleSubmit}>
-          <input
-            className="postbar__input"
-            type="text"
-            placeholder="What's on your mind?"
-            value={postText}
-            onChange={this.handleChange}
-          />
-          <button className="postbar__button" type="submit">
-            Create Post
-          </button>
-        </form>
-      </div>
+      <form
+        className={classes.container}
+        noValidate
+        autoComplete="off"
+        onSubmit={this.handleSubmit}
+      >
+        <TextField
+          id="textarea"
+          placeholder="What's on your mind?"
+          multiline
+          className={classes.textField}
+          margin="normal"
+          rowsMax="5"
+          value={postText}
+          onChange={this.handleChange}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          type="submit"
+        >
+          Post
+        </Button>
+      </form>
     );
   }
 }
