@@ -1,0 +1,17 @@
+.navbar {
+  /* background: rgb(47, 21, 102);
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  /* padding: 10px; */
+  flex-grow: 1;
+}
+
+.menuButton {
+  margin-left: -12;
+  margin-right: 20;
+}
+
+.flex {
+  flex-grow: 1;
+}

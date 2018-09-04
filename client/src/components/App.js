@@ -1,11 +1,10 @@
 import React from 'react';
-import CreatePost from '../containers/CreatePost';
-import PostFeed from '../containers/PostFeed';
+
+import HomePage from '../containers/HomePage';
 
 const App = () => (
   <div>
-    <CreatePost />
-    <PostFeed />
+    <HomePage />
   </div>
 );
 

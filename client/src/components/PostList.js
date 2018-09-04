@@ -10,19 +10,6 @@ const PostList = ({ posts }) => (
   </div>
 );
 
-// class PostList extends React.Component {
-//   render() {
-//     console.log('postlist props', this.props);
-//     return (
-//       <div>
-//         {this.props.posts.map(post => (
-//           <Post key={post._id} _id={post._id} text={post.text} />
-//         ))}
-//       </div>
-//     );
-//   }
-// }
-
 PostList.defaultProps = {
   posts: []
 };
