@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
     case types.CREATE_POST: {
       console.log('CREATE POST ACTION', action);
       console.log('CREATE POST STATE', state);
-      console.log('CREATE POST STATE.POSTS', state.posts);
       return {
         ...state,
         posts: [
@@ -28,19 +27,14 @@ export default (state = initialState, action) => {
           }
         ]
       };
-      /* [
-        ...state,
-        {
-          _id: action.payload._id,
-          text: action.payload.text,
-          author: action.payload.author
-        }
-      ]; */
     }
     case types.DELETE_POST: {
       console.log('DELETE POST STATE', state);
       console.log('DELETE POST ACTION', action);
-      return state.filter(({ _id }) => _id !== action.id);
+      return {
+        ...state,
+        posts: state.posts.filter(({ _id }) => _id !== action.id)
+      };
     }
     default:
       return state;

@@ -3,6 +3,6 @@ import { shallow } from 'enzyme';
 import { CreatePost } from '../../containers/CreatePost';
 
 it('should render CreatePost component', () => {
-  const wrapper = shallow(<CreatePost dispatch={jest.fn()} />);
+  const wrapper = shallow(<CreatePost dispatch={jest.fn()} classes={{}} />);
   expect(wrapper).toMatchSnapshot();
 });

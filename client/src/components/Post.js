@@ -15,7 +15,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import DeleteButton from '../containers/DeleteButton';
 
 const options = ['Edit', 'Delete'];
 const ITEM_HEIGHT = 48;
@@ -42,15 +41,12 @@ class Post extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (option) => {
-    console.log('handleclose typeof option', typeof option);
-    console.log('handleclose option', option);
+  handleClose = () => {
     this.setState({ anchorEl: null });
   };
 
   render() {
     const { text, _id, classes, deletePost } = this.props;
-    console.log('post props', this.props);
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -87,12 +83,9 @@ class Post extends React.Component {
                 {options.map(option => (
                   <MenuItem
                     key={option}
-                    onClick={
-                      () => this.handleClose(option)
-                      /*&&  option ===
-                      'Delete'
-                        ? deletePost(option.toLowerCase())
-                        : null */
+                    onClick={() =>
+                      this.handleClose()
+                      || (option === 'Delete' ? deletePost(_id) : null)
                     }
                   >
                     {option}
@@ -119,13 +112,6 @@ class Post extends React.Component {
     );
   }
 }
-
-// const Post = ({ text, _id }) => (
-//   <div>
-//     <span>{text}</span>
-//     <DeleteButton _id={_id} />
-//   </div>
-// );
 
 Post.propTypes = {
   _id: PropTypes.string.isRequired,

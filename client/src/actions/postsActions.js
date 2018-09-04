@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as types from './actionTypes';
 
 export const getPosts = () => dispatch =>
-  axios.get('/api/posts').then(res => {
+  axios.get('/api/posts').then((res) => {
     console.log('postsActions.js: getPosts response.data:', res.data);
     return dispatch({
       type: types.GET_POSTS,
@@ -11,7 +11,6 @@ export const getPosts = () => dispatch =>
   });
 
 // export const getPosts = () => (dispatch) => {
-//   console.log('post actions');
 //   axios.get('/api/posts').then(res =>
 //     dispatch({
 //       type: types.GET_POSTS,
@@ -20,7 +19,7 @@ export const getPosts = () => dispatch =>
 // };
 
 export const createPost = text => dispatch =>
-  axios.post('/api/posts', { text, author: 'unidentified' }).then(res => {
+  axios.post('/api/posts', { text, author: 'unidentified' }).then((res) => {
     // console.log('postsActions.js: The create post response is ', res);
     dispatch({
       type: types.CREATE_POST,
@@ -29,8 +28,7 @@ export const createPost = text => dispatch =>
   });
 
 export const deletePost = id => dispatch =>
-  axios.delete(`/api/posts/${id}`).then(res => {
-    console.log('deleting post');
+  axios.delete(`/api/posts/${id}`).then((res) => {
     dispatch({
       type: types.DELETE_POST,
       id

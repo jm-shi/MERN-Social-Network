@@ -4,6 +4,7 @@ exports[`should render PostList 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PostList
+    deletePost={[Function]}
     posts={Array []}
 />,
   Symbol(enzyme.__renderer__): Object {
@@ -18,27 +19,10 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <div>
-          Testing postlist
-</div>,
-        Array [],
-      ],
+      "children": Array [],
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Testing postlist",
-        },
-        "ref": null,
-        "rendered": "Testing postlist",
-        "type": "div",
-      },
-    ],
+    "rendered": Array [],
     "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -47,27 +31,10 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": Array [
-          <div>
-            Testing postlist
-</div>,
-          Array [],
-        ],
+        "children": Array [],
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Testing postlist",
-          },
-          "ref": null,
-          "rendered": "Testing postlist",
-          "type": "div",
-        },
-      ],
+      "rendered": Array [],
       "type": "div",
     },
   ],

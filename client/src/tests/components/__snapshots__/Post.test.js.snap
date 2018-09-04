@@ -5,6 +5,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
+    deletePost={[Function]}
     text="test"
 />,
   Symbol(enzyme.__renderer__): Object {
@@ -25,6 +26,7 @@ ShallowWrapper {
         "avatar": "Post-avatar-3",
         "card": "Post-card-1",
       },
+      "deletePost": [Function],
       "text": "test",
     },
     "ref": null,
@@ -43,6 +45,7 @@ ShallowWrapper {
           "avatar": "Post-avatar-3",
           "card": "Post-card-1",
         },
+        "deletePost": [Function],
         "text": "test",
       },
       "ref": null,

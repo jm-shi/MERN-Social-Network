@@ -2,32 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
 
-// const PostList = ({ posts }) => (
-//   <div>
-// {posts.map(post => (
-//   <Post key={post._id} _id={post._id} text={post.text} />
-// ))}
-//   </div>
-// );
+const PostList = ({ posts, deletePost }) => (
+  <div>
+    {posts.map(post => (
+      <Post
+        key={post._id}
+        _id={post._id}
+        text={post.text}
+        deletePost={id => deletePost(id)}
+      />
+    ))}
+  </div>
+);
 
-class PostList extends React.Component {
-  render() {
-    console.log('postlist props', this.props);
-    const { posts, deletePost } = this.props;
-    return (
-      <div>
-        {posts.map(post => (
-          <Post
-            key={post._id}
-            _id={post._id}
-            text={post.text}
-            deletePost={id => deletePost(id)}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+// class PostList extends React.Component {
+//   render() {
+//     console.log('PostList this.props', this.props);
+//     const { posts, deletePost } = this.props;
+//     return (
+//       <div>
+//         {posts.map(post => (
+//           <Post
+//             key={post._id}
+//             _id={post._id}
+//             text={post.text}
+//             deletePost={id => deletePost(id)}
+//           />
+//         ))}
+//       </div>
+//     );
+//   }
+// }
 
 PostList.defaultProps = {
   posts: []

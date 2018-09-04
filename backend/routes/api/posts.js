@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
   return newPost
     .save()
     .then(post => res.json(post))
-    .catch(e => console.log(e));
+    .catch(e => res.status(400).send(e));
 });
 
 router.delete('/:id', (req, res) => {
@@ -26,7 +26,7 @@ router.delete('/:id', (req, res) => {
         res.json({
           success: true
         })))
-    .catch(err => res.status(404).json({ success: false }));
+    .catch(e => res.status(404).send(e));
 });
 
 module.exports = router;
