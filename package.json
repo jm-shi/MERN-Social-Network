@@ -25,6 +25,7 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
+    "mongodb": "^3.1.4",
     "mongoose": "^5.2.12",
     "morgan": "^1.9.0"
   },

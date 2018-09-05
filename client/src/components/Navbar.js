@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -21,7 +21,7 @@ const styles = {
   }
 };
 
-class Navbar extends React.Component {
+class Navbar extends Component {
   render() {
     const { classes } = this.props;
     return (

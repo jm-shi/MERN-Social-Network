@@ -28,6 +28,34 @@ export default (state = initialState, action) => {
         ]
       };
     }
+    case types.UPDATE_POST: {
+      console.log('CALLED UPDATE POST', action);
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          console.log('IN map', post);
+          if (post._id === action.id) {
+            console.log('FOUND THE ID', post);
+            return {
+              ...post,
+              text: post.text,
+              author: post.author
+            };
+          }
+          return post;
+        })
+      };
+
+      // return {
+      //   ...state,
+      //   posts: return state.map(post => {
+      //     if (post.id === action.id) {
+      //       return {
+      //         ...post,
+      //       }
+      //     }
+      // }
+    }
     case types.DELETE_POST: {
       console.log('DELETE POST STATE', state);
       console.log('DELETE POST ACTION', action);

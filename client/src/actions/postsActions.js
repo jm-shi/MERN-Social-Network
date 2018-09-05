@@ -27,6 +27,16 @@ export const createPost = text => dispatch =>
     });
   });
 
+export const updatePost = (id, text, author) => dispatch =>
+  axios.patch(`/api/posts/${id}`, { id, text, author }).then((res) => {
+    dispatch({
+      type: types.UPDATE_POST,
+      id,
+      text,
+      author
+    });
+  });
+
 export const deletePost = id => dispatch =>
   axios.delete(`/api/posts/${id}`).then((res) => {
     dispatch({

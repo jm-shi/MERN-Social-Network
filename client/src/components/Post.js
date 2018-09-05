@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -15,6 +15,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
 
 const options = ['Edit', 'Delete'];
 const ITEM_HEIGHT = 48;
@@ -29,12 +31,24 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: red[800]
+  },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    top: '50%',
+    left: '50%',
+    outline: 'none',
+    transform: 'translate(-50%, -50%)'
   }
 });
 
-class Post extends React.Component {
+class Post extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
+    modalOpen: false
   };
 
   handleClick = (event) => {
@@ -45,9 +59,20 @@ class Post extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleModalOpen = () => {
+    console.log('open modal');
+    this.setState({ modalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
-    const { text, _id, classes, deletePost } = this.props;
-    const { anchorEl } = this.state;
+    console.log('POST PROPS', this.props);
+
+    const { text, _id, author, classes, deletePost, updatePost } = this.props;
+    const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -86,6 +111,7 @@ class Post extends React.Component {
                     onClick={() =>
                       this.handleClose()
                       || (option === 'Delete' ? deletePost(_id) : null)
+                      || (option === 'Edit' ? this.handleModalOpen() : null)
                     }
                   >
                     {option}
@@ -94,8 +120,8 @@ class Post extends React.Component {
               </Menu>
             </div>
           }
-          title="Title of a post"
-          subheader="Subheader of a post"
+          title="Name of poster"
+          subheader="10 minutes ago"
         />
         <CardContent>
           <Typography>{text}</Typography>
@@ -108,6 +134,23 @@ class Post extends React.Component {
             <ShareIcon />
           </IconButton>
         </CardActions>
+
+        <Button onClick={this.handleModalOpen}>Open Modal</Button>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={modalOpen}
+          onClose={this.handleModalClose}
+        >
+          <div className={classes.paper}>
+            <Typography variant="title" id="modal-title">
+              Edit this post
+            </Typography>
+            <Typography variant="subheading" id="simple-modal-description">
+              {text}
+            </Typography>
+          </div>
+        </Modal>
       </Card>
     );
   }
@@ -116,8 +159,10 @@ class Post extends React.Component {
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired
+  deletePost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Post);

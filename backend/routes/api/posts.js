@@ -1,4 +1,5 @@
 const express = require('express');
+const { ObjectID } = require('mongodb');
 const Post = require('../../models/post');
 
 const router = new express.Router();
@@ -12,11 +13,32 @@ router.post('/', (req, res) => {
     text: req.body.text,
     author: 'no author assigned'
   });
-
   return newPost
     .save()
     .then(post => res.json(post))
     .catch(e => res.status(400).send(e));
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  try {
+    return Post.findByIdAndUpdate(
+      id,
+      { $set: { text: req.body.text, author: req.body.author } },
+      { new: true },
+      (err, post) => {
+        if (err) return handleError(err);
+        return res.send(post);
+      }
+    );
+  } catch (e) {
+    return res.status(400).send(e);
+  }
 });
 
 router.delete('/:id', (req, res) => {
