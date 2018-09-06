@@ -16,7 +16,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
+import UpdatePost from '../containers/UpdatePost';
 
 const options = ['Edit', 'Delete'];
 const ITEM_HEIGHT = 48;
@@ -42,6 +42,9 @@ const styles = theme => ({
     left: '50%',
     outline: 'none',
     transform: 'translate(-50%, -50%)'
+  },
+  spacing: {
+    marginBottom: '10px'
   }
 });
 
@@ -60,7 +63,6 @@ class Post extends Component {
   };
 
   handleModalOpen = () => {
-    console.log('open modal');
     this.setState({ modalOpen: true });
   };
 
@@ -69,8 +71,6 @@ class Post extends Component {
   };
 
   render() {
-    console.log('POST PROPS', this.props);
-
     const { text, _id, author, classes, deletePost, updatePost } = this.props;
     const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
@@ -121,7 +121,7 @@ class Post extends Component {
             </div>
           }
           title="Name of poster"
-          subheader="10 minutes ago"
+          subheader="Ten minutes ago"
         />
         <CardContent>
           <Typography>{text}</Typography>
@@ -135,19 +135,28 @@ class Post extends Component {
           </IconButton>
         </CardActions>
 
-        <Button onClick={this.handleModalOpen}>Open Modal</Button>
         <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
           open={modalOpen}
           onClose={this.handleModalClose}
         >
           <div className={classes.paper}>
-            <Typography variant="title" id="modal-title">
+            <Typography
+              variant="title"
+              id="modal-title"
+              className={classes.spacing}
+            >
               Edit this post
             </Typography>
-            <Typography variant="subheading" id="simple-modal-description">
-              {text}
+            <Typography variant="subheading" id="modal-description">
+              <UpdatePost
+                id={_id}
+                text={text}
+                author={author}
+                updatePost={updatePost}
+                handleModalClose={this.handleModalClose}
+              />
             </Typography>
           </div>
         </Modal>

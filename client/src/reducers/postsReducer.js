@@ -33,28 +33,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         posts: state.posts.map((post) => {
-          console.log('IN map', post);
           if (post._id === action.id) {
-            console.log('FOUND THE ID', post);
+            console.log('FOUND THE ID', post, 'changing to', action.text);
             return {
               ...post,
-              text: post.text,
-              author: post.author
+              text: action.text,
+              author: action.author
             };
           }
           return post;
         })
       };
-
-      // return {
-      //   ...state,
-      //   posts: return state.map(post => {
-      //     if (post.id === action.id) {
-      //       return {
-      //         ...post,
-      //       }
-      //     }
-      // }
     }
     case types.DELETE_POST: {
       console.log('DELETE POST STATE', state);
