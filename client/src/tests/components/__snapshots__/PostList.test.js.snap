@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <PostList
     deletePost={[Function]}
     posts={Array []}
+    updatePost={[Function]}
 />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

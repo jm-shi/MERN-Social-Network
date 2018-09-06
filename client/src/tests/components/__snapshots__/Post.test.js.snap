@@ -5,8 +5,10 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
+    author="testAuthor"
     deletePost={[Function]}
-    text="test"
+    text="testText"
+    updatePost={[Function]}
 />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -21,13 +23,17 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "_id": "1",
+      "author": "testAuthor",
       "classes": Object {
         "actions": "Post-actions-2",
         "avatar": "Post-avatar-3",
         "card": "Post-card-1",
+        "paper": "Post-paper-4",
+        "spacing": "Post-spacing-5",
       },
       "deletePost": [Function],
-      "text": "test",
+      "text": "testText",
+      "updatePost": [Function],
     },
     "ref": null,
     "rendered": null,
@@ -40,13 +46,17 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "_id": "1",
+        "author": "testAuthor",
         "classes": Object {
           "actions": "Post-actions-2",
           "avatar": "Post-avatar-3",
           "card": "Post-card-1",
+          "paper": "Post-paper-4",
+          "spacing": "Post-spacing-5",
         },
         "deletePost": [Function],
-        "text": "test",
+        "text": "testText",
+        "updatePost": [Function],
       },
       "ref": null,
       "rendered": null,

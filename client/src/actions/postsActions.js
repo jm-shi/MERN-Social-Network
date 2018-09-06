@@ -1,13 +1,13 @@
 import axios from 'axios';
 import * as types from './actionTypes';
 
-export const getPosts = () => (dispatch) => {
-  axios.get('/api/posts').then(res =>
+export const getPosts = () => dispatch =>
+  axios.get('/api/posts').then((res) => {
     dispatch({
       type: types.GET_POSTS,
       payload: res.data
-    }));
-};
+    });
+  });
 
 export const createPost = text => dispatch =>
   axios.post('/api/posts', { text, author: 'unidentified' }).then((res) => {

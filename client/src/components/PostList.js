@@ -17,7 +17,7 @@ import Post from './Post';
 
 class PostList extends Component {
   render() {
-    console.log('PostList this.props', this.props);
+    // console.log('PostList this.props', this.props);
     const { posts, deletePost, updatePost } = this.props;
     return (
       <div>
