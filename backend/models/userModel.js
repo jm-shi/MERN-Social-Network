@@ -7,9 +7,11 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  username: {
+  email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   },
   password: {
     type: String,
