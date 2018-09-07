@@ -3,7 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
-const posts = require('./routes/api/posts');
+const posts = require('./routes/posts');
 
 let dbURI = process.env.REACT_APP_DB_URI;
 /* eslint-disable global-require, prefer-destructuring */
@@ -31,12 +31,12 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.log(err));
+  .catch(err => console.log('Failed to connect to MongoDB', err));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
-app.use('/api/posts', posts);
+app.use('/posts', posts);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
