@@ -1,11 +1,7 @@
 import React from 'react';
 
-import HomePage from '../containers/HomePage';
+import AppRouter from './AppRouter';
 
-const App = () => (
-  <div>
-    <HomePage />
-  </div>
-);
+const App = () => <AppRouter />;
 
 export default App;
