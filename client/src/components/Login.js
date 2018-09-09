@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import compose from 'recompose/compose';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +14,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { loginUser } from '../actions/authActions';
 
 const styles = theme => ({
   layout: {
@@ -54,11 +57,46 @@ const styles = theme => ({
 });
 
 class Login extends Component {
+  state = {
+    email: '',
+    password: ''
+  };
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState(() => ({ [name]: value }));
+  };
+
+  /* eslint-disable react/destructuring-assignment, react/prop-types */
+  componentDidMount = () => {
+    if (this.props.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  };
+  /* eslint-enable react/destructuring-assignment, react/prop-types */
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    const user = {
+      email,
+      password
+    };
+    const { signInUser } = this.props;
+    signInUser(user);
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
-      <React.Fragment className={classes.container}>
+      <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
@@ -66,20 +104,29 @@ class Login extends Component {
               <LockIcon />
             </Avatar>
             <Typography variant="headline">Log In</Typography>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input id="email" name="email" autoComplete="email" autoFocus />
+                <Input
+                  onChange={this.handleInputChange}
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
+                  onChange={this.handleInputChange}
+                  // error={true}
                   name="password"
                   type="password"
                   id="password"
                   autoComplete="current-password"
                 />
               </FormControl>
+
               <Button
                 type="submit"
                 fullWidth
@@ -104,7 +151,23 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  signInUser: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Login);
+const mapStateToProps = state => ({
+  auth: state.authReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+  signInUser: user => dispatch(loginUser(user))
+});
+
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Login);

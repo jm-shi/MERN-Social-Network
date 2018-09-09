@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import compose from 'recompose/compose';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +14,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { registerUser } from '../actions/authActions';
 
 const styles = theme => ({
   layout: {
@@ -54,11 +57,35 @@ const styles = theme => ({
 });
 
 class Signup extends Component {
+  state = {
+    name: '',
+    email: '',
+    password: ''
+  };
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState(() => ({ [name]: value }));
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password } = this.state;
+    const user = {
+      name,
+      email,
+      password
+    };
+    const { history, createUser } = this.props;
+    console.log('handle submit');
+    createUser(user, history);
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
-      <React.Fragment className={classes.container}>
+      <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
@@ -66,18 +93,30 @@ class Signup extends Component {
               <LockIcon />
             </Avatar>
             <Typography variant="headline">Sign Up</Typography>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="name">Name</InputLabel>
-                <Input id="name" name="name" autoComplete="name" autoFocus />
+                <Input
+                  onChange={this.handleInputChange}
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input id="email" name="email" autoComplete="email" />
+                <Input
+                  onChange={this.handleInputChange}
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
+                  onChange={this.handleInputChange}
                   name="password"
                   type="password"
                   id="password"
@@ -108,7 +147,19 @@ class Signup extends Component {
 }
 
 Signup.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  createUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Signup);
+const mapDispatchToProps = dispatch => ({
+  createUser: (user, history) => dispatch(registerUser(user, history))
+});
+
+export default compose(
+  withStyles(styles),
+  connect(
+    undefined,
+    mapDispatchToProps
+  )
+)(Signup);
