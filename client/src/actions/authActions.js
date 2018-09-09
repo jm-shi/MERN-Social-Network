@@ -4,16 +4,28 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '../setAuthToken';
-import * as types from './actionTypes';
+import {
+  INDICATE_NO_ERRORS,
+  GET_ERRORS,
+  SET_CURRENT_USER
+} from './actionTypes';
 
-export const registerUser = (user, history) => (dispatch) => {
+export const registerUser = user => (dispatch) => {
   axios
     .post('/users/signup', user)
     .then((res) => {
-      history.push('/login');
+      dispatch({
+        type: INDICATE_NO_ERRORS,
+        payload: {
+          success: true
+        }
+      });
     })
     .catch((err) => {
-      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
     });
 };
 
@@ -28,11 +40,14 @@ export const loginUser = user => (dispatch) => {
       dispatch(setCurrentUser(decoded));
     })
     .catch((err) => {
-      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
     });
 };
 
 export const setCurrentUser = decoded => ({
-  type: types.SET_CURRENT_USER,
+  type: SET_CURRENT_USER,
   payload: decoded
 });

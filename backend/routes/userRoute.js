@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const validateSignup = require('../validation/validateSignup');
 const User = require('../models/userModel');
 
 const router = new express.Router();
@@ -8,7 +9,14 @@ const router = new express.Router();
 // User route implementation based on Maximilian Schwarzmüller's guide:
 // https://www.youtube.com/watch?v=0D5EEKH97NA
 
-router.post('/signup', (req, res) => {
+router.post('/signup', (req, res, next) => {
+  const { errors, isValid } = validateSignup(req.body);
+
+  if (!isValid) {
+    console.log('signup not valid');
+    return res.status(400).json(errors);
+  }
+
   User.find({ email: req.body.email })
     .exec()
     .then((user) => {
@@ -22,7 +30,8 @@ router.post('/signup', (req, res) => {
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
-          password: hash
+          password: hash,
+          passwordConfirm: hash
         });
         return newUser
           .save()
@@ -30,7 +39,7 @@ router.post('/signup', (req, res) => {
             res.status(201).json({ result });
           })
           .catch((err) => {
-            res.status(500).json({ err });
+            res.status(500).json({ error: err });
           });
       });
     });

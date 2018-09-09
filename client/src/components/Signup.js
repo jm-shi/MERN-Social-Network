@@ -53,6 +53,15 @@ const styles = theme => ({
   },
   footer: {
     marginTop: theme.spacing.unit * 2
+  },
+  errorText: {
+    color: '#D50000',
+    marginTop: '5px'
+  },
+  successText: {
+    color: '#32971E',
+    marginTop: '10px',
+    textDecoration: 'none'
   }
 });
 
@@ -60,8 +69,25 @@ class Signup extends Component {
   state = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    passwordConfirm: '',
+    errors: {},
+    successfulSignup: false
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors.success) {
+      this.setState({
+        successfulSignup: true
+      });
+    }
+
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,19 +96,20 @@ class Signup extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password } = this.state;
+    const { name, email, password, passwordConfirm } = this.state;
     const user = {
       name,
       email,
-      password
+      password,
+      passwordConfirm
     };
-    const { history, createUser } = this.props;
-    console.log('handle submit');
-    createUser(user, history);
+    const { createUser } = this.props;
+    createUser(user);
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, errors } = this.props;
+    const { successfulSignup } = this.state;
 
     return (
       <React.Fragment>
@@ -93,7 +120,12 @@ class Signup extends Component {
               <LockIcon />
             </Avatar>
             <Typography variant="headline">Sign Up</Typography>
-            <form onSubmit={this.handleSubmit}>
+            {successfulSignup && (
+              <NavLink to="/login" className={classes.successText}>
+                Successfully signed up! Click here to log in.
+              </NavLink>
+            )}
+            <form onSubmit={this.handleSubmit} noValidate>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="name">Name</InputLabel>
                 <Input
@@ -102,7 +134,9 @@ class Signup extends Component {
                   name="name"
                   autoComplete="name"
                   autoFocus
+                  error={!!errors.name}
                 />
+                <span className={classes.errorText}>{errors.name}</span>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -111,7 +145,9 @@ class Signup extends Component {
                   id="email"
                   name="email"
                   autoComplete="email"
+                  error={!!errors.email}
                 />
+                <span className={classes.errorText}>{errors.email}</span>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -121,7 +157,23 @@ class Signup extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  error={!!errors.password}
                 />
+                <span className={classes.errorText}>{errors.password}</span>
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Confirm Password</InputLabel>
+                <Input
+                  onChange={this.handleInputChange}
+                  name="passwordConfirm"
+                  type="password"
+                  id="passwordConfirm"
+                  autoComplete="current-password-confirm"
+                  error={!!errors.passwordConfirm}
+                />
+                <span className={classes.errorText}>
+                  {errors.passwordConfirm || errors.error}
+                </span>
               </FormControl>
               <Button
                 type="submit"
@@ -146,20 +198,29 @@ class Signup extends Component {
   }
 }
 
+Signup.defaultProps = {
+  errors: {}
+};
+
 Signup.propTypes = {
   classes: PropTypes.object.isRequired,
   createUser: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  errors: PropTypes.object
 };
 
+const mapStateToProps = state => ({
+  auth: state.authReducer,
+  errors: state.errorReducer
+});
+
 const mapDispatchToProps = dispatch => ({
-  createUser: (user, history) => dispatch(registerUser(user, history))
+  createUser: user => dispatch(registerUser(user))
 });
 
 export default compose(
   withStyles(styles),
   connect(
-    undefined,
+    mapStateToProps,
     mapDispatchToProps
   )
 )(Signup);
