@@ -74,12 +74,7 @@ class Login extends Component {
 
   /* eslint-disable react/destructuring-assignment, react/prop-types */
   componentDidMount = () => {
-    console.log('component did mount');
-    this.setState({
-      errors: {}
-    });
-
-    if (this.props.isAuthenticated) {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
     }
   };

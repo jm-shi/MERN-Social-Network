@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import Navbar from '../components/Navbar';
 import CreatePost from './CreatePost';
+import NavbarContainer from './NavbarContainer';
 import PostFeed from './PostFeed';
 
 class HomePage extends Component {
+  componentDidMount = () => {
+    const { history } = this.props;
+    if (!localStorage.jwtToken) {
+      history.push('/login');
+    }
+  };
+
   render() {
     return (
       <div>
-        <Navbar />
+        <NavbarContainer />
         <CreatePost />
         <PostFeed />
       </div>
@@ -16,4 +25,12 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  history: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.authReducer
+});
+
+export default connect(mapStateToProps)(HomePage);
