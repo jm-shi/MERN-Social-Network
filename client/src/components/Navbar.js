@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
+import NavbarRightMenu from './NavbarRightMenu';
 
 const styles = {
   root: {
@@ -43,9 +44,7 @@ class Navbar extends Component {
               MERN Social
             </Typography>
             <div>
-              <IconButton color="inherit" onClick={logoutUser}>
-                Jamie
-              </IconButton>
+              <NavbarRightMenu logoutUser={logoutUser} />
             </div>
           </Toolbar>
         </AppBar>
