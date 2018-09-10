@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const validateLogin = require('../validation/validateLogin');
 const validateSignup = require('../validation/validateSignup');
 const User = require('../models/userModel');
 
@@ -13,7 +14,6 @@ router.post('/signup', (req, res, next) => {
   const { errors, isValid } = validateSignup(req.body);
 
   if (!isValid) {
-    console.log('signup not valid');
     return res.status(400).json(errors);
   }
 
@@ -46,20 +46,28 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLogin(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email })
     .exec()
     .then((user) => {
-      if (user.length < 1) {
+      console.log('the user is ', user);
+      if (!user) {
         return res.status(401).json({
-          message: 'Auth failed'
+          email: 'Could not find email.'
         });
       }
       return bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
           return res.status(401).json({
-            message: 'Auth failed'
+            message: 'Auth failed.'
           });
         }
+        console.log('the user is ', user);
         if (result) {
           const token = jwt.sign(
             {
@@ -72,17 +80,17 @@ router.post('/login', (req, res) => {
             }
           );
           return res.status(200).json({
-            message: 'Auth successful',
+            message: 'Auth successful.',
             token
           });
         }
         return res.status(401).json({
-          message: 'Auth failed'
+          password: 'Wrong password. Try again.'
         });
       });
     })
     .catch((err) => {
-      res.status(500).json({ err });
+      res.status(500).json({ message: err });
     });
 });
 
@@ -90,7 +98,7 @@ router.delete('/:id', (req, res) => {
   User.remove({ _id: req.params.id })
     .exec()
     .then((result) => {
-      res.status(200).json({ message: 'Successfully deleted user' });
+      res.status(200).json({ message: 'Successfully deleted user.' });
     })
     .catch((err) => {
       res.status(500).json({ err });

@@ -40,6 +40,7 @@ export const loginUser = user => (dispatch) => {
       dispatch(setCurrentUser(decoded));
     })
     .catch((err) => {
+      console.log('login error', err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

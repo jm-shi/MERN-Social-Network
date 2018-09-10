@@ -108,8 +108,8 @@ class Signup extends Component {
   };
 
   render() {
-    const { classes, errors } = this.props;
-    const { successfulSignup } = this.state;
+    const { classes } = this.props;
+    const { errors, successfulSignup } = this.state;
 
     return (
       <React.Fragment>

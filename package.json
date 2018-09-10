@@ -6,6 +6,7 @@
   "scripts": {
     "test": "cd client && npm test",
     "start": "concurrently \"npm run client\" \"npm run server\"",
+    "start:watch": "concurrently \"npm run client\" \"npm run server:watch\"",
     "server": "cd backend && node server.js",
     "server:watch": "cd backend && nodemon server.js",
     "client": "cd client && npm start",

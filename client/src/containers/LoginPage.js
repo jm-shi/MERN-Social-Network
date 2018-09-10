@@ -53,13 +53,18 @@ const styles = theme => ({
   },
   footer: {
     marginTop: theme.spacing.unit * 2
+  },
+  errorText: {
+    color: '#D50000',
+    marginTop: '5px'
   }
 });
 
 class Login extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    errors: {}
   };
 
   handleInputChange = (e) => {
@@ -69,6 +74,11 @@ class Login extends Component {
 
   /* eslint-disable react/destructuring-assignment, react/prop-types */
   componentDidMount = () => {
+    console.log('component did mount');
+    this.setState({
+      errors: {}
+    });
+
     if (this.props.isAuthenticated) {
       this.props.history.push('/');
     }
@@ -77,6 +87,12 @@ class Login extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/');
+    }
+
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
     }
   };
   /* eslint-enable react/destructuring-assignment, react/prop-types */
@@ -94,6 +110,7 @@ class Login extends Component {
 
   render() {
     const { classes } = this.props;
+    const { errors } = this.state;
 
     return (
       <React.Fragment>
@@ -104,7 +121,7 @@ class Login extends Component {
               <LockIcon />
             </Avatar>
             <Typography variant="headline">Log In</Typography>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} noValidate>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input
@@ -113,18 +130,21 @@ class Login extends Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  error={!!errors.email}
                 />
+                <span className={classes.errorText}>{errors.email}</span>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
                   onChange={this.handleInputChange}
-                  // error={true}
                   name="password"
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  error={!!errors.password}
                 />
+                <span className={classes.errorText}>{errors.password}</span>
               </FormControl>
 
               <Button
@@ -150,14 +170,20 @@ class Login extends Component {
   }
 }
 
+Login.defaultProps = {
+  errors: {}
+};
+
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
+  errors: PropTypes.object,
   history: PropTypes.object.isRequired,
   signInUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.authReducer
+  auth: state.authReducer,
+  errors: state.errorReducer
 });
 
 const mapDispatchToProps = dispatch => ({
