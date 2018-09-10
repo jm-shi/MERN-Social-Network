@@ -23,9 +23,11 @@ const styles = theme => ({
 });
 
 export class UpdatePost extends Component {
+  /* eslint-disable react/destructuring-assignment */
   state = {
     postText: this.props.text
   };
+  /* eslint-enable react/destructuring-assignment */
 
   handleChange = (e) => {
     const postText = e.target.value;
@@ -79,7 +81,8 @@ UpdatePost.propTypes = {
   id: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   updatePost: PropTypes.func.isRequired,
-  handleModalClose: PropTypes.func.isRequired
+  handleModalClose: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default compose(

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
+import NavbarRightMenu from './NavbarRightMenu';
 
 const styles = {
   root: {
@@ -23,7 +24,7 @@ const styles = {
 
 class Navbar extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, logoutUser } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -43,7 +44,7 @@ class Navbar extends Component {
               MERN Social
             </Typography>
             <div>
-              <IconButton color="inherit">Jamie</IconButton>
+              <NavbarRightMenu logoutUser={logoutUser} />
             </div>
           </Toolbar>
         </AppBar>
@@ -53,7 +54,8 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Navbar);

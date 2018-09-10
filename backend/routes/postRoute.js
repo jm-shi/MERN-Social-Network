@@ -1,6 +1,6 @@
 const express = require('express');
 const { ObjectID } = require('mongodb');
-const Post = require('../../models/post');
+const Post = require('../models/postModel');
 
 const router = new express.Router();
 

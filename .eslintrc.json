@@ -23,11 +23,13 @@
       }
     ],
     "consistent-return": "warn",
+    "global-require": "off",
     "implicit-arrow-linebreak": "off",
     "import/no-named-as-default": "off",
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": ["error", { "variables": false }],
+    "no-useless-escape": "off",
     "object-curly-newline": "off",
     "react/forbid-prop-types": "off",
     "react/prefer-stateless-function": "off",

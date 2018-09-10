@@ -1,0 +1,64 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  menuButton: {
+    color: '#fff',
+    fontSize: '18px',
+    marginRight: '-15px'
+  }
+};
+
+class NavbarRightMenu extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { classes, logoutUser } = this.props;
+    const { anchorEl } = this.state;
+
+    return (
+      <div>
+        <Button
+          aria-owns={anchorEl ? 'right-menu' : null}
+          aria-haspopup="true"
+          className={classes.menuButton}
+          onClick={this.handleClick}
+        >
+          Jamie
+        </Button>
+        <Menu
+          id="right-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+          <MenuItem onClick={this.handleClose}>My account</MenuItem>
+          <MenuItem onClick={logoutUser}>Logout</MenuItem>
+        </Menu>
+      </div>
+    );
+  }
+}
+
+NavbarRightMenu.propTypes = {
+  classes: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
+};
+
+export default withStyles(styles)(NavbarRightMenu);
