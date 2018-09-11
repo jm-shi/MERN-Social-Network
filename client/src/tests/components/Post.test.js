@@ -7,6 +7,7 @@ it('should render Post', () => {
     <Post
       _id="1"
       text="testText"
+      timestamp={12345}
       author="testAuthor"
       deletePost={jest.fn()}
       updatePost={jest.fn()}

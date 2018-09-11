@@ -8,6 +8,7 @@ ShallowWrapper {
     author="testAuthor"
     deletePost={[Function]}
     text="testText"
+    timestamp={12345}
     updatePost={[Function]}
 />,
   Symbol(enzyme.__renderer__): Object {
@@ -33,6 +34,7 @@ ShallowWrapper {
       },
       "deletePost": [Function],
       "text": "testText",
+      "timestamp": 12345,
       "updatePost": [Function],
     },
     "ref": null,
@@ -56,6 +58,7 @@ ShallowWrapper {
         },
         "deletePost": [Function],
         "text": "testText",
+        "timestamp": 12345,
         "updatePost": [Function],
       },
       "ref": null,

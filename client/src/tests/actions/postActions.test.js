@@ -43,7 +43,7 @@ describe('post actions', () => {
       payload: {}
     };
     mockAxiosSuccess({});
-    store.dispatch(actions.createPost('Hello')).then(() => {
+    store.dispatch(actions.createPost('Hello', { name: 'Jamie' })).then(() => {
       const dispatchedAction = store.getActions();
       expect(dispatchedAction[0]).toEqual(expectedAction);
       done();
