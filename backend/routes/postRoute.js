@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const newPost = new Post({
     author: req.body.author || 'Anonymous',
+    avatarColor: req.body.avatarColor || 0,
     text: req.body.text,
     timestamp: new Date().getTime()
   });

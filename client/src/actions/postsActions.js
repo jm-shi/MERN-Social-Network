@@ -10,12 +10,14 @@ export const getPosts = () => dispatch =>
   });
 
 export const createPost = (text, user) => dispatch =>
-  axios.post('/posts', { text, author: user.name }).then((res) => {
-    dispatch({
-      type: types.CREATE_POST,
-      payload: res.data
+  axios
+    .post('/posts', { text, author: user.name, avatarColor: user.avatarColor })
+    .then((res) => {
+      dispatch({
+        type: types.CREATE_POST,
+        payload: res.data
+      });
     });
-  });
 
 export const updatePost = (id, text, author) => dispatch =>
   axios.patch(`/posts/${id}`, { id, text, author }).then((res) => {

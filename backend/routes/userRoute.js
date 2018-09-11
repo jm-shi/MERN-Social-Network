@@ -31,7 +31,8 @@ router.post('/signup', (req, res, next) => {
           name: req.body.name,
           email: req.body.email,
           password: hash,
-          passwordConfirm: hash
+          passwordConfirm: hash,
+          avatarColor: Math.floor(Math.random() * 18) + 1
         });
         return newUser
           .save()
@@ -70,6 +71,7 @@ router.post('/login', (req, res) => {
           console.log('user', user);
           const token = jwt.sign(
             {
+              avatarColor: user.avatarColor,
               name: user.name,
               email: user.email,
               userId: user._id

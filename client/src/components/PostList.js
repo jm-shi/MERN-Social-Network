@@ -9,6 +9,7 @@ const PostList = ({ posts, deletePost, updatePost }) => (
         key={post._id}
         _id={post._id}
         author={post.author}
+        avatarColor={post.avatarColor}
         text={post.text}
         timestamp={post.timestamp}
         deletePost={id => deletePost(id)}
@@ -26,7 +27,9 @@ PostList.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
+      author: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      timestamp: PropTypes.number.isRequired
     })
   ),
   deletePost: PropTypes.func.isRequired,

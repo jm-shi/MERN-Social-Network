@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
           {
             _id: action.payload._id,
             author: action.payload.author,
+            avatarColor: action.payload.avatarColor,
             text: action.payload.text,
             timestamp: action.payload.timestamp
           }

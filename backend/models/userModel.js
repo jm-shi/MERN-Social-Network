@@ -20,6 +20,10 @@ const UserSchema = new Schema({
   passwordConfirm: {
     type: String,
     required: true
+  },
+  avatarColor: {
+    type: Number,
+    required: true
   }
 });
 

@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
     author="testAuthor"
+    avatarColor={7}
     deletePost={[Function]}
     text="testText"
     timestamp={12345}
@@ -25,6 +26,7 @@ ShallowWrapper {
     "props": Object {
       "_id": "1",
       "author": "testAuthor",
+      "avatarColor": 7,
       "classes": Object {
         "actions": "Post-actions-2",
         "avatar": "Post-avatar-3",
@@ -49,6 +51,7 @@ ShallowWrapper {
       "props": Object {
         "_id": "1",
         "author": "testAuthor",
+        "avatarColor": 7,
         "classes": Object {
           "actions": "Post-actions-2",
           "avatar": "Post-avatar-3",

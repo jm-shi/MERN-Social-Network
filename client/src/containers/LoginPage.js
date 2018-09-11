@@ -67,7 +67,7 @@ class LoginPage extends Component {
     errors: {}
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     const { name, value } = e.target;
     this.setState(() => ({ [name]: value }));
   };
@@ -79,7 +79,7 @@ class LoginPage extends Component {
     }
   };
 
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/');
     }
@@ -92,7 +92,7 @@ class LoginPage extends Component {
   };
   /* eslint-enable react/destructuring-assignment, react/prop-types */
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     const user = {
