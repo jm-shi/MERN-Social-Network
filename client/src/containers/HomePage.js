@@ -6,7 +6,7 @@ import CreatePost from './CreatePost';
 import NavbarContainer from './NavbarContainer';
 import PostFeed from './PostFeed';
 
-class HomePage extends Component {
+export class HomePage extends Component {
   componentDidMount = () => {
     const { history } = this.props;
     if (!localStorage.jwtToken) {

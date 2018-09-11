@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render LoginPage component 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <WithStyles(Connect(LoginPage)) />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "classes": Object {
+        "avatar": "Connect-LoginPage--avatar-3",
+        "errorText": "Connect-LoginPage--errorText-7",
+        "footer": "Connect-LoginPage--footer-6",
+        "layout": "Connect-LoginPage--layout-1",
+        "link": "Connect-LoginPage--link-5",
+        "paper": "Connect-LoginPage--paper-2",
+        "submit": "Connect-LoginPage--submit-4",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "classes": Object {
+          "avatar": "Connect-LoginPage--avatar-3",
+          "errorText": "Connect-LoginPage--errorText-7",
+          "footer": "Connect-LoginPage--footer-6",
+          "layout": "Connect-LoginPage--layout-1",
+          "link": "Connect-LoginPage--link-5",
+          "paper": "Connect-LoginPage--paper-2",
+          "submit": "Connect-LoginPage--submit-4",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
+  },
+}
+`;

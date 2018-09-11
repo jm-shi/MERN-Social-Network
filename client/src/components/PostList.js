@@ -1,41 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
 
-// const PostList = ({ posts, deletePost }) => (
-//   <div>
-//     {posts.map(post => (
-//       <Post
-//         key={post._id}
-//         _id={post._id}
-//         text={post.text}
-//         deletePost={id => deletePost(id)}
-//       />
-//     ))}
-//   </div>
-// );
-
-class PostList extends Component {
-  render() {
-    // console.log('PostList this.props', this.props);
-    const { posts, deletePost, updatePost } = this.props;
-    return (
-      <div>
-        {posts.map(post => (
-          <Post
-            key={post._id}
-            _id={post._id}
-            author={post.author}
-            text={post.text}
-            timestamp={post.timestamp}
-            deletePost={id => deletePost(id)}
-            updatePost={(id, text, author) => updatePost(id, text, author)}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const PostList = ({ posts, deletePost, updatePost }) => (
+  <div>
+    {posts.map(post => (
+      <Post
+        key={post._id}
+        _id={post._id}
+        author={post.author}
+        text={post.text}
+        timestamp={post.timestamp}
+        deletePost={id => deletePost(id)}
+        updatePost={(id, text, author) => updatePost(id, text, author)}
+      />
+    ))}
+  </div>
+);
 
 PostList.defaultProps = {
   posts: []

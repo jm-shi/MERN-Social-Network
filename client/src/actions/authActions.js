@@ -34,14 +34,12 @@ export const loginUser = user => (dispatch) => {
     .post('/users/login', user)
     .then((res) => {
       const { token } = res.data;
-      console.log('res.data', res.data);
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwtDecode(token);
       dispatch(setCurrentUser(decoded));
     })
     .catch((err) => {
-      console.log('login error', err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

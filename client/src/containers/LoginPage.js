@@ -60,14 +60,14 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
+class LoginPage extends Component {
   state = {
     email: '',
     password: '',
     errors: {}
   };
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     const { name, value } = e.target;
     this.setState(() => ({ [name]: value }));
   };
@@ -79,7 +79,7 @@ class Login extends Component {
     }
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/');
     }
@@ -92,7 +92,7 @@ class Login extends Component {
   };
   /* eslint-enable react/destructuring-assignment, react/prop-types */
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
     const user = {
@@ -165,11 +165,11 @@ class Login extends Component {
   }
 }
 
-Login.defaultProps = {
+LoginPage.defaultProps = {
   errors: {}
 };
 
-Login.propTypes = {
+LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
   errors: PropTypes.object,
   history: PropTypes.object.isRequired,
@@ -191,4 +191,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Login);
+)(LoginPage);
