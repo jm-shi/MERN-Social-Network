@@ -71,16 +71,23 @@ class Post extends Component {
   };
 
   render() {
-    const { text, _id, author, classes, deletePost, updatePost } = this.props;
+    const {
+      text,
+      _id,
+      author,
+      timestamp,
+      classes,
+      deletePost,
+      updatePost
+    } = this.props;
     const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
-
     return (
       <Card className={classes.card}>
         <CardHeader
           avatar={
             <Avatar aria-label="Initials" className={classes.avatar}>
-              JS
+              {author.charAt(0).toUpperCase()}
             </Avatar>
           }
           action={
@@ -120,8 +127,8 @@ class Post extends Component {
               </Menu>
             </div>
           }
-          title="Name of poster"
-          subheader="Ten minutes ago"
+          title={author}
+          subheader={timestamp}
         />
         <CardContent>
           <Typography>{text}</Typography>
@@ -168,6 +175,7 @@ class Post extends Component {
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   deletePost: PropTypes.func.isRequired,

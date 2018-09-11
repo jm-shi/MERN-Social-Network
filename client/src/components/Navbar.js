@@ -24,7 +24,7 @@ const styles = {
 
 class Navbar extends Component {
   render() {
-    const { classes, logoutUser } = this.props;
+    const { classes, logoutUser, user } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -44,7 +44,7 @@ class Navbar extends Component {
               MERN Social
             </Typography>
             <div>
-              <NavbarRightMenu logoutUser={logoutUser} />
+              <NavbarRightMenu logoutUser={logoutUser} user={user} />
             </div>
           </Toolbar>
         </AppBar>
@@ -55,7 +55,8 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Navbar);

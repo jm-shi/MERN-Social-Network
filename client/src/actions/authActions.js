@@ -34,6 +34,7 @@ export const loginUser = user => (dispatch) => {
     .post('/users/login', user)
     .then((res) => {
       const { token } = res.data;
+      console.log('res.data', res.data);
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwtDecode(token);

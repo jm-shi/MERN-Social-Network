@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const newPost = new Post({
+    author: req.body.author || 'Anonymous',
     text: req.body.text,
-    author: 'no author assigned'
+    timestamp: new Date().getTime()
   });
   return newPost
     .save()

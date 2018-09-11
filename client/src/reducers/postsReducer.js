@@ -18,8 +18,9 @@ export default (state = initialState, action) => {
           ...state.posts,
           {
             _id: action.payload._id,
+            author: action.payload.author,
             text: action.payload.text,
-            author: action.payload.author
+            timestamp: action.payload.timestamp
           }
         ]
       };

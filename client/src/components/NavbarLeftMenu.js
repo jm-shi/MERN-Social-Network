@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
-import { folderListItems, otherFolderListItems } from './TileData';
+import { folderListItems, otherFolderListItems } from './MenuItems';
 
 const styles = theme => ({
   list: {
@@ -45,7 +45,7 @@ class NavbarLeftMenu extends React.Component {
 
     return (
       <div>
-        <MenuIcon onClick={this.toggleDrawer('left', true)} />
+        <MenuIcon onClick={this.toggleDrawer(true)} />
         <Drawer open={left} onClose={this.toggleDrawer(false)}>
           <div
             tabIndex={0}

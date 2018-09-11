@@ -9,8 +9,8 @@ export const getPosts = () => dispatch =>
     });
   });
 
-export const createPost = text => dispatch =>
-  axios.post('/posts', { text, author: 'unidentified' }).then((res) => {
+export const createPost = (text, user) => dispatch =>
+  axios.post('/posts', { text, author: user.name }).then((res) => {
     dispatch({
       type: types.CREATE_POST,
       payload: res.data

@@ -27,6 +27,7 @@ class PostList extends Component {
             _id={post._id}
             author={post.author}
             text={post.text}
+            timestamp={post.timestamp}
             deletePost={id => deletePost(id)}
             updatePost={(id, text, author) => updatePost(id, text, author)}
           />

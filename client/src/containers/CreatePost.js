@@ -36,9 +36,9 @@ export class CreatePost extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { postText } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, user } = this.props;
     if (!postText.trim()) return;
-    dispatch(createPost(postText));
+    dispatch(createPost(postText, user));
     this.setState({ postText: '' });
   };
 
@@ -77,10 +77,15 @@ export class CreatePost extends Component {
 
 CreatePost.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
+
+const mapStateToProps = state => ({
+  user: state.authReducer.user
+});
 
 export default compose(
   withStyles(styles),
-  connect()
+  connect(mapStateToProps)
 )(CreatePost);

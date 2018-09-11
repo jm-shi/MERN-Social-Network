@@ -55,7 +55,6 @@ router.post('/login', (req, res) => {
   User.findOne({ email: req.body.email })
     .exec()
     .then((user) => {
-      console.log('the user is ', user);
       if (!user) {
         return res.status(401).json({
           email: 'Could not find email.'
@@ -67,10 +66,11 @@ router.post('/login', (req, res) => {
             message: 'Auth failed.'
           });
         }
-        console.log('the user is ', user);
         if (result) {
+          console.log('user', user);
           const token = jwt.sign(
             {
+              name: user.name,
               email: user.email,
               userId: user._id
             },

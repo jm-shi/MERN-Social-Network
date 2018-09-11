@@ -10,7 +10,8 @@ const styles = {
   menuButton: {
     color: '#fff',
     fontSize: '18px',
-    marginRight: '-15px'
+    marginRight: '-15px',
+    textTransform: 'none'
   }
 };
 
@@ -28,7 +29,7 @@ class NavbarRightMenu extends Component {
   };
 
   render() {
-    const { classes, logoutUser } = this.props;
+    const { classes, logoutUser, user } = this.props;
     const { anchorEl } = this.state;
 
     return (
@@ -39,7 +40,7 @@ class NavbarRightMenu extends Component {
           className={classes.menuButton}
           onClick={this.handleClick}
         >
-          Jamie
+          {user.name}
         </Button>
         <Menu
           id="right-menu"
@@ -58,7 +59,8 @@ class NavbarRightMenu extends Component {
 
 NavbarRightMenu.propTypes = {
   classes: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavbarRightMenu);
