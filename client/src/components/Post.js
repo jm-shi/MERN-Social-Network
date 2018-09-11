@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as moment from 'moment';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -82,6 +83,8 @@ class Post extends Component {
     } = this.props;
     const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
+    const relativeTime = moment(timestamp).fromNow();
+
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -128,7 +131,7 @@ class Post extends Component {
             </div>
           }
           title={author}
-          subheader={timestamp}
+          subheader={relativeTime}
         />
         <CardContent>
           <Typography>{text}</Typography>
