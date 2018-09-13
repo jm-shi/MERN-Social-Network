@@ -56,7 +56,7 @@ class Post extends Component {
     modalOpen: false
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -124,9 +124,9 @@ class Post extends Component {
                   <MenuItem
                     key={option}
                     onClick={() =>
-                      this.handleClose() ||
-                      (option === 'Delete' ? deletePost(_id) : null) ||
-                      (option === 'Edit' ? this.handleModalOpen() : null)
+                      this.handleClose()
+                      || (option === 'Delete' ? deletePost(_id) : null)
+                      || (option === 'Edit' ? this.handleModalOpen() : null)
                     }
                   >
                     {option}

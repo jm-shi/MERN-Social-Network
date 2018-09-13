@@ -3,7 +3,9 @@
 exports[`should render NavbarLeftMenu 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <WithStyles(NavbarLeftMenu) />,
+  Symbol(enzyme.__unrendered__): <WithStyles(NavbarLeftMenu)
+    user={Object {}}
+/>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -21,6 +23,7 @@ ShallowWrapper {
         "list": "NavbarLeftMenu-list-1",
         "toolbar": "NavbarLeftMenu-toolbar-3",
       },
+      "user": Object {},
     },
     "ref": null,
     "rendered": null,
@@ -37,6 +40,7 @@ ShallowWrapper {
           "list": "NavbarLeftMenu-list-1",
           "toolbar": "NavbarLeftMenu-toolbar-3",
         },
+        "user": Object {},
       },
       "ref": null,
       "rendered": null,

@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import defaultImage from '../images/pebbleBeach.JPG';
 import { getUser } from '../actions/userActions';
+import Loading from '../components/Loading';
 import NavbarContainer from './NavbarContainer';
 import UserAvatar from '../components/UserAvatar';
 
@@ -211,7 +212,7 @@ class ProfilePage extends Component {
         </Modal>
       </div>
     ) : (
-      <span>Loading</span>
+      <Loading />
     );
   }
 }

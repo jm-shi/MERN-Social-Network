@@ -64,6 +64,7 @@ class UserAvatar extends Component {
 
 UserAvatar.propTypes = {
   author: PropTypes.string.isRequired,
+  authorId: PropTypes.string.isRequired,
   avatarColor: PropTypes.number.isRequired
 };
 

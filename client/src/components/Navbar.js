@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
+
 import NavbarLeftMenu from './NavbarLeftMenu';
 import NavbarRightMenu from './NavbarRightMenu';
 
