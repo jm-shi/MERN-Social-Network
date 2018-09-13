@@ -49,7 +49,9 @@ class UserAvatar extends Component {
     return (
       <Avatar
         aria-label="Initials"
-        style={{ backgroundColor: `${colorArr[avatarColor][800]}` }}
+        style={{
+          backgroundColor: `${colorArr[avatarColor][800]}`
+        }}
       >
         {author.charAt(0).toUpperCase()}
       </Avatar>

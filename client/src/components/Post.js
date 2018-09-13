@@ -9,7 +9,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import blue from '@material-ui/core/colors/blue';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -29,9 +28,6 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex'
-  },
-  avatar: {
-    backgroundColor: blue[800]
   },
   paper: {
     position: 'absolute',

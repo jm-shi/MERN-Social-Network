@@ -3,7 +3,6 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import FaceIcon from '@material-ui/icons/Face';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import GroupIcon from '@material-ui/icons/GroupAdd';
@@ -23,12 +22,14 @@ export const folderListItems = (
         <ListItemText primary="Home" />
       </ListItem>
     </Link>
-    <ListItem button>
-      <ListItemIcon>
-        <FaceIcon />
-      </ListItemIcon>
-      <ListItemText primary="Profile" />
-    </ListItem>
+    <Link style={{ textDecoration: 'none' }} to="/profile">
+      <ListItem button>
+        <ListItemIcon>
+          <FaceIcon />
+        </ListItemIcon>
+        <ListItemText primary="Profile" />
+      </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />

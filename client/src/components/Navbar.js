@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -10,15 +11,19 @@ import NavbarLeftMenu from './NavbarLeftMenu';
 import NavbarRightMenu from './NavbarRightMenu';
 
 const styles = {
-  root: {
-    flexGrow: 1
-  },
   flex: {
     flexGrow: 1
+  },
+  logo: {
+    color: '#fff',
+    textDecoration: 'none'
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  root: {
+    flexGrow: 1
   }
 };
 
@@ -41,7 +46,9 @@ class Navbar extends Component {
               variant="title"
               color="inherit"
             >
-              MERN Social
+              <Link className={classes.logo} to="/">
+                MERN Social
+              </Link>
             </Typography>
             <div>
               <NavbarRightMenu logoutUser={logoutUser} user={user} />
