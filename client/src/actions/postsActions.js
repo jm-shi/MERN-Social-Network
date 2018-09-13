@@ -1,20 +1,30 @@
 import axios from 'axios';
-import * as types from './actionTypes';
+import {
+  GET_POSTS,
+  CREATE_POST,
+  UPDATE_POST,
+  DELETE_POST
+} from './actionTypes';
 
 export const getPosts = () => dispatch =>
   axios.get('/posts').then((res) => {
     dispatch({
-      type: types.GET_POSTS,
+      type: GET_POSTS,
       payload: res.data
     });
   });
 
 export const createPost = (text, user) => dispatch =>
   axios
-    .post('/posts', { text, author: user.name, avatarColor: user.avatarColor })
+    .post('/posts', {
+      text,
+      author: user.name,
+      authorId: user.userId,
+      avatarColor: user.avatarColor
+    })
     .then((res) => {
       dispatch({
-        type: types.CREATE_POST,
+        type: CREATE_POST,
         payload: res.data
       });
     });
@@ -22,7 +32,7 @@ export const createPost = (text, user) => dispatch =>
 export const updatePost = (id, text, author) => dispatch =>
   axios.patch(`/posts/${id}`, { id, text, author }).then((res) => {
     dispatch({
-      type: types.UPDATE_POST,
+      type: UPDATE_POST,
       id,
       text,
       author
@@ -32,7 +42,7 @@ export const updatePost = (id, text, author) => dispatch =>
 export const deletePost = id => dispatch =>
   axios.delete(`/posts/${id}`).then((res) => {
     dispatch({
-      type: types.DELETE_POST,
+      type: DELETE_POST,
       id
     });
   });

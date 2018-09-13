@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as moment from 'moment';
 
@@ -22,12 +23,16 @@ const options = ['Edit', 'Delete'];
 const ITEM_HEIGHT = 48;
 
 const styles = theme => ({
+  actions: {
+    display: 'flex'
+  },
   card: {
     margin: '20px auto',
     width: '95%'
   },
-  actions: {
-    display: 'flex'
+  link: {
+    color: '#000',
+    textDecoration: 'none'
   },
   paper: {
     position: 'absolute',
@@ -51,7 +56,7 @@ class Post extends Component {
     modalOpen: false
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -72,6 +77,7 @@ class Post extends Component {
       text,
       _id,
       author,
+      authorId,
       avatarColor,
       timestamp,
       classes,
@@ -85,7 +91,13 @@ class Post extends Component {
     return (
       <Card className={classes.card}>
         <CardHeader
-          avatar={<UserAvatar author={author} avatarColor={avatarColor} />}
+          avatar={
+            <UserAvatar
+              author={author}
+              authorId={authorId}
+              avatarColor={avatarColor}
+            />
+          }
           action={
             <div>
               <IconButton
@@ -112,9 +124,9 @@ class Post extends Component {
                   <MenuItem
                     key={option}
                     onClick={() =>
-                      this.handleClose()
-                      || (option === 'Delete' ? deletePost(_id) : null)
-                      || (option === 'Edit' ? this.handleModalOpen() : null)
+                      this.handleClose() ||
+                      (option === 'Delete' ? deletePost(_id) : null) ||
+                      (option === 'Edit' ? this.handleModalOpen() : null)
                     }
                   >
                     {option}
@@ -123,7 +135,11 @@ class Post extends Component {
               </Menu>
             </div>
           }
-          title={author}
+          title={
+            <Link className={classes.link} to={`/profile/${authorId}`}>
+              {author}
+            </Link>
+          }
           subheader={relativeTime}
         />
         <CardContent>
@@ -173,6 +189,7 @@ Post.propTypes = {
   text: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
+  authorId: PropTypes.string.isRequired,
   avatarColor: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   deletePost: PropTypes.func.isRequired,

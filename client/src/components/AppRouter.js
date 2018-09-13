@@ -15,7 +15,7 @@ const AppRouter = () => (
       <Route exact path="/" component={HomePage} />
       <Route path="/signup" component={SignupPage} />
       <Route path="/login" component={LoginPage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Route path="/profile/:id" component={ProfilePage} />
     </Switch>
   </Router>
 );

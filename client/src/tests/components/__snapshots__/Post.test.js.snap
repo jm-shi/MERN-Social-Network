@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
     author="testAuthor"
+    authorId="123abc"
     avatarColor={7}
     deletePost={[Function]}
     text="testText"
@@ -26,12 +27,14 @@ ShallowWrapper {
     "props": Object {
       "_id": "1",
       "author": "testAuthor",
+      "authorId": "123abc",
       "avatarColor": 7,
       "classes": Object {
-        "actions": "Post-actions-2",
-        "card": "Post-card-1",
-        "paper": "Post-paper-3",
-        "spacing": "Post-spacing-4",
+        "actions": "Post-actions-1",
+        "card": "Post-card-2",
+        "link": "Post-link-3",
+        "paper": "Post-paper-4",
+        "spacing": "Post-spacing-5",
       },
       "deletePost": [Function],
       "text": "testText",
@@ -50,12 +53,14 @@ ShallowWrapper {
       "props": Object {
         "_id": "1",
         "author": "testAuthor",
+        "authorId": "123abc",
         "avatarColor": 7,
         "classes": Object {
-          "actions": "Post-actions-2",
-          "card": "Post-card-1",
-          "paper": "Post-paper-3",
-          "spacing": "Post-spacing-4",
+          "actions": "Post-actions-1",
+          "card": "Post-card-2",
+          "link": "Post-link-3",
+          "paper": "Post-paper-4",
+          "spacing": "Post-spacing-5",
         },
         "deletePost": [Function],
         "text": "testText",

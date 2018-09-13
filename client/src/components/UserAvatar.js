@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -24,7 +25,7 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 
 class UserAvatar extends Component {
   render() {
-    const { author, avatarColor } = this.props;
+    const { author, authorId, avatarColor } = this.props;
     const colorArr = [
       red,
       pink,
@@ -47,14 +48,16 @@ class UserAvatar extends Component {
       blueGrey
     ];
     return (
-      <Avatar
-        aria-label="Initials"
-        style={{
-          backgroundColor: `${colorArr[avatarColor][800]}`
-        }}
-      >
-        {author.charAt(0).toUpperCase()}
-      </Avatar>
+      <Link style={{ textDecoration: 'none' }} to={`/profile/${authorId}`}>
+        <Avatar
+          aria-label="Initials"
+          style={{
+            backgroundColor: `${colorArr[avatarColor][800]}`
+          }}
+        >
+          {author.charAt(0).toUpperCase()}
+        </Avatar>
+      </Link>
     );
   }
 }

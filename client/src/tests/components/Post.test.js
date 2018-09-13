@@ -9,6 +9,7 @@ it('should render Post', () => {
       text="testText"
       timestamp={12345}
       author="testAuthor"
+      authorId="123abc"
       avatarColor={7}
       deletePost={jest.fn()}
       updatePost={jest.fn()}

@@ -7,6 +7,10 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
+  authorId: {
+    type: String,
+    required: true
+  },
   avatarColor: {
     type: Number,
     required: true

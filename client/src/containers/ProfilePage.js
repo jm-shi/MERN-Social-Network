@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import defaultImage from '../images/pebbleBeach.JPG';
+import { getUser } from '../actions/userActions';
 import NavbarContainer from './NavbarContainer';
 import UserAvatar from '../components/UserAvatar';
 
@@ -74,7 +75,16 @@ const styles = theme => ({
 
 class ProfilePage extends Component {
   state = {
-    modalOpen: false
+    modalOpen: false,
+    user: null
+  };
+
+  componentDidMount = () => {
+    const { retrieveUser, match } = this.props;
+    const userId = match.params.id;
+    retrieveUser(userId).then((res) => {
+      this.setState({ user: res.payload.user });
+    });
   };
 
   handleModalOpen = () => {
@@ -86,10 +96,10 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const { classes, user } = this.props;
-    const { modalOpen } = this.state;
+    const { classes } = this.props;
+    const { modalOpen, user } = this.state;
 
-    return (
+    return user ? (
       <div>
         <NavbarContainer />
         <div className={classes.backgroundContainer}>
@@ -200,20 +210,26 @@ class ProfilePage extends Component {
           </div>
         </Modal>
       </div>
+    ) : (
+      <span>Loading</span>
     );
   }
 }
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  retrieveUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.authReducer.user
+  user: state.authReducer.user,
+  retrievedUser: state.userReducer.user
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  retrieveUser: userId => dispatch(getUser(userId))
+});
 
 export default compose(
   withStyles(styles),

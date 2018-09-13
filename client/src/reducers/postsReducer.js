@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_POSTS:
       return {
-        ...state,
+        ...initialState,
         posts: action.payload
       };
     case types.CREATE_POST: {
@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
           {
             _id: action.payload._id,
             author: action.payload.author,
+            authorId: action.payload.authorId,
             avatarColor: action.payload.avatarColor,
             text: action.payload.text,
             timestamp: action.payload.timestamp
