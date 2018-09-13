@@ -96,6 +96,34 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.patch('/profile/:id', (req, res) => {
+  const { id } = req.params;
+
+  try {
+    User.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: { bio: req.body.bio, email: req.body.email, name: req.body.name }
+      },
+      { new: true, upsert: true, setDefaultsOnInsert: true },
+      (err) => {
+        if (err != null && err.name === 'MongoError' && err.code === 11000) {
+          return res
+            .status(500)
+            .send({ message: 'This email is already in use.' });
+        }
+      }
+    ).then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+      return res.json({ user });
+    });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
+
 router.delete('/:id', (req, res) => {
   User.remove({ _id: req.params.id })
     .exec()
@@ -103,7 +131,7 @@ router.delete('/:id', (req, res) => {
       res.status(200).json({ message: 'Successfully deleted user.' });
     })
     .catch((err) => {
-      res.status(500).json({ err });
+      res.status(500).json({ message: err });
     });
 });
 

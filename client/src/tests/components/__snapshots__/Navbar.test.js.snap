@@ -20,9 +20,10 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "classes": Object {
-        "flex": "Navbar-flex-2",
+        "flex": "Navbar-flex-1",
+        "logo": "Navbar-logo-2",
         "menuButton": "Navbar-menuButton-3",
-        "root": "Navbar-root-1",
+        "root": "Navbar-root-4",
       },
       "logoutUser": [Function],
       "user": Object {},
@@ -38,9 +39,10 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "classes": Object {
-          "flex": "Navbar-flex-2",
+          "flex": "Navbar-flex-1",
+          "logo": "Navbar-logo-2",
           "menuButton": "Navbar-menuButton-3",
-          "root": "Navbar-root-1",
+          "root": "Navbar-root-4",
         },
         "logoutUser": [Function],
         "user": Object {},
