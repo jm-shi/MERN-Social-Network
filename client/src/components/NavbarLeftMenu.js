@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
-import { folderListItems, otherFolderListItems } from './MenuItems';
+import { FolderListItems, OtherFolderListItems } from './MenuItems';
 
 const styles = theme => ({
   list: {
@@ -30,16 +30,18 @@ class NavbarLeftMenu extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { left } = this.state;
 
     const sideList = (
       <div className={classes.list}>
         <div className={classes.toolbar} />
         <Divider />
-        <List>{folderListItems}</List>
+        <List>
+          <FolderListItems user={user} />
+        </List>
         <Divider />
-        <List>{otherFolderListItems}</List>
+        <List>{OtherFolderListItems}</List>
       </div>
     );
 
@@ -62,7 +64,8 @@ class NavbarLeftMenu extends React.Component {
 }
 
 NavbarLeftMenu.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavbarLeftMenu);

@@ -39,7 +39,7 @@ class Navbar extends Component {
               color="inherit"
               aria-label="Menu"
             >
-              <NavbarLeftMenu />
+              <NavbarLeftMenu user={user} />
             </IconButton>
             <Typography
               className={classes.flex}

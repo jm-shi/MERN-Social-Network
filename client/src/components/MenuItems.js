@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,7 +13,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { Link } from 'react-router-dom';
 
-export const folderListItems = (
+export const FolderListItems = ({ user }) => (
   <div>
     <Link style={{ textDecoration: 'none' }} to="/">
       <ListItem button>
@@ -22,7 +23,7 @@ export const folderListItems = (
         <ListItemText primary="Home" />
       </ListItem>
     </Link>
-    <Link style={{ textDecoration: 'none' }} to="/profile">
+    <Link style={{ textDecoration: 'none' }} to={`/profile/${user.userId}`}>
       <ListItem button>
         <ListItemIcon>
           <FaceIcon />
@@ -45,7 +46,7 @@ export const folderListItems = (
   </div>
 );
 
-export const otherFolderListItems = (
+export const OtherFolderListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
@@ -63,3 +64,7 @@ export const otherFolderListItems = (
     </Link>
   </div>
 );
+
+FolderListItems.propTypes = {
+  user: PropTypes.object.isRequired
+};
