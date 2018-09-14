@@ -77,11 +77,16 @@ const styles = theme => ({
 
 class ProfilePage extends Component {
   state = {
+    avatarColor: 0,
     bio: '',
+    displayedBio: '',
     email: '',
+    displayedEmail: '',
     loading: true,
+    modalOpen: false,
+    profileId: '',
     name: '',
-    modalOpen: false
+    displayedName: ''
   };
 
   componentDidMount = () => {
@@ -89,10 +94,15 @@ class ProfilePage extends Component {
     const userId = match.params.id;
     retrieveUser(userId).then((res) => {
       this.setState({
+        avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
+        displayedBio: res.payload.user.bio,
         email: res.payload.user.email,
+        displayedEmail: res.payload.user.email,
         loading: false,
-        name: res.payload.user.name
+        name: res.payload.user.name,
+        displayedName: res.payload.user.name,
+        profileId: res.payload.user._id
       });
     });
   };
@@ -112,15 +122,28 @@ class ProfilePage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { updateUser, user } = this.props;
+    const { updateUser, signedInUser } = this.props;
     const { bio, email, name } = this.state;
-    updateUser(bio, email, name, user.userId);
+    updateUser(bio, email, name, signedInUser.userId);
+    this.setState({
+      displayedBio: bio,
+      displayedEmail: email,
+      displayedName: name
+    });
     this.handleModalClose();
   };
 
   render() {
-    const { classes, user } = this.props;
-    const { loading, modalOpen } = this.state;
+    const { classes, signedInUser } = this.props;
+    const {
+      avatarColor,
+      displayedBio,
+      displayedEmail,
+      displayedName,
+      loading,
+      modalOpen,
+      profileId
+    } = this.state;
 
     return loading ? (
       <Loading />
@@ -132,6 +155,9 @@ class ProfilePage extends Component {
             variant="contained"
             className={classes.editButton}
             onClick={this.handleModalOpen}
+            style={{
+              display: profileId === signedInUser.userId ? 'block' : 'none'
+            }}
           >
             Edit Profile
           </Button>
@@ -145,12 +171,13 @@ class ProfilePage extends Component {
               }}
             >
               <UserAvatar
-                author={user.name}
-                authorId={user.userId}
-                avatarColor={user.avatarColor}
+                author={displayedName}
+                authorId={profileId}
+                avatarColor={avatarColor}
               />
-              <Typography variant="headline">{user.name}</Typography>
-              <Typography>{user.email}</Typography>
+              <Typography variant="headline">{displayedName}</Typography>
+              <Typography>{displayedEmail}</Typography>
+              <Typography>{displayedBio}</Typography>
             </CardContent>
           </Card>
         </div>
@@ -195,7 +222,7 @@ class ProfilePage extends Component {
                 required
                 fullWidth
                 className={classes.textField}
-                defaultValue={user.name}
+                defaultValue={signedInUser.name}
                 id="name"
                 label="Name"
                 margin="normal"
@@ -203,11 +230,12 @@ class ProfilePage extends Component {
                 onChange={this.handleChange}
                 placeholder="What is your name?"
               />
+              {/*
               <TextField
                 required
                 fullWidth
                 className={classes.textField}
-                defaultValue={user.email}
+                defaultValue={signedInUser.email}
                 id="email"
                 label="Email"
                 margin="normal"
@@ -215,22 +243,12 @@ class ProfilePage extends Component {
                 onChange={this.handleChange}
                 placeholder="This email is used to log in to your account."
               />
-              <TextField
-                fullWidth
-                className={classes.textField}
-                defaultValue=""
-                id="interests"
-                label="Interests"
-                margin="normal"
-                name="interests"
-                onChange={this.handleChange}
-                placeholder="What are your interests?"
-              />
+              */}
               <TextField
                 fullWidth
                 multiline
                 className={classes.textField}
-                defaultValue=""
+                defaultValue={signedInUser.bio}
                 id="bio"
                 label="Bio"
                 margin="normal"
@@ -259,12 +277,12 @@ ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  signedInUser: PropTypes.object.isRequired,
   retrieveUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.authReducer.user
+  signedInUser: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({

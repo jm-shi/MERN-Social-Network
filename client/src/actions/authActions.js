@@ -1,4 +1,4 @@
-// Authentication is based on Krunal's guide:
+// Authentication builds upon Krunal's guide:
 // https://appdividend.com/2018/07/18/react-redux-node-mongodb-jwt-authentication/#React_Redux_Node_MongoDB_JWT_Authentication
 
 import axios from 'axios';
@@ -53,20 +53,20 @@ export const setCurrentUser = decoded => ({
 });
 
 export const updateCurrentUser = (bio, email, name, userId) => (dispatch) => {
-  try {
-    axios.patch(`/users/profile/${userId}`, { bio, email, name }).then((res) => {
+  axios
+    .patch(`/users/profile/${userId}`, { bio, email, name })
+    .then((res) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       const decoded = jwtDecode(token);
       dispatch(setCurrentUser(decoded));
-    });
-  } catch (err) {
-    return dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
-    });
-  }
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
 };
 
 export const logoutUser = () => (dispatch) => {

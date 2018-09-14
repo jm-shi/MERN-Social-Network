@@ -56,7 +56,7 @@ class Post extends Component {
     modalOpen: false
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -87,7 +87,6 @@ class Post extends Component {
     const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
     const relativeTime = moment(timestamp).fromNow();
-
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -124,9 +123,9 @@ class Post extends Component {
                   <MenuItem
                     key={option}
                     onClick={() =>
-                      this.handleClose()
-                      || (option === 'Delete' ? deletePost(_id) : null)
-                      || (option === 'Edit' ? this.handleModalOpen() : null)
+                      this.handleClose() ||
+                      (option === 'Delete' ? deletePost(_id) : null) ||
+                      (option === 'Edit' ? this.handleModalOpen() : null)
                     }
                   >
                     {option}

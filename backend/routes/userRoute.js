@@ -117,7 +117,11 @@ router.patch('/profile/:id', async (req, res) => {
     const user = await User.findOneAndUpdate(
       { _id: id },
       {
-        $set: { bio: req.body.bio, email: req.body.email, name: req.body.name }
+        $set: {
+          bio: req.body.bio || '',
+          email: req.body.email,
+          name: req.body.name
+        }
       },
       { new: true, upsert: true, setDefaultsOnInsert: true },
       (err) => {
