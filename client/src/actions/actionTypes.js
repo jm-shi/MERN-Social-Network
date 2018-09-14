@@ -9,3 +9,4 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';
 
 export const GET_USER = 'GET_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';

@@ -8,12 +8,15 @@ const styles = {
   progress: {
     left: '50%',
     position: 'absolute',
-    top: '50%'
+    top: '50%',
+    transform: 'translate(-50%,-50%)'
   }
 };
 
 const NotFound = ({ classes }) => (
-  <CircularProgress className={classes.progress} size={50} />
+  <div className={classes.progress}>
+    <CircularProgress className={classes.l} size={50} />
+  </div>
 );
 
 NotFound.propTypes = {

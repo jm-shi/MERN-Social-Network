@@ -90,9 +90,14 @@ class ProfilePage extends Component {
   };
 
   componentDidMount = () => {
+    const { history } = this.props;
+    if (!localStorage.jwtToken) {
+      return history.push('/login');
+    }
+
     const { retrieveUser, match } = this.props;
     const userId = match.params.id;
-    retrieveUser(userId).then((res) => {
+    return retrieveUser(userId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
@@ -275,6 +280,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   signedInUser: PropTypes.object.isRequired,
