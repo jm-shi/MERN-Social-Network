@@ -2,10 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Loading from '../components/Loading';
-import NavbarContainer from './NavbarContainer';
-import UserAvatar from '../components/UserAvatar';
+import compose from 'recompose/compose';
+import classNames from 'classnames';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import { getAllUsers } from '../actions/userActions';
+import NavbarContainer from './NavbarContainer';
+import Loading from '../components/Loading';
+import UserCard from '../components/UserCard';
+
+const styles = theme => ({
+  cardGrid: {
+    padding: `${theme.spacing.unit * 8}px 0`
+  },
+  layout: {
+    width: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit * 3,
+      marginRight: theme.spacing.unit * 3
+    }
+  }
+});
 
 export class DiscoverPage extends Component {
   state = {
@@ -29,27 +46,32 @@ export class DiscoverPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const { loading, users } = this.state;
-    console.log('users', users);
+
     return loading ? (
       <Loading />
     ) : (
       <div>
         <NavbarContainer />
-        {users.map(user => (
-          <UserAvatar
-            author={user.name}
-            authorId={user._id}
-            avatarColor={user.avatarColor}
-            key={user._id}
-          />
-        ))}
+        <main>
+          <div className={classNames(classes.layout, classes.cardGrid)}>
+            <Grid container justify="center" spacing={40}>
+              {users.map(user => (
+                <Grid item key={user._id} sm={6} md={3} lg={2}>
+                  <UserCard user={user} />
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        </main>
       </div>
     );
   }
 }
 
 DiscoverPage.propTypes = {
+  classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   retrieveAllUsers: PropTypes.func.isRequired
 };
@@ -62,7 +84,10 @@ const mapDispatchToProps = dispatch => ({
   retrieveAllUsers: () => dispatch(getAllUsers())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(DiscoverPage);
