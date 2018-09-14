@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
@@ -7,6 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
+  link: {
+    outline: 'none',
+    textDecoration: 'none'
+  },
   menuButton: {
     color: '#fff',
     fontSize: '18px',
@@ -48,7 +53,9 @@ class NavbarRightMenu extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+          <Link className={classes.link} to={`/profile/${user.userId}`}>
+            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+          </Link>
           <MenuItem onClick={logoutUser}>Logout</MenuItem>
         </Menu>
       </div>

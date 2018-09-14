@@ -65,7 +65,7 @@ const styles = theme => ({
   }
 });
 
-class Signup extends Component {
+class SignupPage extends Component {
   state = {
     name: '',
     email: '',
@@ -198,11 +198,11 @@ class Signup extends Component {
   }
 }
 
-Signup.defaultProps = {
+SignupPage.defaultProps = {
   errors: {}
 };
 
-Signup.propTypes = {
+SignupPage.propTypes = {
   classes: PropTypes.object.isRequired,
   createUser: PropTypes.func.isRequired,
   errors: PropTypes.object
@@ -223,4 +223,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Signup);
+)(SignupPage);

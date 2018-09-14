@@ -131,7 +131,22 @@ router.patch('/profile/:id', async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-    return res.json({ user });
+
+    const token = jwt.sign(
+      {
+        avatarColor: user.avatarColor,
+        bio: user.bio,
+        name: user.name,
+        email: user.email,
+        userId: user._id
+      },
+      process.env.REACT_APP_JWT_KEY || require('../secrets').jwtKey,
+      {
+        expiresIn: '1h'
+      }
+    );
+
+    return res.json({ user, token });
   } catch (err) {
     return res.status(500).json({ message: err });
   }

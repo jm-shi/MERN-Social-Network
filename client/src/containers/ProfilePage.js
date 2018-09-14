@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import defaultImage from '../images/pebbleBeach.JPG';
+import { updateCurrentUser } from '../actions/authActions';
 import { getUser } from '../actions/userActions';
 import Loading from '../components/Loading';
 import NavbarContainer from './NavbarContainer';
@@ -76,15 +77,23 @@ const styles = theme => ({
 
 class ProfilePage extends Component {
   state = {
-    modalOpen: false,
-    user: null
+    bio: '',
+    email: '',
+    loading: true,
+    name: '',
+    modalOpen: false
   };
 
   componentDidMount = () => {
     const { retrieveUser, match } = this.props;
     const userId = match.params.id;
     retrieveUser(userId).then((res) => {
-      this.setState({ user: res.payload.user });
+      this.setState({
+        bio: res.payload.user.bio,
+        email: res.payload.user.email,
+        loading: false,
+        name: res.payload.user.name
+      });
     });
   };
 
@@ -96,11 +105,26 @@ class ProfilePage extends Component {
     this.setState({ modalOpen: false });
   };
 
-  render() {
-    const { classes } = this.props;
-    const { modalOpen, user } = this.state;
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState(() => ({ [name]: value }));
+  };
 
-    return user ? (
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { updateUser, user } = this.props;
+    const { bio, email, name } = this.state;
+    updateUser(bio, email, name, user.userId);
+    this.handleModalClose();
+  };
+
+  render() {
+    const { classes, user } = this.props;
+    const { loading, modalOpen } = this.state;
+
+    return loading ? (
+      <Loading />
+    ) : (
       <div>
         <NavbarContainer />
         <div className={classes.backgroundContainer}>
@@ -120,7 +144,11 @@ class ProfilePage extends Component {
                 alignItems: 'center'
               }}
             >
-              <UserAvatar author={user.name} avatarColor={user.avatarColor} />
+              <UserAvatar
+                author={user.name}
+                authorId={user.userId}
+                avatarColor={user.avatarColor}
+              />
               <Typography variant="headline">{user.name}</Typography>
               <Typography>{user.email}</Typography>
             </CardContent>
@@ -151,7 +179,11 @@ class ProfilePage extends Component {
           onClose={this.handleModalClose}
         >
           <div className={classes.modalPaper}>
-            <form className={classes.formContainer} autoComplete="off">
+            <form
+              className={classes.formContainer}
+              autoComplete="off"
+              onSubmit={this.handleSubmit}
+            >
               <Typography
                 variant="title"
                 id="modal-title"
@@ -167,6 +199,8 @@ class ProfilePage extends Component {
                 id="name"
                 label="Name"
                 margin="normal"
+                name="name"
+                onChange={this.handleChange}
                 placeholder="What is your name?"
               />
               <TextField
@@ -177,6 +211,8 @@ class ProfilePage extends Component {
                 id="email"
                 label="Email"
                 margin="normal"
+                name="email"
+                onChange={this.handleChange}
                 placeholder="This email is used to log in to your account."
               />
               <TextField
@@ -186,6 +222,8 @@ class ProfilePage extends Component {
                 id="interests"
                 label="Interests"
                 margin="normal"
+                name="interests"
+                onChange={this.handleChange}
                 placeholder="What are your interests?"
               />
               <TextField
@@ -193,9 +231,11 @@ class ProfilePage extends Component {
                 multiline
                 className={classes.textField}
                 defaultValue=""
-                id="other"
-                label="Other"
+                id="bio"
+                label="Bio"
                 margin="normal"
+                name="bio"
+                onChange={this.handleChange}
                 placeholder="Describe yourself."
               />
               <Button
@@ -211,8 +251,6 @@ class ProfilePage extends Component {
           </div>
         </Modal>
       </div>
-    ) : (
-      <Loading />
     );
   }
 }
@@ -220,16 +258,19 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
   retrieveUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.authReducer.user,
-  retrievedUser: state.userReducer.user
+  user: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({
-  retrieveUser: userId => dispatch(getUser(userId))
+  retrieveUser: userId => dispatch(getUser(userId)),
+  updateUser: (bio, email, name, id) =>
+    dispatch(updateCurrentUser(bio, email, name, id))
 });
 
 export default compose(

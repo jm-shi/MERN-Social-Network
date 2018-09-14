@@ -16,4 +16,3 @@ export const getUser = userId => async (dispatch) => {
     });
   }
 };
-/* eslint-enable import/prefer-default-export */

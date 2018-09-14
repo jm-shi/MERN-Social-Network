@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Social network app to be created with MERN stack. Work in progress.",
   "main": "index.js",
+  "engines": {
+    "node": "10.9.0"
+  },
   "scripts": {
     "test": "cd client && npm test",
     "start": "concurrently \"npm run client\" \"npm run server\"",

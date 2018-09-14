@@ -20,7 +20,8 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "classes": Object {
-        "menuButton": "NavbarRightMenu-menuButton-1",
+        "link": "NavbarRightMenu-link-1",
+        "menuButton": "NavbarRightMenu-menuButton-2",
       },
       "logoutUser": [Function],
       "user": Object {},
@@ -36,7 +37,8 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "classes": Object {
-          "menuButton": "NavbarRightMenu-menuButton-1",
+          "link": "NavbarRightMenu-link-1",
+          "menuButton": "NavbarRightMenu-menuButton-2",
         },
         "logoutUser": [Function],
         "user": Object {},
