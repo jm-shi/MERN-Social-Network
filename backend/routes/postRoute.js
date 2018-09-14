@@ -4,11 +4,12 @@ const Post = require('../models/postModel');
 
 const router = new express.Router();
 
-router.get('/', (req, res) => {
-  Post.find().then(posts => res.json(posts));
+router.get('/', async (req, res) => {
+  const posts = await Post.find();
+  res.status(200).json(posts);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const newPost = new Post({
     author: req.body.author || 'Anonymous',
     authorId: req.body.authorId,
@@ -16,10 +17,12 @@ router.post('/', (req, res) => {
     text: req.body.text,
     timestamp: new Date().getTime()
   });
-  return newPost
-    .save()
-    .then(post => res.json(post))
-    .catch(e => res.status(400).send(e));
+  try {
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 });
 
 router.patch('/:id', (req, res) => {
@@ -44,14 +47,15 @@ router.patch('/:id', (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
-  Post.findById(req.params.id)
-    .then(post =>
-      post.remove().then(() =>
-        res.json({
-          success: true
-        })))
-    .catch(e => res.status(404).send(e));
+router.delete('/:id', async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const post = await Post.findById(req.params.id);
+    await post.remove();
+    return res.json({ success: true });
+  } catch (err) {
+    return res.status(404).send(err);
+  }
 });
 
 module.exports = router;

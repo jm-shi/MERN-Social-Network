@@ -6,9 +6,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   progress: {
-    left: '45%',
+    left: '50%',
     position: 'absolute',
-    top: '45%'
+    top: '50%'
   }
 };
 

@@ -7,8 +7,13 @@ const User = require('../models/userModel');
 
 const router = new express.Router();
 
-// Authentication portion is based on Maximilian Schwarzmüller's guide:
+// Authentication builds on Maximilian Schwarzmüller's guide:
 // https://www.youtube.com/watch?v=0D5EEKH97NA
+
+router.get('/', async (req, res) => {
+  const posts = await User.find();
+  res.status(200).json(posts);
+});
 
 router.post('/signup', async (req, res) => {
   const { errors, isValid } = validateSignup(req.body);
