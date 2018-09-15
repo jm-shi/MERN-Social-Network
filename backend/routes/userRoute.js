@@ -189,8 +189,31 @@ router.patch('/following/:id', async (req, res) => {
   } catch (e) {
     return res.status(500).json(err);
   }
+});
 
-  return res.status(500).json();
+// Remove a user from the list of users you are following
+router.patch('/unfollowing/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (!req.body.idToUnfollow) {
+    return res.status(404).json({ message: 'No ID found' });
+  }
+
+  try {
+    await User.findByIdAndUpdate(
+      id,
+      { $pull: { following: req.body.idToUnfollow } },
+      { new: true, upsert: true },
+      (err, doc) => {
+        if (err) {
+          return res.status(400).json(err);
+        }
+        return res.status(200).json(doc);
+      }
+    );
+  } catch (e) {
+    return res.status(500).json(err);
+  }
 });
 
 // Add a user to the list of users that are following you
@@ -216,8 +239,6 @@ router.patch('/followers/:id', async (req, res) => {
   } catch (e) {
     return res.status(500).json(err);
   }
-
-  return res.status(500).json();
 });
 
 // Delete a user

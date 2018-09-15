@@ -35,14 +35,14 @@ export const FolderListItems = ({ user }) => (
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Friends" />
+      <ListItemText primary="Following" />
     </ListItem>
     <Link style={{ textDecoration: 'none' }} to="/discover">
       <ListItem button>
         <ListItemIcon>
           <GroupIcon />
         </ListItemIcon>
-        <ListItemText primary="Find Friends" />
+        <ListItemText primary="Discover" />
       </ListItem>
     </Link>
   </div>

@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import equal from 'fast-deep-equal';
 
 import compose from 'recompose/compose';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { getAllUsers } from '../actions/userActions';
+import {
+  getUser,
+  followUser,
+  getAllUsers,
+  unfollowUser
+} from '../actions/userActions';
 import NavbarContainer from './NavbarContainer';
 import Loading from '../components/Loading';
 import UserCard from '../components/UserCard';
@@ -27,7 +33,7 @@ const styles = theme => ({
 export class DiscoverPage extends Component {
   state = {
     loading: true,
-    users: []
+    following: []
   };
 
   componentDidMount = () => {
@@ -36,18 +42,41 @@ export class DiscoverPage extends Component {
       history.push('/login');
     }
 
-    retrieveAllUsers().then((res) => {
-      const users = res.payload;
+    retrieveAllUsers().then(() => {
+      this.updateFollowing();
       this.setState({
-        loading: false,
-        users
+        loading: false
+      });
+    });
+  };
+
+  componentDidUpdate(prevProps) {
+    const { userReducer } = this.props;
+    if (!equal(userReducer.following, prevProps.userReducer.following)) {
+      console.log('called componentDidUpdate');
+      this.updateFollowing();
+    }
+  }
+
+  // Set "following" to the list of people the logged in user is following
+  updateFollowing = () => {
+    const { authReducer, getCurrUser } = this.props;
+    getCurrUser(authReducer.user.userId).then(res => {
+      this.setState({
+        following: res.payload.user.following
       });
     });
   };
 
   render() {
-    const { classes } = this.props;
-    const { loading, users } = this.state;
+    const {
+      authReducer,
+      classes,
+      followThisUser,
+      userReducer,
+      unfollowThisUser
+    } = this.props;
+    const { following, loading } = this.state;
 
     return loading ? (
       <Loading />
@@ -57,9 +86,15 @@ export class DiscoverPage extends Component {
         <main>
           <div className={classNames(classes.layout, classes.cardGrid)}>
             <Grid container justify="center" spacing={40}>
-              {users.map(user => (
+              {userReducer.allUsers.map(user => (
                 <Grid item key={user._id} sm={6} md={3} lg={2}>
-                  <UserCard user={user} />
+                  <UserCard
+                    isFollowing={following.includes(user._id)}
+                    followUser={followThisUser}
+                    listedUser={user}
+                    signedInUser={authReducer.user}
+                    unfollowUser={unfollowThisUser}
+                  />
                 </Grid>
               ))}
             </Grid>
@@ -71,17 +106,28 @@ export class DiscoverPage extends Component {
 }
 
 DiscoverPage.propTypes = {
+  authReducer: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  followThisUser: PropTypes.func.isRequired,
+  getCurrUser: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  retrieveAllUsers: PropTypes.func.isRequired
+  retrieveAllUsers: PropTypes.func.isRequired,
+  unfollowThisUser: PropTypes.func.isRequired,
+  userReducer: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.authReducer
+  authReducer: state.authReducer,
+  userReducer: state.userReducer
 });
 
 const mapDispatchToProps = dispatch => ({
-  retrieveAllUsers: () => dispatch(getAllUsers())
+  getCurrUser: id => dispatch(getUser(id)),
+  followThisUser: (signedInUserId, idToFollow) =>
+    dispatch(followUser(signedInUserId, idToFollow)),
+  retrieveAllUsers: () => dispatch(getAllUsers()),
+  unfollowThisUser: (signedInUserId, idToUnfollow) =>
+    dispatch(unfollowUser(signedInUserId, idToUnfollow))
 });
 
 export default compose(

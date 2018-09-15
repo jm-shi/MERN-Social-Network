@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -31,45 +31,117 @@ const styles = theme => ({
   }
 });
 
-const UserCard = ({ classes, user }) => (
-  <Card>
-    <div className={classNames(classes.container, classes.avatar)}>
-      <UserAvatar
-        author={user.name}
-        authorId={user._id}
-        avatarColor={user.avatarColor}
-        key={user._id}
-      />
-    </div>
-    <div className={classNames(classes.container, classes.cardContent)}>
-      <Typography
-        gutterBottom
-        className={classes.name}
-        variant="headline"
-        component="h2"
-      >
-        {user.name}
-      </Typography>
-      <CardActions>
-        <Link className={classes.link} to={`/profile/${user._id}`}>
-          <Button size="small" color="primary">
-            View Profile
-          </Button>
-        </Link>
-        <Button size="small" color="primary">
-          Friend Request
-        </Button>
-      </CardActions>
-    </div>
-  </Card>
-);
+class UserCard extends Component {
+  followThisUser = (signedInUserId, listedUserId) => {
+    const { followUser } = this.props;
+    followUser(signedInUserId, listedUserId).then((res) => {
+      console.log('follow', res);
+    });
+  };
+
+  unfollowThisUser = (signedInUserId, listedUserId) => {
+    const { unfollowUser } = this.props;
+    unfollowUser(signedInUserId, listedUserId).then((res) => {
+      console.log('unfollow', res);
+    });
+  };
+
+  render() {
+    const { classes, isFollowing, listedUser, signedInUser } = this.props;
+
+    return (
+      <Card>
+        <div className={classNames(classes.container, classes.avatar)}>
+          <UserAvatar
+            author={listedUser.name}
+            authorId={listedUser._id}
+            avatarColor={listedUser.avatarColor}
+            key={listedUser._id}
+          />
+        </div>
+        <div className={classNames(classes.container, classes.cardContent)}>
+          <Typography
+            gutterBottom
+            className={classes.name}
+            variant="headline"
+            component="h2"
+          >
+            {listedUser.name}
+          </Typography>
+          <CardActions>
+            <Link className={classes.link} to={`/profile/${listedUser._id}`}>
+              <Button size="small" color="primary">
+                View
+              </Button>
+            </Link>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() =>
+                (isFollowing
+                  ? this.unfollowThisUser(signedInUser.userId, listedUser._id)
+                  : this.followThisUser(signedInUser.userId, listedUser._id))
+              }
+            >
+              {isFollowing ? 'Unfollow' : 'Follow'}
+            </Button>
+          </CardActions>
+        </div>
+      </Card>
+    );
+  }
+}
+
+// const UserCard = ({ classes, followUser, listedUser, signedInUser }) => (
+//   <Card>
+//     <div>{console.log(signedInUser)}</div>
+//     <div className={classNames(classes.container, classes.avatar)}>
+//       <UserAvatar
+//         author={listedUser.name}
+//         authorId={listedUser._id}
+//         avatarColor={listedUser.avatarColor}
+//         key={listedUser._id}
+//       />
+//     </div>
+//     <div className={classNames(classes.container, classes.cardContent)}>
+//       <Typography
+//         gutterBottom
+//         className={classes.name}
+//         variant="headline"
+//         component="h2"
+//       >
+//         {listedUser.name}
+//       </Typography>
+//       <CardActions>
+//         <Link className={classes.link} to={`/profile/${listedUser._id}`}>
+//           <Button size="small" color="primary">
+//             View
+//           </Button>
+//         </Link>
+//         <Button
+//           size="small"
+//           color="primary"
+//           onClick={() => followUser(signedInUser.userId, listedUser._id)}
+//         >
+//           Follow
+//         </Button>
+//       </CardActions>
+//     </div>
+//   </Card>
+// );
 
 UserCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.shape({
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
+  isFollowing: PropTypes.bool.isRequired,
+  listedUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     avatarColor: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
+  }).isRequired,
+  signedInUser: PropTypes.shape({
+    userId: PropTypes.string.isRequired
   }).isRequired
 };
 
