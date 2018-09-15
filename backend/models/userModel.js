@@ -16,6 +16,12 @@ const UserSchema = new Schema({
     unique: true,
     match: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   },
+  followers: {
+    type: [String]
+  },
+  following: {
+    type: [String]
+  },
   name: {
     type: String,
     required: true
