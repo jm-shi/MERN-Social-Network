@@ -9,6 +9,7 @@ ShallowWrapper {
     authorId="123abc"
     avatarColor={7}
     deletePost={[Function]}
+    signedInUserId="123abcd"
     text="testText"
     timestamp={12345}
     updatePost={[Function]}
@@ -37,6 +38,7 @@ ShallowWrapper {
         "spacing": "Post-spacing-5",
       },
       "deletePost": [Function],
+      "signedInUserId": "123abcd",
       "text": "testText",
       "timestamp": 12345,
       "updatePost": [Function],
@@ -63,6 +65,7 @@ ShallowWrapper {
           "spacing": "Post-spacing-5",
         },
         "deletePost": [Function],
+        "signedInUserId": "123abcd",
         "text": "testText",
         "timestamp": 12345,
         "updatePost": [Function],

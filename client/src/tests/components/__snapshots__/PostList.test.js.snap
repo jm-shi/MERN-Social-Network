@@ -7,6 +7,11 @@ ShallowWrapper {
     deletePost={[Function]}
     posts={Array []}
     updatePost={[Function]}
+    user={
+        Object {
+            "userId": "abc123",
+          }
+    }
 />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
 
-const PostList = ({ posts, deletePost, updatePost }) => (
+const PostList = ({ posts, deletePost, updatePost, user }) => (
   <div>
     {posts.map(post => (
       <Post
@@ -11,6 +11,7 @@ const PostList = ({ posts, deletePost, updatePost }) => (
         author={post.author}
         authorId={post.authorId}
         avatarColor={post.avatarColor}
+        signedInUserId={user.userId}
         text={post.text}
         timestamp={post.timestamp}
         deletePost={id => deletePost(id)}
@@ -35,7 +36,10 @@ PostList.propTypes = {
     })
   ),
   deletePost: PropTypes.func.isRequired,
-  updatePost: PropTypes.func.isRequired
+  updatePost: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    userId: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default PostList;

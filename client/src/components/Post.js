@@ -81,6 +81,7 @@ class Post extends Component {
       avatarColor,
       timestamp,
       classes,
+      signedInUserId,
       deletePost,
       updatePost
     } = this.props;
@@ -98,41 +99,43 @@ class Post extends Component {
             />
           }
           action={
-            <div>
-              <IconButton
-                aria-label="More"
-                aria-owns={open ? 'long-menu' : null}
-                aria-haspopup="true"
-                onClick={this.handleClick}
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="long-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={this.handleClose}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: 200
-                  }
-                }}
-              >
-                {options.map(option => (
-                  <MenuItem
-                    key={option}
-                    onClick={() =>
-                      this.handleClose()
-                      || (option === 'Delete' ? deletePost(_id) : null)
-                      || (option === 'Edit' ? this.handleModalOpen() : null)
+            authorId !== signedInUserId ? null : (
+              <div>
+                <IconButton
+                  aria-label="More"
+                  aria-owns={open ? 'long-menu' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleClick}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="long-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={this.handleClose}
+                  PaperProps={{
+                    style: {
+                      maxHeight: ITEM_HEIGHT * 4.5,
+                      width: 200
                     }
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </div>
+                  }}
+                >
+                  {options.map(option => (
+                    <MenuItem
+                      key={option}
+                      onClick={() =>
+                        this.handleClose()
+                        || (option === 'Delete' ? deletePost(_id) : null)
+                        || (option === 'Edit' ? this.handleModalOpen() : null)
+                      }
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </div>
+            )
           }
           title={
             <Link className={classes.link} to={`/profile/${authorId}`}>
@@ -191,6 +194,7 @@ Post.propTypes = {
   authorId: PropTypes.string.isRequired,
   avatarColor: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
+  signedInUserId: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired
 };

@@ -11,6 +11,7 @@ it('should render Post', () => {
       author="testAuthor"
       authorId="123abc"
       avatarColor={7}
+      signedInUserId="123abcd"
       deletePost={jest.fn()}
       updatePost={jest.fn()}
     />

@@ -3,7 +3,8 @@ import PostList from '../components/PostList';
 import { deletePost, updatePost } from '../actions/postsActions';
 
 const mapStateToProps = state => ({
-  posts: state.postsReducer.posts
+  posts: state.postsReducer.posts,
+  user: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({
