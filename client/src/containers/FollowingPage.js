@@ -31,23 +31,20 @@ const styles = theme => ({
   }
 });
 
-export class DiscoverPage extends Component {
+export class FollowingPage extends Component {
   state = {
     loading: true,
-    following: []
+    followingIds: [],
+    followingUsers: []
   };
 
   componentDidMount = () => {
-    const { history, retrieveAllUsers } = this.props;
+    const { authReducer, getFollowingUsers, history } = this.props;
     if (!localStorage.jwtToken) {
       history.push('/login');
     }
-
-    retrieveAllUsers().then(() => {
+    getFollowingUsers(authReducer.user.userId).then(() => {
       this.updateFollowing();
-      this.setState({
-        loading: false
-      });
     });
   };
 
@@ -58,12 +55,25 @@ export class DiscoverPage extends Component {
     }
   }
 
-  // Set "following" to be the list of users you are following
   updateFollowing = () => {
-    const { authReducer, getCurrUser } = this.props;
-    getCurrUser(authReducer.user.userId).then((res) => {
+    const { getCurrUser, userReducer } = this.props;
+
+    let idsOfUsersYouAreFollowing = [];
+    let usersYouAreFollowing = [];
+    const requests = userReducer.following.map(userId =>
+      getCurrUser(userId).then((res) => {
+        idsOfUsersYouAreFollowing = [
+          ...idsOfUsersYouAreFollowing,
+          res.payload.user._id
+        ];
+        usersYouAreFollowing = [...usersYouAreFollowing, res.payload.user];
+      }));
+
+    Promise.all(requests).then(() => {
       this.setState({
-        following: res.payload.user.following
+        loading: false,
+        followingIds: idsOfUsersYouAreFollowing,
+        followingUsers: usersYouAreFollowing
       });
     });
   };
@@ -73,10 +83,9 @@ export class DiscoverPage extends Component {
       authReducer,
       classes,
       followThisUser,
-      userReducer,
       unfollowThisUser
     } = this.props;
-    const { following, loading } = this.state;
+    const { followingIds, followingUsers, loading } = this.state;
 
     return loading ? (
       <Loading />
@@ -86,10 +95,10 @@ export class DiscoverPage extends Component {
         <main>
           <div className={classNames(classes.layout, classes.cardGrid)}>
             <Grid container justify="center" spacing={40}>
-              {userReducer.allUsers.map(user => (
+              {followingUsers.map(user => (
                 <Grid item key={user._id} sm={6} md={3} lg={2}>
                   <UserCard
-                    isFollowing={following.includes(user._id)}
+                    isFollowing={followingIds.includes(user._id)}
                     followUser={followThisUser}
                     listedUser={user}
                     signedInUser={authReducer.user}
@@ -105,13 +114,13 @@ export class DiscoverPage extends Component {
   }
 }
 
-DiscoverPage.propTypes = {
+FollowingPage.propTypes = {
   authReducer: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   followThisUser: PropTypes.func.isRequired,
   getCurrUser: PropTypes.func.isRequired,
+  getFollowingUsers: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  retrieveAllUsers: PropTypes.func.isRequired,
   unfollowThisUser: PropTypes.func.isRequired,
   userReducer: PropTypes.object.isRequired
 };
@@ -137,4 +146,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(DiscoverPage);
+)(FollowingPage);

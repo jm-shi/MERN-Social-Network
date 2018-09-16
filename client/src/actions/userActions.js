@@ -30,12 +30,20 @@ export const unfollowUser = (
   });
 };
 
-export const getUser = userId => async (dispatch) => {
+export const getFollowing = userId => async (dispatch) => {
   const result = await axios.get(`/users/${userId}`);
-  dispatch({
+  return dispatch({
     type: GET_FOLLOWING,
     payload: result.data
   });
+};
+
+export const getUser = userId => async (dispatch) => {
+  const result = await axios.get(`/users/${userId}`);
+  // dispatch({
+  //   type: GET_FOLLOWING,
+  //   payload: result.data
+  // });
   return dispatch({
     type: GET_USER,
     payload: result.data

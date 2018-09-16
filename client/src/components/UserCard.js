@@ -35,14 +35,14 @@ class UserCard extends Component {
   followThisUser = (signedInUserId, listedUserId) => {
     const { followUser } = this.props;
     followUser(signedInUserId, listedUserId).then((res) => {
-      console.log('follow', res);
+      console.log(res);
     });
   };
 
   unfollowThisUser = (signedInUserId, listedUserId) => {
     const { unfollowUser } = this.props;
     unfollowUser(signedInUserId, listedUserId).then((res) => {
-      console.log('unfollow', res);
+      console.log(res);
     });
   };
 
