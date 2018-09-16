@@ -28,12 +28,12 @@ export class CreatePost extends Component {
     postText: ''
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     const postText = e.target.value;
     this.setState(() => ({ postText }));
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { postText } = this.state;
     const { dispatch, user } = this.props;

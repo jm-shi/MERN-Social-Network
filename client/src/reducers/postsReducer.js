@@ -15,7 +15,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         posts: [
-          ...state.posts,
           {
             _id: action.payload._id,
             author: action.payload.author,
@@ -23,7 +22,8 @@ export default (state = initialState, action) => {
             avatarColor: action.payload.avatarColor,
             text: action.payload.text,
             timestamp: action.payload.timestamp
-          }
+          },
+          ...state.posts
         ]
       };
     }

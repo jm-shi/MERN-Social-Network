@@ -20,7 +20,7 @@ if (localStorage.jwtToken) {
   const decoded = jwtDecode(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
 
-  // Log out after one hour since signing in
+  // Log out after 24 hours since signing in
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());

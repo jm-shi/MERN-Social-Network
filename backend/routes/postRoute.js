@@ -5,7 +5,7 @@ const Post = require('../models/postModel');
 const router = new express.Router();
 
 router.get('/', async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort({ timestamp: -1 });
   res.status(200).json(posts);
 });
 

@@ -156,7 +156,7 @@ router.patch('/:id', async (req, res) => {
       },
       process.env.REACT_APP_JWT_KEY || require('../secrets').jwtKey,
       {
-        expiresIn: '1h'
+        expiresIn: '24h'
       }
     );
 
