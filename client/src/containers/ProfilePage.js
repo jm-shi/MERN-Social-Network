@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import defaultImage from '../images/pebbleBeach.JPG';
 import { updateCurrentUser } from '../actions/authActions';
-import { getUser } from '../actions/userActions';
+import { getFollowing, getUser } from '../actions/userActions';
 import Loading from '../components/Loading';
 import NavbarContainer from './NavbarContainer';
 import UserAvatar from '../components/UserAvatar';
@@ -81,8 +81,10 @@ class ProfilePage extends Component {
     bio: '',
     displayedBio: '',
     email: '',
+    following: [],
     displayedEmail: '',
-    loading: true,
+    loadingFollowing: true,
+    loadingUser: true,
     modalOpen: false,
     profileId: '',
     name: '',
@@ -95,8 +97,16 @@ class ProfilePage extends Component {
       return history.push('/login');
     }
 
-    const { retrieveUser, match } = this.props;
+    const { getFollowingUsers, retrieveUser, match } = this.props;
     const userId = match.params.id;
+
+    getFollowingUsers(userId).then((res) => {
+      this.setState({
+        following: res.payload.user.following,
+        loadingFollowing: false
+      });
+    });
+
     return retrieveUser(userId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
@@ -104,7 +114,7 @@ class ProfilePage extends Component {
         displayedBio: res.payload.user.bio,
         email: res.payload.user.email,
         displayedEmail: res.payload.user.email,
-        loading: false,
+        loadingUser: false,
         name: res.payload.user.name,
         displayedName: res.payload.user.name,
         profileId: res.payload.user._id
@@ -145,12 +155,14 @@ class ProfilePage extends Component {
       displayedBio,
       displayedEmail,
       displayedName,
-      loading,
+      following,
+      loadingFollowing,
+      loadingUser,
       modalOpen,
       profileId
     } = this.state;
 
-    return loading ? (
+    return loadingFollowing || loadingUser ? (
       <Loading />
     ) : (
       <div>
@@ -190,7 +202,7 @@ class ProfilePage extends Component {
           <Grid item xs={12}>
             <Grid container justify="center">
               <Paper className={classes.paper}>
-                <Typography variant="display1">235</Typography>
+                <Typography variant="display1">{following.length}</Typography>
                 <Typography variant="headline">Following</Typography>
               </Paper>
               <Paper className={classes.paper}>
@@ -280,6 +292,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  getFollowingUsers: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
@@ -292,6 +305,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getFollowingUsers: id => dispatch(getFollowing(id)),
   retrieveUser: userId => dispatch(getUser(userId)),
   updateUser: (bio, email, name, id) =>
     dispatch(updateCurrentUser(bio, email, name, id))

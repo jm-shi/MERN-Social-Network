@@ -6,7 +6,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 import App from './components/App';
 import createStore from './store';
-// import { getPosts } from './actions/postsActions';
 import setAuthToken from './setAuthToken';
 import { logoutUser, setCurrentUser } from './actions/authActions';
 import './index.css';
@@ -20,15 +19,12 @@ if (localStorage.jwtToken) {
   const decoded = jwtDecode(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
 
-  // Log out after 24 hours since signing in
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     window.location.href = '/login';
   }
 }
-
-// store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>
