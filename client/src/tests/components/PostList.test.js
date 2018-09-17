@@ -7,6 +7,8 @@ it('should render PostList', () => {
     <PostList
       deletePost={jest.fn()}
       updatePost={jest.fn()}
+      getPosts={jest.fn(() => Promise.resolve('posts'))}
+      getFollowing={jest.fn(() => Promise.resolve('following'))}
       user={{ userId: 'abc123' }}
     />
   );

@@ -86,17 +86,20 @@ export class DiscoverPage extends Component {
         <main>
           <div className={classNames(classes.layout, classes.cardGrid)}>
             <Grid container justify="center" spacing={40}>
-              {userReducer.allUsers.map(user => (
-                <Grid item key={user._id} sm={6} md={3} lg={2}>
-                  <UserCard
-                    isFollowing={following.includes(user._id)}
-                    followUser={followThisUser}
-                    listedUser={user}
-                    signedInUser={authReducer.user}
-                    unfollowUser={unfollowThisUser}
-                  />
-                </Grid>
-              ))}
+              {userReducer.allUsers.map(
+                user =>
+                  (user._id === authReducer.user.userId ? null : (
+                    <Grid item key={user._id} sm={6} md={3} lg={2}>
+                      <UserCard
+                        isFollowing={following.includes(user._id)}
+                        followUser={followThisUser}
+                        listedUser={user}
+                        signedInUser={authReducer.user}
+                        unfollowUser={unfollowThisUser}
+                      />
+                    </Grid>
+                  ))
+              )}
             </Grid>
           </div>
         </main>

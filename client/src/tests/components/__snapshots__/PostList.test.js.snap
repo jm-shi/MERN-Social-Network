@@ -5,6 +5,8 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PostList
     deletePost={[Function]}
+    getFollowing={[Function]}
+    getPosts={[Function]}
     posts={Array []}
     updatePost={[Function]}
     user={
@@ -23,25 +25,21 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [],
-    },
+    "nodeType": "class",
+    "props": Object {},
     "ref": null,
-    "rendered": Array [],
-    "type": "div",
+    "rendered": null,
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [],
-      },
+      "nodeType": "class",
+      "props": Object {},
       "ref": null,
-      "rendered": Array [],
-      "type": "div",
+      "rendered": null,
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {

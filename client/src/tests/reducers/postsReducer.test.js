@@ -57,14 +57,14 @@ describe('posts reducer', () => {
       ...initialState,
       posts: [
         {
-          author: 'Jim',
-          text: 'Hello world!',
-          _id: '123'
-        },
-        {
           author: 'Wendy',
           text: 'How are you?',
           _id: '1000'
+        },
+        {
+          author: 'Jim',
+          text: 'Hello world!',
+          _id: '123'
         }
       ]
     });

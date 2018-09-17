@@ -7,12 +7,11 @@ import {
 } from './actionTypes';
 
 export const getPosts = () => dispatch =>
-  axios.get('/posts').then((res) => {
+  axios.get('/posts').then(res =>
     dispatch({
       type: GET_POSTS,
       payload: res.data
-    });
-  });
+    }));
 
 export const createPost = (text, user) => dispatch =>
   axios
@@ -22,27 +21,24 @@ export const createPost = (text, user) => dispatch =>
       authorId: user.userId,
       avatarColor: user.avatarColor
     })
-    .then((res) => {
+    .then(res =>
       dispatch({
         type: CREATE_POST,
         payload: res.data
-      });
-    });
+      }));
 
 export const updatePost = (id, text, author) => dispatch =>
-  axios.patch(`/posts/${id}`, { id, text, author }).then((res) => {
+  axios.patch(`/posts/${id}`, { id, text, author }).then(res =>
     dispatch({
       type: UPDATE_POST,
       id,
       text,
       author
-    });
-  });
+    }));
 
 export const deletePost = id => dispatch =>
-  axios.delete(`/posts/${id}`).then((res) => {
+  axios.delete(`/posts/${id}`).then(res =>
     dispatch({
       type: DELETE_POST,
       id
-    });
-  });
+    }));
