@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import defaultImage from '../images/pebbleBeach.JPG';
 import { updateCurrentUser } from '../actions/authActions';
-import { getFollowing, getUser } from '../actions/userActions';
+import { getFollowers, getFollowing, getUser } from '../actions/userActions';
 import Loading from '../components/Loading';
 import NavbarContainer from './NavbarContainer';
 import UserAvatar from '../components/UserAvatar';
@@ -81,8 +81,10 @@ class ProfilePage extends Component {
     bio: '',
     displayedBio: '',
     email: '',
+    followers: [],
     following: [],
     displayedEmail: '',
+    loadingFollowers: true,
     loadingFollowing: true,
     loadingUser: true,
     modalOpen: false,
@@ -97,13 +99,25 @@ class ProfilePage extends Component {
       return history.push('/login');
     }
 
-    const { getFollowingUsers, retrieveUser, match } = this.props;
+    const {
+      getUsersYouAreFollowing,
+      getYourFollowers,
+      retrieveUser,
+      match
+    } = this.props;
     const userId = match.params.id;
 
-    getFollowingUsers(userId).then((res) => {
+    getUsersYouAreFollowing(userId).then((res) => {
       this.setState({
         following: res.payload.user.following,
         loadingFollowing: false
+      });
+    });
+
+    getYourFollowers(userId).then((res) => {
+      this.setState({
+        followers: res.payload.user.followers,
+        loadingFollowers: false
       });
     });
 
@@ -155,14 +169,16 @@ class ProfilePage extends Component {
       displayedBio,
       displayedEmail,
       displayedName,
+      followers,
       following,
+      loadingFollowers,
       loadingFollowing,
       loadingUser,
       modalOpen,
       profileId
     } = this.state;
 
-    return loadingFollowing || loadingUser ? (
+    return loadingFollowers || loadingFollowing || loadingUser ? (
       <Loading />
     ) : (
       <div>
@@ -206,7 +222,7 @@ class ProfilePage extends Component {
                 <Typography variant="headline">Following</Typography>
               </Paper>
               <Paper className={classes.paper}>
-                <Typography variant="display1">629</Typography>
+                <Typography variant="display1">{followers.length}</Typography>
                 <Typography variant="headline">Followers</Typography>
               </Paper>
               <Paper className={classes.paper}>
@@ -292,7 +308,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  getFollowingUsers: PropTypes.func.isRequired,
+  getUsersYouAreFollowing: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
@@ -305,7 +321,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getFollowingUsers: id => dispatch(getFollowing(id)),
+  getUsersYouAreFollowing: id => dispatch(getFollowing(id)),
+  getYourFollowers: id => dispatch(getFollowers(id)),
   retrieveUser: userId => dispatch(getUser(userId)),
   updateUser: (bio, email, name, id) =>
     dispatch(updateCurrentUser(bio, email, name, id))

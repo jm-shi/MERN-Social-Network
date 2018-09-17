@@ -1,23 +1,25 @@
 import {
-  FOLLOW_USER,
+  GET_FOLLOWERS,
   GET_FOLLOWING,
   GET_USER,
   GET_ALL_USERS,
-  UNFOLLOW_USER
+  UPDATE_FOLLOWERS,
+  UPDATE_FOLLOWING
 } from '../actions/actionTypes';
 
 const initialState = {
   allUsers: [],
+  followers: [],
   following: [],
   currUser: {}
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case FOLLOW_USER:
+    case GET_FOLLOWERS:
       return {
         ...state,
-        following: action.payload.following
+        followers: action.payload.user.followers
       };
     case GET_FOLLOWING:
       return {
@@ -34,7 +36,17 @@ export default function (state = initialState, action) {
         ...state,
         allUsers: action.payload
       };
-    case UNFOLLOW_USER:
+    case UPDATE_FOLLOWERS:
+      return {
+        ...state,
+        allUsers: state.allUsers.map(
+          user =>
+            (user._id === action.payload._id
+              ? { ...user, followers: action.payload.followers }
+              : user)
+        )
+      };
+    case UPDATE_FOLLOWING:
       return {
         ...state,
         following: action.payload.following

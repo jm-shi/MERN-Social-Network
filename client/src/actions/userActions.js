@@ -1,19 +1,30 @@
 import axios from 'axios';
 import {
-  FOLLOW_USER,
+  GET_FOLLOWERS,
   GET_FOLLOWING,
   GET_USER,
   GET_ALL_USERS,
-  UNFOLLOW_USER
+  UPDATE_FOLLOWERS,
+  UPDATE_FOLLOWING
 } from './actionTypes';
 
 export const followUser = (signedInUserId, idToFollow) => async (dispatch) => {
-  const result = await axios.patch(`/users/following/${signedInUserId}`, {
+  const followResult = await axios.patch(`/users/following/${signedInUserId}`, {
     idToFollow
   });
+  const addFollowerResult = await axios.patch(
+    `/users/followers/${idToFollow}`,
+    {
+      followerId: signedInUserId
+    }
+  );
+  dispatch({
+    type: UPDATE_FOLLOWERS,
+    payload: addFollowerResult.data
+  });
   return dispatch({
-    type: FOLLOW_USER,
-    payload: result.data
+    type: UPDATE_FOLLOWING,
+    payload: followResult.data
   });
 };
 
@@ -21,11 +32,32 @@ export const unfollowUser = (
   signedInUserId,
   idToUnfollow
 ) => async (dispatch) => {
-  const result = await axios.patch(`/users/unfollowing/${signedInUserId}`, {
-    idToUnfollow
+  const unfollowResult = await axios.patch(
+    `/users/unfollowing/${signedInUserId}`,
+    {
+      idToUnfollow
+    }
+  );
+  const removeFollowerResult = await axios.patch(
+    `/users/unfollowers/${idToUnfollow}`,
+    {
+      unfollowerId: signedInUserId
+    }
+  );
+  dispatch({
+    type: UPDATE_FOLLOWERS,
+    payload: removeFollowerResult.data
   });
   return dispatch({
-    type: UNFOLLOW_USER,
+    type: UPDATE_FOLLOWING,
+    payload: unfollowResult.data
+  });
+};
+
+export const getFollowers = userId => async (dispatch) => {
+  const result = await axios.get(`/users/${userId}`);
+  return dispatch({
+    type: GET_FOLLOWERS,
     payload: result.data
   });
 };
@@ -40,10 +72,6 @@ export const getFollowing = userId => async (dispatch) => {
 
 export const getUser = userId => async (dispatch) => {
   const result = await axios.get(`/users/${userId}`);
-  // dispatch({
-  //   type: GET_FOLLOWING,
-  //   payload: result.data
-  // });
   return dispatch({
     type: GET_USER,
     payload: result.data
