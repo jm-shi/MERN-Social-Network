@@ -1,4 +1,9 @@
-import * as types from '../../actions/actionTypes';
+import {
+  GET_POSTS,
+  CREATE_POST,
+  EDIT_POST,
+  DELETE_POST
+} from '../../actions/actionTypes';
 import postsReducer from '../../reducers/postsReducer';
 
 const initialState = {
@@ -29,7 +34,7 @@ describe('posts reducer', () => {
 
   it('should handle GET_POSTS', () => {
     const action = {
-      type: types.GET_POSTS,
+      type: GET_POSTS,
       payload: initialState.posts
     };
     expect(postsReducer(initialState, action)).toEqual({
@@ -46,7 +51,7 @@ describe('posts reducer', () => {
 
   it('should handle CREATE_POST', () => {
     const action = {
-      type: types.CREATE_POST,
+      type: CREATE_POST,
       payload: {
         author: 'Wendy',
         text: 'How are you?',
@@ -70,9 +75,9 @@ describe('posts reducer', () => {
     });
   });
 
-  it('should handle UPDATE_POST', () => {
+  it('should handle EDIT_POST', () => {
     const action = {
-      type: types.UPDATE_POST,
+      type: EDIT_POST,
       author: 'Jim',
       text: 'Updated text',
       id: '123'
@@ -92,7 +97,7 @@ describe('posts reducer', () => {
 
   it('should handle DELETE_POST', () => {
     const action = {
-      type: types.DELETE_POST,
+      type: DELETE_POST,
       id: '123'
     };
     expect(postsReducer(initialState, action)).toEqual({

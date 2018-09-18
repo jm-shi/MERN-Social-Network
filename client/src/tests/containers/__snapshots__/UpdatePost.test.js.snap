@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render UpdatePost component 1`] = `
+exports[`should render EditPost component 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <WithStyles(Connect(UpdatePost)) />,
+  Symbol(enzyme.__unrendered__): <WithStyles(Connect(EditPost)) />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -17,9 +17,9 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "classes": Object {
-        "button": "Connect-UpdatePost--button-1",
-        "container": "Connect-UpdatePost--container-2",
-        "textField": "Connect-UpdatePost--textField-3",
+        "button": "Connect-EditPost--button-1",
+        "container": "Connect-EditPost--container-2",
+        "textField": "Connect-EditPost--textField-3",
       },
     },
     "ref": null,
@@ -33,9 +33,9 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "classes": Object {
-          "button": "Connect-UpdatePost--button-1",
-          "container": "Connect-UpdatePost--container-2",
-          "textField": "Connect-UpdatePost--textField-3",
+          "button": "Connect-EditPost--button-1",
+          "container": "Connect-EditPost--container-2",
+          "textField": "Connect-EditPost--textField-3",
         },
       },
       "ref": null,

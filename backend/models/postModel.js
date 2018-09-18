@@ -16,12 +16,7 @@ const PostSchema = new Schema({
     required: true
   },
   likers: {
-    type: [
-      {
-        name: String,
-        _id: String
-      }
-    ],
+    type: [String],
     required: true
   },
   likesCount: {

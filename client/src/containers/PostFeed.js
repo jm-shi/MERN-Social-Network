@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 import PostList from '../components/PostList';
-import { deletePost, getPosts, updatePost } from '../actions/postsActions';
+import {
+  deletePost,
+  getPosts,
+  editPost,
+  updatePostLikes
+} from '../actions/postsActions';
 import { getFollowing } from '../actions/userActions';
 
 const mapStateToProps = state => ({
@@ -12,7 +17,9 @@ const mapDispatchToProps = dispatch => ({
   deletePost: id => dispatch(deletePost(id)),
   getFollowing: id => dispatch(getFollowing(id)),
   getPosts: () => dispatch(getPosts()),
-  updatePost: (id, text, author) => dispatch(updatePost(id, text, author))
+  editPost: (id, text, author) => dispatch(editPost(id, text, author)),
+  updatePostLikes: (action, postId, likerId) =>
+    dispatch(updatePostLikes(action, postId, likerId))
 });
 
 export default connect(

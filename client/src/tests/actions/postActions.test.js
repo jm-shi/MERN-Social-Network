@@ -53,14 +53,14 @@ describe('post actions', () => {
   it('should update a post', (done) => {
     const store = mockStore({});
     const expectedAction = {
-      type: types.UPDATE_POST,
+      type: types.EDIT_POST,
       id: '789',
       text: 'The text',
       author: 'The author'
     };
     mockAxiosSuccess({});
     store
-      .dispatch(actions.updatePost('789', 'The text', 'The author'))
+      .dispatch(actions.editPost('789', 'The text', 'The author'))
       .then(() => {
         const dispatchedAction = store.getActions();
         expect(dispatchedAction[0]).toEqual(expectedAction);

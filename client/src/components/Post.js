@@ -15,7 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
-import UpdatePost from '../containers/UpdatePost';
+import EditPost from '../containers/EditPost';
 import UserAvatar from './UserAvatar';
 
 const options = ['Edit', 'Delete'];
@@ -52,7 +52,6 @@ const styles = theme => ({
 class Post extends Component {
   state = {
     anchorEl: null,
-    isLiked: false,
     modalOpen: false
   };
 
@@ -79,13 +78,16 @@ class Post extends Component {
       author,
       authorId,
       avatarColor,
+      likers,
+      likesCount,
       timestamp,
       classes,
       signedInUserId,
       deletePost,
-      updatePost
+      editPost,
+      updatePostLikes
     } = this.props;
-    const { anchorEl, isLiked, modalOpen } = this.state;
+    const { anchorEl, modalOpen } = this.state;
     const open = Boolean(anchorEl);
     const relativeTime = moment(timestamp).fromNow();
     return (
@@ -149,10 +151,21 @@ class Post extends Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <div>
-            <IconButton aria-label="Like">
-              <LikeIcon style={isLiked ? { color: '#3f51b5' } : null} />
+            <IconButton
+              onClick={() =>
+                (likers.includes(signedInUserId)
+                  ? updatePostLikes('unlike', _id, signedInUserId)
+                  : updatePostLikes('like', _id, signedInUserId))
+              }
+              aria-label="Like"
+            >
+              <LikeIcon
+                style={
+                  likers.includes(signedInUserId) ? { color: '#3f51b5' } : null
+                }
+              />
             </IconButton>
-            0
+            {likesCount}
           </div>
         </CardActions>
 
@@ -171,11 +184,11 @@ class Post extends Component {
               Edit this post
             </Typography>
             <Typography variant="subheading" id="modal-description">
-              <UpdatePost
+              <EditPost
                 id={_id}
                 text={text}
                 author={author}
-                updatePost={updatePost}
+                editPost={editPost}
                 handleModalClose={this.handleModalClose}
               />
             </Typography>
@@ -188,15 +201,18 @@ class Post extends Component {
 
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
   author: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
   avatarColor: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
+  likers: PropTypes.array.isRequired,
+  likesCount: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
   signedInUserId: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
-  updatePost: PropTypes.func.isRequired
+  editPost: PropTypes.func.isRequired,
+  updatePostLikes: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Post);

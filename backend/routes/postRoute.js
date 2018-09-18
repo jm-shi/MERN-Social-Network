@@ -40,7 +40,7 @@ router.patch('/:id', (req, res) => {
         id,
         {
           $inc: { likesCount: 1 },
-          $addToSet: { likers: { name: req.body.name, _id: req.body.id } }
+          $addToSet: { likers: req.body.id }
         },
         { new: true },
         (err, post) => {
@@ -58,7 +58,7 @@ router.patch('/:id', (req, res) => {
         id,
         {
           $inc: { likesCount: -1 },
-          $pull: { likers: { _id: req.body.id } }
+          $pull: { likers: req.body.id }
         },
         { new: true },
         (err, post) => {

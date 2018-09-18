@@ -5,10 +5,11 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PostList
     deletePost={[Function]}
+    editPost={[Function]}
     getFollowing={[Function]}
     getPosts={[Function]}
     posts={Array []}
-    updatePost={[Function]}
+    updatePostLikes={[Function]}
     user={
         Object {
             "userId": "abc123",

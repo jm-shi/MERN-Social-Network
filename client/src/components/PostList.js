@@ -22,7 +22,7 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, deletePost, updatePost, user } = this.props;
+    const { posts, deletePost, editPost, updatePostLikes, user } = this.props;
     const { following, loading } = this.state;
 
     return loading ? (
@@ -39,11 +39,16 @@ class PostList extends Component {
                 author={post.author}
                 authorId={post.authorId}
                 avatarColor={post.avatarColor}
+                likers={post.likers}
+                likesCount={post.likesCount}
                 signedInUserId={user.userId}
                 text={post.text}
                 timestamp={post.timestamp}
                 deletePost={id => deletePost(id)}
-                updatePost={(id, text, author) => updatePost(id, text, author)}
+                editPost={(id, text, author) => editPost(id, text, author)}
+                updatePostLikes={(action, postId, likerId) =>
+                  updatePostLikes(action, postId, likerId)
+                }
               />
             ) : null)
         )}
@@ -62,13 +67,16 @@ PostList.propTypes = {
       _id: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       authorId: PropTypes.string.isRequired,
+      likers: PropTypes.array.isRequired,
+      likesCount: PropTypes.number.isRequired,
       text: PropTypes.string.isRequired,
       timestamp: PropTypes.number.isRequired
     })
   ),
   deletePost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
-  updatePost: PropTypes.func.isRequired,
+  updatePostLikes: PropTypes.func.isRequired,
   getFollowing: PropTypes.func.isRequired,
   user: PropTypes.shape({
     userId: PropTypes.string.isRequired

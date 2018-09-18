@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-export class UpdatePost extends Component {
+export class EditPost extends Component {
   /* eslint-disable react/destructuring-assignment */
   state = {
     postText: this.props.text
@@ -37,9 +37,9 @@ export class UpdatePost extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { postText } = this.state;
-    const { id, author, updatePost, handleModalClose } = this.props;
+    const { id, author, editPost, handleModalClose } = this.props;
     if (!postText.trim()) return;
-    updatePost(id, postText, author);
+    editPost(id, postText, author);
     handleModalClose();
   };
 
@@ -76,11 +76,11 @@ export class UpdatePost extends Component {
   }
 }
 
-UpdatePost.propTypes = {
+EditPost.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  updatePost: PropTypes.func.isRequired,
+  editPost: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
@@ -88,4 +88,4 @@ UpdatePost.propTypes = {
 export default compose(
   withStyles(styles),
   connect()
-)(UpdatePost);
+)(EditPost);

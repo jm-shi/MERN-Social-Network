@@ -11,9 +11,12 @@ it('should render Post', () => {
       author="testAuthor"
       authorId="123abc"
       avatarColor={7}
+      likers={[]}
+      likesCount={0}
       signedInUserId="123abcd"
       deletePost={jest.fn()}
-      updatePost={jest.fn()}
+      editPost={jest.fn()}
+      updatePostLikes={jest.fn()}
     />
   );
   expect(wrapper).toMatchSnapshot();

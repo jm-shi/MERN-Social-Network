@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import UpdatePost from '../../containers/UpdatePost';
+import EditPost from '../../containers/EditPost';
 
-it('should render UpdatePost component', () => {
-  const wrapper = shallow(<UpdatePost />);
+it('should render EditPost component', () => {
+  const wrapper = shallow(<EditPost />);
   expect(wrapper).toMatchSnapshot();
 });

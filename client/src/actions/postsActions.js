@@ -2,8 +2,9 @@ import axios from 'axios';
 import {
   GET_POSTS,
   CREATE_POST,
-  UPDATE_POST,
-  DELETE_POST
+  EDIT_POST,
+  DELETE_POST,
+  UPDATE_POST_LIKES
 } from './actionTypes';
 
 export const getPosts = () => dispatch =>
@@ -27,10 +28,10 @@ export const createPost = (text, user) => dispatch =>
         payload: res.data
       }));
 
-export const updatePost = (id, text, author) => dispatch =>
+export const editPost = (id, text, author) => dispatch =>
   axios.patch(`/posts/${id}`, { id, text, author }).then(res =>
     dispatch({
-      type: UPDATE_POST,
+      type: EDIT_POST,
       id,
       text,
       author
@@ -41,4 +42,11 @@ export const deletePost = id => dispatch =>
     dispatch({
       type: DELETE_POST,
       id
+    }));
+
+export const updatePostLikes = (action, postId, likerId) => dispatch =>
+  axios.patch(`/posts/${postId}`, { action, id: likerId }).then(res =>
+    dispatch({
+      type: UPDATE_POST_LIKES,
+      payload: res.data
     }));

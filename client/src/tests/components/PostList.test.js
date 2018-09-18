@@ -6,10 +6,11 @@ it('should render PostList', () => {
   const wrapper = shallow(
     <PostList
       deletePost={jest.fn()}
-      updatePost={jest.fn()}
+      editPost={jest.fn()}
       user={{ userId: 'abc123' }}
       getPosts={jest.fn(() => Promise.resolve('posts'))}
       getFollowing={jest.fn(() => Promise.resolve('following'))}
+      updatePostLikes={jest.fn()}
     />
   );
   expect(wrapper).toMatchSnapshot();
