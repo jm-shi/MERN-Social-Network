@@ -10,8 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import LikeIcon from '@material-ui/icons/ThumbUp';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -53,6 +52,7 @@ const styles = theme => ({
 class Post extends Component {
   state = {
     anchorEl: null,
+    isLiked: false,
     modalOpen: false
   };
 
@@ -85,7 +85,7 @@ class Post extends Component {
       deletePost,
       updatePost
     } = this.props;
-    const { anchorEl, modalOpen } = this.state;
+    const { anchorEl, isLiked, modalOpen } = this.state;
     const open = Boolean(anchorEl);
     const relativeTime = moment(timestamp).fromNow();
     return (
@@ -125,9 +125,9 @@ class Post extends Component {
                     <MenuItem
                       key={option}
                       onClick={() =>
-                        this.handleClose()
-                        || (option === 'Delete' ? deletePost(_id) : null)
-                        || (option === 'Edit' ? this.handleModalOpen() : null)
+                        this.handleClose() ||
+                        (option === 'Delete' ? deletePost(_id) : null) ||
+                        (option === 'Edit' ? this.handleModalOpen() : null)
                       }
                     >
                       {option}
@@ -148,12 +148,12 @@ class Post extends Component {
           <Typography>{text}</Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Like">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
+          <div>
+            <IconButton aria-label="Like">
+              <LikeIcon style={isLiked ? { color: '#3f51b5' } : null} />
+            </IconButton>
+            0
+          </div>
         </CardActions>
 
         <Modal

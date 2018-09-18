@@ -22,6 +22,9 @@ const UserSchema = new Schema({
   following: {
     type: [String]
   },
+  likedPosts: {
+    type: [String]
+  },
   name: {
     type: String,
     required: true

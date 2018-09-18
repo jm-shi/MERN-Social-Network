@@ -14,6 +14,8 @@ router.post('/', async (req, res) => {
     author: req.body.author || 'Anonymous',
     authorId: req.body.authorId,
     avatarColor: req.body.avatarColor || 0,
+    likers: [],
+    likesCount: 0,
     text: req.body.text,
     timestamp: new Date().getTime()
   });
@@ -32,24 +34,59 @@ router.patch('/:id', (req, res) => {
     return res.status(404).send();
   }
 
+  if (req.body.action === 'like') {
+    try {
+      return Post.findByIdAndUpdate(
+        id,
+        {
+          $inc: { likesCount: 1 },
+          $addToSet: { likers: { name: req.body.name, _id: req.body.id } }
+        },
+        { new: true },
+        (err, post) => {
+          if (err) return res.status(400).send(err);
+          return res.send(post);
+        }
+      );
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
+  if (req.body.action === 'unlike') {
+    try {
+      return Post.findByIdAndUpdate(
+        id,
+        {
+          $inc: { likesCount: -1 },
+          $pull: { likers: { _id: req.body.id } }
+        },
+        { new: true },
+        (err, post) => {
+          if (err) return res.status(400).send(err);
+          return res.send(post);
+        }
+      );
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
   try {
     return Post.findByIdAndUpdate(
       id,
       { $set: { text: req.body.text, author: req.body.author } },
       { new: true },
       (err, post) => {
-        if (err) return handleError(err);
+        if (err) return res.status(400).send(err);
         return res.send(post);
       }
     );
-  } catch (e) {
-    return res.status(400).send(e);
+  } catch (err) {
+    return res.status(400).send(err);
   }
 });
 
 router.delete('/:id', async (req, res) => {
   try {
-    console.log(req.params.id);
     const post = await Post.findById(req.params.id);
     await post.remove();
     return res.json({ success: true });

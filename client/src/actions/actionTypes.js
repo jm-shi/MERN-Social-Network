@@ -13,7 +13,7 @@ export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';
 // userActions
 export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const GET_FOLLOWING = 'GET_FOLLOWING';
-export const GET_USER = 'GET_USER';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_USER = 'GET_USER';
 export const UPDATE_FOLLOWERS = 'UPDATE_FOLLOWERS';
 export const UPDATE_FOLLOWING = 'UPDATE_FOLLOWING';
