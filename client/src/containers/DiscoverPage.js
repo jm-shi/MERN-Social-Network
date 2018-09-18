@@ -79,7 +79,10 @@ export class DiscoverPage extends Component {
     const { following, loading } = this.state;
 
     return loading ? (
-      <Loading />
+      <div>
+        <NavbarContainer />
+        <Loading />
+      </div>
     ) : (
       <div>
         <NavbarContainer />

@@ -34,11 +34,12 @@ router.post('/signup', async (req, res) => {
         return res.status(500).json({ error });
       }
       const newUser = new User({
-        name: req.body.name,
+        avatarColor: Math.floor(Math.random() * 18) + 1,
+        createdAt: new Date().getTime(),
         email: req.body.email,
+        name: req.body.name,
         password: hash,
-        passwordConfirm: hash,
-        avatarColor: Math.floor(Math.random() * 18) + 1
+        passwordConfirm: hash
       });
       return newUser
         .save()
@@ -80,6 +81,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign(
           {
             avatarColor: user.avatarColor,
+            createdAt: user.createdAt,
             name: user.name,
             email: user.email,
             userId: user._id
@@ -150,6 +152,7 @@ router.patch('/:id', async (req, res) => {
       {
         avatarColor: user.avatarColor,
         bio: user.bio,
+        createdAt: user.createdAt,
         name: user.name,
         email: user.email,
         userId: user._id

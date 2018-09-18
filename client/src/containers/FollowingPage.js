@@ -88,7 +88,10 @@ export class FollowingPage extends Component {
     const { followingIds, followingUsers, loading } = this.state;
 
     return loading ? (
-      <Loading />
+      <div>
+        <NavbarContainer />
+        <Loading />
+      </div>
     ) : (
       <div>
         <NavbarContainer />

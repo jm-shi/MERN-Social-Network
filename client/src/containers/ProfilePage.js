@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import compose from 'recompose/compose';
@@ -31,6 +32,11 @@ const styles = theme => ({
     height: '50vh',
     justifyContent: 'center',
     width: '100%'
+  },
+  date: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.5em'
+    }
   },
   editButton: {
     margin: theme.spacing.unit,
@@ -179,7 +185,10 @@ class ProfilePage extends Component {
     } = this.state;
 
     return loadingFollowers || loadingFollowing || loadingUser ? (
-      <Loading />
+      <div>
+        <NavbarContainer />
+        <Loading />
+      </div>
     ) : (
       <div>
         <NavbarContainer />
@@ -226,8 +235,10 @@ class ProfilePage extends Component {
                 <Typography variant="headline">Followers</Typography>
               </Paper>
               <Paper className={classes.paper}>
-                <Typography variant="display1">52.4k</Typography>
-                <Typography variant="headline">Views</Typography>
+                <Typography variant="display1" className={classes.date}>
+                  {moment(signedInUser.createdAt).format('l')}
+                </Typography>
+                <Typography variant="headline">Joined</Typography>
               </Paper>
             </Grid>
           </Grid>
@@ -309,10 +320,16 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
   getUsersYouAreFollowing: PropTypes.func.isRequired,
+  getYourFollowers: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
-  signedInUser: PropTypes.object.isRequired,
+  signedInUser: PropTypes.shape({
+    createdAt: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired
+  }).isRequired,
   retrieveUser: PropTypes.func.isRequired
 };
 

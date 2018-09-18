@@ -10,6 +10,10 @@ const UserSchema = new Schema({
   bio: {
     type: String
   },
+  createdAt: {
+    type: Number,
+    required: true
+  },
   email: {
     type: String,
     required: true,
@@ -20,9 +24,6 @@ const UserSchema = new Schema({
     type: [String]
   },
   following: {
-    type: [String]
-  },
-  likedPosts: {
     type: [String]
   },
   name: {
