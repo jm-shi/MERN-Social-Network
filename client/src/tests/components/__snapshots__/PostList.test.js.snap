@@ -8,6 +8,14 @@ ShallowWrapper {
     editPost={[Function]}
     getFollowing={[Function]}
     getPosts={[Function]}
+    history={
+        Object {
+            "location": Object {
+              "pathname": "",
+            },
+          }
+    }
+    onProfilePage={false}
     posts={Array []}
     updatePostLikes={[Function]}
     user={

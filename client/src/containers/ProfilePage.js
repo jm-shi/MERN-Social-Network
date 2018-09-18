@@ -20,6 +20,7 @@ import { getFollowers, getFollowing, getUser } from '../actions/userActions';
 import Loading from '../components/Loading';
 import NavbarContainer from './NavbarContainer';
 import UserAvatar from '../components/UserAvatar';
+import PostFeed from './PostFeed';
 
 const styles = theme => ({
   backgroundContainer: {
@@ -169,7 +170,7 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const { classes, signedInUser } = this.props;
+    const { classes, history, signedInUser } = this.props;
     const {
       avatarColor,
       displayedBio,
@@ -243,6 +244,7 @@ class ProfilePage extends Component {
             </Grid>
           </Grid>
         </Grid>
+        <PostFeed onProfilePage history={history} />
         <Modal
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
