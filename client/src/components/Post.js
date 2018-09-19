@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import * as moment from 'moment';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +9,9 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import CommentIcon from '@material-ui/icons/Comment';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import LikeIcon from '@material-ui/icons/ThumbUp';
@@ -15,8 +19,11 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Modal from '@material-ui/core/Modal';
+
 import EditPost from '../containers/EditPost';
 import UserAvatar from './UserAvatar';
+
+import Comments from './Comments';
 
 const options = ['Edit', 'Delete'];
 const ITEM_HEIGHT = 48;
@@ -32,6 +39,19 @@ const styles = theme => ({
   link: {
     color: '#000',
     textDecoration: 'none'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    }),
+    marginLeft: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: -8
+    }
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
   },
   paper: {
     position: 'absolute',
@@ -52,6 +72,7 @@ const styles = theme => ({
 class Post extends Component {
   state = {
     anchorEl: null,
+    expanded: false,
     modalOpen: false
   };
 
@@ -61,6 +82,10 @@ class Post extends Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+  };
+
+  handleExpandClick = () => {
+    this.setState(state => ({ expanded: !state.expanded }));
   };
 
   handleModalOpen = () => {
@@ -87,7 +112,7 @@ class Post extends Component {
       editPost,
       updatePostLikes
     } = this.props;
-    const { anchorEl, modalOpen } = this.state;
+    const { anchorEl, expanded, modalOpen } = this.state;
     const open = Boolean(anchorEl);
     const relativeTime = moment(timestamp).fromNow();
     return (
@@ -167,7 +192,26 @@ class Post extends Component {
             </IconButton>
             {likesCount}
           </div>
+          <div style={{ marginLeft: '20px' }}>
+            <IconButton onClick={this.handleExpandClick}>
+              <CommentIcon />
+            </IconButton>
+            0
+          </div>
+          <IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: expanded
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
         </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Comments />
+        </Collapse>
 
         <Modal
           aria-labelledby="modal-title"
