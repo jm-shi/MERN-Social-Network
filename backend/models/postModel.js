@@ -15,6 +15,16 @@ const PostSchema = new Schema({
     type: Number,
     required: true
   },
+  comments: {
+    type: [
+      {
+        commenterId: String,
+        text: String,
+        timestamp: String
+      }
+    ],
+    required: true
+  },
   likers: {
     type: [String],
     required: true

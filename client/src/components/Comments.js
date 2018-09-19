@@ -47,13 +47,13 @@ class Comments extends Component {
     text: ''
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { value } = e.target;
     console.log(value);
     this.setState(() => ({ text: value }));
   };
 
-  postComment = e => {
+  postComment = (e) => {
     e.preventDefault();
     console.log('post comment');
   };

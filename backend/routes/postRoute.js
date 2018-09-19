@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {
     author: req.body.author || 'Anonymous',
     authorId: req.body.authorId,
     avatarColor: req.body.avatarColor || 0,
+    comments: [],
     likers: [],
     likesCount: 0,
     text: req.body.text,
@@ -70,6 +71,73 @@ router.patch('/:id', (req, res) => {
       return res.status(400).send(err);
     }
   }
+
+  if (req.body.action === 'addComment') {
+    try {
+      return Post.findByIdAndUpdate(
+        id,
+        {
+          $addToSet: {
+            comments: {
+              commenterId: req.body.commenterId,
+              text: req.body.text,
+              timestamp: new Date().getTime()
+            }
+          }
+        },
+        { new: true },
+        (err, post) => {
+          if (err) return res.status(400).send(err);
+          return res.send(post);
+        }
+      );
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
+
+  if (req.body.action === 'deleteComment') {
+    try {
+      return Post.findByIdAndUpdate(
+        id,
+        {
+          $pull: {
+            comments: {
+              _id: req.body.commentId
+            }
+          }
+        },
+        { new: true },
+        (err, post) => {
+          if (err) return res.status(400).send(err);
+          return res.send(post);
+        }
+      );
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
+
+  if (req.body.action === 'editComment') {
+    try {
+      return Post.findById(id, (err, post) => {
+        const { comments } = post;
+        const theComment = comments.find(comment =>
+          comment._id.equals(req.body.commentId));
+
+        if (!theComment) return res.status(404).send('Comment not found');
+        theComment.text = req.body.text;
+
+        return post.save((error) => {
+          if (error) return res.status(500).send(error);
+          return res.status(200).send(post);
+        });
+      });
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  }
+
   try {
     return Post.findByIdAndUpdate(
       id,
