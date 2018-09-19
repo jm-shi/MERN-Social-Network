@@ -39,7 +39,8 @@ router.post('/signup', async (req, res) => {
         email: req.body.email,
         name: req.body.name,
         password: hash,
-        passwordConfirm: hash
+        passwordConfirm: hash,
+        showEmail: true
       });
       return newUser
         .save()
@@ -84,6 +85,7 @@ router.post('/login', async (req, res) => {
             createdAt: user.createdAt,
             name: user.name,
             email: user.email,
+            showEmail: user.showEmail,
             userId: user._id
           },
           process.env.REACT_APP_JWT_KEY || require('../secrets').jwtKey,
@@ -132,7 +134,8 @@ router.patch('/:id', async (req, res) => {
         $set: {
           bio: req.body.bio || '',
           email: req.body.email,
-          name: req.body.name
+          name: req.body.name,
+          showEmail: req.body.showEmail
         }
       },
       { new: true, upsert: true, setDefaultsOnInsert: true },
@@ -155,6 +158,7 @@ router.patch('/:id', async (req, res) => {
         createdAt: user.createdAt,
         name: user.name,
         email: user.email,
+        showEmail: user.showEmail,
         userId: user._id
       },
       process.env.REACT_APP_JWT_KEY || require('../secrets').jwtKey,

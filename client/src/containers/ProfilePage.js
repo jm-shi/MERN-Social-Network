@@ -8,9 +8,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -87,17 +89,19 @@ class ProfilePage extends Component {
     avatarColor: 0,
     bio: '',
     displayedBio: '',
+    displayedEmail: '',
+    displayedName: '',
     email: '',
     followers: [],
     following: [],
-    displayedEmail: '',
     loadingFollowers: true,
     loadingFollowing: true,
     loadingUser: true,
     modalOpen: false,
-    profileId: '',
     name: '',
-    displayedName: ''
+    profileId: '',
+    showEmail: false,
+    showEmailSavedResult: false
   };
 
   componentDidMount = () => {
@@ -133,12 +137,14 @@ class ProfilePage extends Component {
         avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
         displayedBio: res.payload.user.bio,
-        email: res.payload.user.email,
         displayedEmail: res.payload.user.email,
+        displayedName: res.payload.user.name,
+        email: res.payload.user.email,
         loadingUser: false,
         name: res.payload.user.name,
-        displayedName: res.payload.user.name,
-        profileId: res.payload.user._id
+        profileId: res.payload.user._id,
+        showEmail: res.payload.user.showEmail,
+        showEmailSavedResult: res.payload.user.showEmail
       });
     });
   };
@@ -156,21 +162,29 @@ class ProfilePage extends Component {
     this.setState(() => ({ [name]: value }));
   };
 
+  handleSwitchChange = (e) => {
+    const { value } = e.target;
+    this.setState({
+      [value]: e.target.checked
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { updateUser, signedInUser } = this.props;
-    const { bio, email, name } = this.state;
-    updateUser(bio, email, name, signedInUser.userId);
+    const { bio, email, name, showEmail } = this.state;
+    updateUser(bio, email, name, signedInUser.userId, showEmail);
     this.setState({
       displayedBio: bio,
       displayedEmail: email,
-      displayedName: name
+      displayedName: name,
+      showEmailSavedResult: showEmail
     });
     this.handleModalClose();
   };
 
   render() {
-    const { classes, history, signedInUser } = this.props;
+    const { classes, match, signedInUser } = this.props;
     const {
       avatarColor,
       displayedBio,
@@ -182,7 +196,9 @@ class ProfilePage extends Component {
       loadingFollowing,
       loadingUser,
       modalOpen,
-      profileId
+      profileId,
+      showEmail,
+      showEmailSavedResult
     } = this.state;
 
     return loadingFollowers || loadingFollowing || loadingUser ? (
@@ -219,7 +235,9 @@ class ProfilePage extends Component {
                 avatarColor={avatarColor}
               />
               <Typography variant="headline">{displayedName}</Typography>
-              <Typography>{displayedEmail}</Typography>
+              {showEmailSavedResult ? (
+                <Typography>{displayedEmail}</Typography>
+              ) : null}
               <Typography>{displayedBio}</Typography>
             </CardContent>
           </Card>
@@ -244,7 +262,7 @@ class ProfilePage extends Component {
             </Grid>
           </Grid>
         </Grid>
-        <PostFeed onProfilePage history={history} />
+        <PostFeed onProfilePage match={match} />
         <Modal
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
@@ -276,31 +294,28 @@ class ProfilePage extends Component {
                 onChange={this.handleChange}
                 placeholder="What is your name?"
               />
-              {/*
-              <TextField
-                required
-                fullWidth
-                className={classes.textField}
-                defaultValue={signedInUser.email}
-                id="email"
-                label="Email"
-                margin="normal"
-                name="email"
-                onChange={this.handleChange}
-                placeholder="This email is used to log in to your account."
-              />
-              */}
               <TextField
                 fullWidth
                 multiline
                 className={classes.textField}
-                defaultValue={signedInUser.bio}
+                defaultValue={displayedBio}
                 id="bio"
                 label="Bio"
                 margin="normal"
                 name="bio"
                 onChange={this.handleChange}
                 placeholder="Describe yourself."
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showEmail}
+                    onChange={this.handleSwitchChange}
+                    color="primary"
+                    value="showEmail"
+                  />
+                }
+                label="Show email"
               />
               <Button
                 fullWidth
@@ -343,8 +358,8 @@ const mapDispatchToProps = dispatch => ({
   getUsersYouAreFollowing: id => dispatch(getFollowing(id)),
   getYourFollowers: id => dispatch(getFollowers(id)),
   retrieveUser: userId => dispatch(getUser(userId)),
-  updateUser: (bio, email, name, id) =>
-    dispatch(updateCurrentUser(bio, email, name, id))
+  updateUser: (bio, email, name, id, showEmail) =>
+    dispatch(updateCurrentUser(bio, email, name, id, showEmail))
 });
 
 export default compose(

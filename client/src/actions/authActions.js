@@ -52,9 +52,15 @@ export const setCurrentUser = decoded => ({
   payload: decoded
 });
 
-export const updateCurrentUser = (bio, email, name, userId) => (dispatch) => {
+export const updateCurrentUser = (
+  bio,
+  email,
+  name,
+  userId,
+  showEmail
+) => (dispatch) => {
   axios
-    .patch(`/users/${userId}`, { bio, email, name })
+    .patch(`/users/${userId}`, { bio, email, name, showEmail })
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
@@ -62,11 +68,7 @@ export const updateCurrentUser = (bio, email, name, userId) => (dispatch) => {
       const decoded = jwtDecode(token);
       dispatch(setCurrentUser(decoded));
     })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      }));
+    .catch(err => console.log(err));
 };
 
 export const logoutUser = () => (dispatch) => {

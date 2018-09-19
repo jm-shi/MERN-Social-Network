@@ -37,6 +37,10 @@ const UserSchema = new Schema({
   passwordConfirm: {
     type: String,
     required: true
+  },
+  showEmail: {
+    type: Boolean,
+    required: true
   }
 });
 

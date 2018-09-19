@@ -51,7 +51,6 @@ export default (state = initialState, action) => {
       };
     }
     case UPDATE_POST_LIKES: {
-      console.log('update post likes', action);
       return {
         ...state,
         posts: state.posts.map((post) => {

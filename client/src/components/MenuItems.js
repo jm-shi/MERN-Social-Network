@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/Face';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import GroupIcon from '@material-ui/icons/GroupAdd';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
@@ -52,12 +51,6 @@ export const FolderListItems = ({ user }) => (
 
 export const OtherFolderListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <FavoriteIcon />
-      </ListItemIcon>
-      <ListItemText primary="Favorited Posts" />
-    </ListItem>
     <Link style={{ textDecoration: 'none' }} to="/settings">
       <ListItem button>
         <ListItemIcon>

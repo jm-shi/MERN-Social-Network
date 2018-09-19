@@ -8,10 +8,10 @@ ShallowWrapper {
     editPost={[Function]}
     getFollowing={[Function]}
     getPosts={[Function]}
-    history={
+    match={
         Object {
-            "location": Object {
-              "pathname": "",
+            "params": Object {
+              "id": "",
             },
           }
     }

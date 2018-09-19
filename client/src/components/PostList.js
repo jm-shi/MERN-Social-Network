@@ -27,11 +27,11 @@ class PostList extends Component {
     followingList,
     onProfilePage,
     postAuthorId,
-    signedInUserId,
-    history
+    signedInUserId
   ) => {
     if (onProfilePage) {
-      const userProfileId = history.location.pathname.split('/').pop();
+      const { match } = this.props;
+      const userProfileId = match.params.id;
       return postAuthorId === userProfileId;
     }
     return (
@@ -44,7 +44,6 @@ class PostList extends Component {
       posts,
       deletePost,
       editPost,
-      history,
       updatePostLikes,
       user,
       onProfilePage
@@ -61,8 +60,7 @@ class PostList extends Component {
               following,
               onProfilePage,
               post.authorId,
-              user.userId,
-              history
+              user.userId
             ) ? (
               <Post
                 key={post._id}
@@ -90,9 +88,9 @@ class PostList extends Component {
 
 PostList.defaultProps = {
   posts: [],
-  history: {
-    location: {
-      pathname: ''
+  match: {
+    params: {
+      id: ''
     }
   },
   onProfilePage: false
@@ -113,10 +111,10 @@ PostList.propTypes = {
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired
-    }).isRequired
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
   }),
   onProfilePage: PropTypes.bool,
   updatePostLikes: PropTypes.func.isRequired,
