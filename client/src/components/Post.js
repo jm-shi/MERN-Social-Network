@@ -110,19 +110,20 @@ class Post extends Component {
 
   render() {
     const {
-      text,
       _id,
-      authorId,
-      comments,
-      likers,
-      likesCount,
-      timestamp,
-      classes,
-      signedInUserId,
       addComment,
+      deleteComment,
+      authorId,
+      classes,
+      comments,
       deletePost,
       editPost,
       getUser,
+      likers,
+      likesCount,
+      signedInUserId,
+      text,
+      timestamp,
       updatePostLikes
     } = this.props;
     const { anchorEl, avatarColor, expanded, modalOpen, name } = this.state;
@@ -228,6 +229,7 @@ class Post extends Component {
             addComment={addComment}
             comments={comments}
             commenterId={signedInUserId}
+            deleteComment={deleteComment}
             getUser={getUser}
             postId={_id}
           />
@@ -269,18 +271,19 @@ Post.defaultProps = {
 
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
-  authorId: PropTypes.string.isRequired,
-  comments: PropTypes.array,
-  likers: PropTypes.array.isRequired,
-  likesCount: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired,
-  signedInUserId: PropTypes.string.isRequired,
   addComment: PropTypes.func.isRequired,
+  authorId: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  comments: PropTypes.array,
+  deleteComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
+  likers: PropTypes.array.isRequired,
+  likesCount: PropTypes.number.isRequired,
+  signedInUserId: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
   updatePostLikes: PropTypes.func.isRequired
 };
 

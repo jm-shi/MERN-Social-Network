@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PostList from '../components/PostList';
 import {
   addComment,
+  deleteComment,
   deletePost,
   getPosts,
   editPost,
@@ -17,6 +18,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addComment: (action, commenterId, postId, text, timestamp) =>
     dispatch(addComment(action, commenterId, postId, text, timestamp)),
+  deleteComment: (action, commentId, postId) =>
+    dispatch(deleteComment(action, commentId, postId)),
   deletePost: id => dispatch(deletePost(id)),
   getFollowing: id => dispatch(getFollowing(id)),
   getPosts: () => dispatch(getPosts()),

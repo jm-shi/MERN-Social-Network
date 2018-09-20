@@ -1,5 +1,6 @@
 import {
   ADD_COMMENT,
+  DELETE_COMMENT,
   GET_POSTS,
   CREATE_POST,
   EDIT_POST,
@@ -23,6 +24,9 @@ export default (state = initialState, action) => {
               comments: [
                 ...post.comments,
                 {
+                  _id:
+                    action.payload.comments[action.payload.comments.length - 1]
+                      ._id,
                   commenterId: action.commenterId,
                   text: action.text,
                   timestamp: action.timestamp
@@ -33,7 +37,19 @@ export default (state = initialState, action) => {
           return post;
         })
       };
-
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return {
+              ...post,
+              comments: action.payload.comments
+            };
+          }
+          return post;
+        })
+      };
     case GET_POSTS:
       return {
         ...initialState,

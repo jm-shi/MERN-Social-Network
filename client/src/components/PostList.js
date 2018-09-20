@@ -42,6 +42,7 @@ class PostList extends Component {
   render() {
     const {
       addComment,
+      deleteComment,
       deletePost,
       editPost,
       getUser,
@@ -79,6 +80,9 @@ class PostList extends Component {
                 addComment={(action, commenterId, postId, text, timestamp) =>
                   addComment(action, commenterId, postId, text, timestamp)
                 }
+                deleteComment={(action, commentId, postId) =>
+                  deleteComment(action, commentId, postId)
+                }
                 deletePost={id => deletePost(id)}
                 editPost={(id, text, author) => editPost(id, text, author)}
                 getUser={id => getUser(id)}
@@ -109,6 +113,7 @@ PostList.defaultProps = {
 
 PostList.propTypes = {
   addComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,

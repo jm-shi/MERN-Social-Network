@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
 
 import CommentBody from './CommentBody';
 import CommentField from './CommentField';
 
 class Comments extends Component {
   render() {
-    const { addComment, commenterId, comments, postId, getUser } = this.props;
+    const {
+      addComment,
+      commenterId,
+      comments,
+      deleteComment,
+      postId,
+      getUser
+    } = this.props;
 
     return (
       <div>
@@ -15,9 +21,12 @@ class Comments extends Component {
 
         {comments.map(comment => (
           <CommentBody
-            key={comment._id || uuid()}
+            key={comment._id}
+            commentId={comment._id}
             commenterId={comment.commenterId}
+            deleteComment={deleteComment}
             getUser={getUser}
+            postId={postId}
             text={comment.text}
             timestamp={comment.timestamp}
           />
@@ -42,6 +51,7 @@ Comments.propTypes = {
   addComment: PropTypes.func.isRequired,
   commenterId: PropTypes.string.isRequired,
   comments: PropTypes.array,
+  deleteComment: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired
 };

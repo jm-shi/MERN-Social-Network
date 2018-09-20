@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import UserAvatar from './UserAvatar';
@@ -45,7 +46,16 @@ class CommentBody extends Component {
   };
 
   render() {
-    const { classes, commenterId, getUser, timestamp, text } = this.props;
+    const {
+      classes,
+      commentId,
+      commenterId,
+      deleteComment,
+      getUser,
+      postId,
+      timestamp,
+      text
+    } = this.props;
     const { avatarColor, name } = this.state;
 
     return (
@@ -65,6 +75,11 @@ class CommentBody extends Component {
               {moment(timestamp).fromNow()}
             </div>
             <div className={classes.commentText}>{text}</div>
+            <Button
+              onClick={() => deleteComment('deleteComment', commentId, postId)}
+            >
+              Delete
+            </Button>
           </div>
         }
         className={classes.cardHeader}
@@ -75,8 +90,11 @@ class CommentBody extends Component {
 
 CommentBody.propTypes = {
   classes: PropTypes.object.isRequired,
+  commentId: PropTypes.string.isRequired,
   commenterId: PropTypes.string.isRequired,
+  deleteComment: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
+  postId: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired
 };
