@@ -83,6 +83,7 @@ export class FollowingPage extends Component {
       authReducer,
       classes,
       followThisUser,
+      getCurrUser,
       unfollowThisUser
     } = this.props;
     const { followingIds, followingUsers, loading } = this.state;
@@ -105,6 +106,7 @@ export class FollowingPage extends Component {
                       <UserCard
                         isFollowing={followingIds.includes(user._id)}
                         followUser={followThisUser}
+                        getUser={getCurrUser}
                         listedUser={user}
                         signedInUser={authReducer.user}
                         unfollowUser={unfollowThisUser}
