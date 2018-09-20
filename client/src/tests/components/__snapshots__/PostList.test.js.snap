@@ -4,10 +4,12 @@ exports[`should render PostList 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PostList
+    addComment={[Function]}
     deletePost={[Function]}
     editPost={[Function]}
     getFollowing={[Function]}
     getPosts={[Function]}
+    getUser={[Function]}
     match={
         Object {
             "params": Object {

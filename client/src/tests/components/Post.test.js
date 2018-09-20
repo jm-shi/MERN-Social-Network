@@ -6,16 +6,19 @@ it('should render Post', () => {
   const wrapper = shallow(
     <Post
       _id="1"
-      text="testText"
-      timestamp={12345}
+      addComment={jest.fn()}
       author="testAuthor"
       authorId="123abc"
       avatarColor={7}
+      comments={[]}
+      deletePost={jest.fn()}
+      editPost={jest.fn()}
+      getUser={jest.fn()}
       likers={[]}
       likesCount={0}
       signedInUserId="123abcd"
-      deletePost={jest.fn()}
-      editPost={jest.fn()}
+      text="testText"
+      timestamp={12345}
       updatePostLikes={jest.fn()}
     />
   );

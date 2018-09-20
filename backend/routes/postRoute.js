@@ -74,6 +74,8 @@ router.patch('/:id', (req, res) => {
 
   if (req.body.action === 'addComment') {
     try {
+      console.log('the id is', id);
+      console.log('the req is', req);
       return Post.findByIdAndUpdate(
         id,
         {
@@ -88,6 +90,7 @@ router.patch('/:id', (req, res) => {
         { new: true },
         (err, post) => {
           if (err) return res.status(400).send(err);
+          console.log('the post is', post);
           return res.send(post);
         }
       );
@@ -123,12 +126,13 @@ router.patch('/:id', (req, res) => {
       return Post.findById(id, (err, post) => {
         const { comments } = post;
         const theComment = comments.find(comment =>
-          comment._id.equals(req.body.commentId));
+          comment._id.equals(req.body.commentId)
+        );
 
         if (!theComment) return res.status(404).send('Comment not found');
         theComment.text = req.body.text;
 
-        return post.save((error) => {
+        return post.save(error => {
           if (error) return res.status(500).send(error);
           return res.status(200).send(post);
         });

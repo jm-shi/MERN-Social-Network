@@ -5,11 +5,14 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <WithStyles(Post)
     _id="1"
+    addComment={[Function]}
     author="testAuthor"
     authorId="123abc"
     avatarColor={7}
+    comments={Array []}
     deletePost={[Function]}
     editPost={[Function]}
+    getUser={[Function]}
     likers={Array []}
     likesCount={0}
     signedInUserId="123abcd"
@@ -30,6 +33,7 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "_id": "1",
+      "addComment": [Function],
       "author": "testAuthor",
       "authorId": "123abc",
       "avatarColor": 7,
@@ -42,8 +46,10 @@ ShallowWrapper {
         "paper": "Post-paper-6",
         "spacing": "Post-spacing-7",
       },
+      "comments": Array [],
       "deletePost": [Function],
       "editPost": [Function],
+      "getUser": [Function],
       "likers": Array [],
       "likesCount": 0,
       "signedInUserId": "123abcd",
@@ -62,6 +68,7 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "_id": "1",
+        "addComment": [Function],
         "author": "testAuthor",
         "authorId": "123abc",
         "avatarColor": 7,
@@ -74,8 +81,10 @@ ShallowWrapper {
           "paper": "Post-paper-6",
           "spacing": "Post-spacing-7",
         },
+        "comments": Array [],
         "deletePost": [Function],
         "editPost": [Function],
+        "getUser": [Function],
         "likers": Array [],
         "likesCount": 0,
         "signedInUserId": "123abcd",

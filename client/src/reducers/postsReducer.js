@@ -1,4 +1,5 @@
 import {
+  ADD_COMMENT,
   GET_POSTS,
   CREATE_POST,
   EDIT_POST,
@@ -12,6 +13,27 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ADD_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return {
+              ...post,
+              comments: [
+                ...post.comments,
+                {
+                  commenterId: action.commenterId,
+                  text: action.text,
+                  timestamp: action.timestamp
+                }
+              ]
+            };
+          }
+          return post;
+        })
+      };
+
     case GET_POSTS:
       return {
         ...initialState,

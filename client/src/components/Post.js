@@ -103,13 +103,16 @@ class Post extends Component {
       author,
       authorId,
       avatarColor,
+      comments,
       likers,
       likesCount,
       timestamp,
       classes,
       signedInUserId,
+      addComment,
       deletePost,
       editPost,
+      getUser,
       updatePostLikes
     } = this.props;
     const { anchorEl, expanded, modalOpen } = this.state;
@@ -210,7 +213,13 @@ class Post extends Component {
           </IconButton>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <Comments />
+          <Comments
+            addComment={addComment}
+            comments={comments}
+            commenterId={signedInUserId}
+            getUser={getUser}
+            postId={_id}
+          />
         </Collapse>
 
         <Modal
@@ -249,13 +258,16 @@ Post.propTypes = {
   author: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
   avatarColor: PropTypes.number.isRequired,
+  comments: PropTypes.array.isRequired,
   likers: PropTypes.array.isRequired,
   likesCount: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,
   signedInUserId: PropTypes.string.isRequired,
+  addComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
   updatePostLikes: PropTypes.func.isRequired
 };
 

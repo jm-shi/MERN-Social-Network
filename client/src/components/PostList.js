@@ -41,12 +41,14 @@ class PostList extends Component {
 
   render() {
     const {
-      posts,
+      addComment,
       deletePost,
       editPost,
+      getUser,
+      posts,
       updatePostLikes,
-      user,
-      onProfilePage
+      onProfilePage,
+      user
     } = this.props;
     const { following, loading } = this.state;
 
@@ -68,13 +70,18 @@ class PostList extends Component {
                 author={post.author}
                 authorId={post.authorId}
                 avatarColor={post.avatarColor}
+                comments={post.comments}
                 likers={post.likers}
                 likesCount={post.likesCount}
                 signedInUserId={user.userId}
                 text={post.text}
                 timestamp={post.timestamp}
+                addComment={(action, commenterId, postId, text, timestamp) =>
+                  addComment(action, commenterId, postId, text, timestamp)
+                }
                 deletePost={id => deletePost(id)}
                 editPost={(id, text, author) => editPost(id, text, author)}
+                getUser={id => getUser(id)}
                 updatePostLikes={(action, postId, likerId) =>
                   updatePostLikes(action, postId, likerId)
                 }
@@ -97,17 +104,7 @@ PostList.defaultProps = {
 };
 
 PostList.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-      authorId: PropTypes.string.isRequired,
-      likers: PropTypes.array.isRequired,
-      likesCount: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      timestamp: PropTypes.number.isRequired
-    })
-  ),
+  addComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
@@ -117,8 +114,21 @@ PostList.propTypes = {
     })
   }),
   onProfilePage: PropTypes.bool,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      authorId: PropTypes.string.isRequired,
+      comments: PropTypes.array.isRequired,
+      likers: PropTypes.array.isRequired,
+      likesCount: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      timestamp: PropTypes.number.isRequired
+    })
+  ),
   updatePostLikes: PropTypes.func.isRequired,
   getFollowing: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
   user: PropTypes.shape({
     userId: PropTypes.string.isRequired
   }).isRequired

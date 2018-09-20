@@ -1,11 +1,30 @@
 import axios from 'axios';
 import {
+  ADD_COMMENT,
   GET_POSTS,
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
   UPDATE_POST_LIKES
 } from './actionTypes';
+
+export const addComment = (
+  action,
+  commenterId,
+  postId,
+  text,
+  timestamp
+) => dispatch =>
+  axios
+    .patch(`/posts/${postId}`, { action, commenterId, text, timestamp })
+    .then(res =>
+      dispatch({
+        type: ADD_COMMENT,
+        payload: res.data,
+        commenterId,
+        text,
+        timestamp
+      }));
 
 export const getPosts = () => dispatch =>
   axios.get('/posts').then(res =>

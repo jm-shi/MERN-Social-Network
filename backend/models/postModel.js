@@ -20,7 +20,7 @@ const PostSchema = new Schema({
       {
         commenterId: String,
         text: String,
-        timestamp: String
+        timestamp: Number
       }
     ],
     required: true
