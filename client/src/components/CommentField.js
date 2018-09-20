@@ -47,7 +47,6 @@ class CommentField extends Component {
 
   handleChange = (e) => {
     const { value } = e.target;
-    console.log(value);
     this.setState(() => ({ text: value }));
   };
 

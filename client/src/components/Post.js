@@ -80,7 +80,7 @@ class Post extends Component {
 
   componentDidMount = () => {
     const { authorId, getUser } = this.props;
-    getUser(authorId).then(res => {
+    getUser(authorId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
         name: res.payload.user.name
@@ -88,7 +88,7 @@ class Post extends Component {
     });
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -192,9 +192,9 @@ class Post extends Component {
           <div>
             <IconButton
               onClick={() =>
-                likers.includes(signedInUserId)
+                (likers.includes(signedInUserId)
                   ? updatePostLikes('unlike', _id, signedInUserId)
-                  : updatePostLikes('like', _id, signedInUserId)
+                  : updatePostLikes('like', _id, signedInUserId))
               }
               aria-label="Like"
             >
@@ -210,7 +210,7 @@ class Post extends Component {
             <IconButton onClick={this.handleExpandClick}>
               <CommentIcon />
             </IconButton>
-            0
+            {comments.length}
           </div>
           <IconButton
             className={classnames(classes.expand, {
@@ -263,11 +263,15 @@ class Post extends Component {
   }
 }
 
+Post.defaultProps = {
+  comments: []
+};
+
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   authorId: PropTypes.string.isRequired,
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.array,
   likers: PropTypes.array.isRequired,
   likesCount: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,

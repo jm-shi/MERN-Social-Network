@@ -94,7 +94,11 @@ class PostList extends Component {
 }
 
 PostList.defaultProps = {
-  posts: [],
+  posts: [
+    {
+      comments: []
+    }
+  ],
   match: {
     params: {
       id: ''
@@ -119,7 +123,7 @@ PostList.propTypes = {
       _id: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       authorId: PropTypes.string.isRequired,
-      comments: PropTypes.array.isRequired,
+      comments: PropTypes.array,
       likers: PropTypes.array.isRequired,
       likesCount: PropTypes.number.isRequired,
       text: PropTypes.string.isRequired,

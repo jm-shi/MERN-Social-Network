@@ -11,6 +11,17 @@ it('should render PostList', () => {
       getPosts={jest.fn(() => Promise.resolve('posts'))}
       getFollowing={jest.fn(() => Promise.resolve('following'))}
       getUser={jest.fn()}
+      posts={[
+        {
+          _id: '',
+          author: '',
+          authorId: '',
+          likers: [],
+          likesCount: 0,
+          text: '',
+          timestamp: 0
+        }
+      ]}
       updatePostLikes={jest.fn()}
       user={{ userId: 'abc123' }}
     />

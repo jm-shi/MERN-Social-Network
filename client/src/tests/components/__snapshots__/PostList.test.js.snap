@@ -18,7 +18,19 @@ ShallowWrapper {
           }
     }
     onProfilePage={false}
-    posts={Array []}
+    posts={
+        Array [
+            Object {
+              "_id": "",
+              "author": "",
+              "authorId": "",
+              "likers": Array [],
+              "likesCount": 0,
+              "text": "",
+              "timestamp": 0,
+            },
+          ]
+    }
     updatePostLikes={[Function]}
     user={
         Object {

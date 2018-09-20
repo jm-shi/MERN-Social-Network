@@ -54,7 +54,13 @@ describe('posts reducer', () => {
       type: CREATE_POST,
       payload: {
         author: 'Wendy',
+        authorId: '123',
+        avatarColor: 0,
+        comments: [],
+        likers: [],
+        likesCount: 0,
         text: 'How are you?',
+        timestamp: 0,
         _id: '1000'
       }
     };
@@ -63,7 +69,13 @@ describe('posts reducer', () => {
       posts: [
         {
           author: 'Wendy',
+          authorId: '123',
+          avatarColor: 0,
+          comments: [],
+          likers: [],
+          likesCount: 0,
           text: 'How are you?',
+          timestamp: 0,
           _id: '1000'
         },
         {

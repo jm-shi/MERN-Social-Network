@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 
 import CommentBody from './CommentBody';
 import CommentField from './CommentField';
@@ -11,16 +12,10 @@ class Comments extends Component {
     return (
       <div>
         <hr />
-        <CommentField
-          addComment={addComment}
-          commenterId={commenterId}
-          getUser={getUser}
-          postId={postId}
-        />
 
         {comments.map(comment => (
           <CommentBody
-            key={comment._id || new Date().getTime()}
+            key={comment._id || uuid()}
             commenterId={comment.commenterId}
             getUser={getUser}
             text={comment.text}
@@ -28,7 +23,12 @@ class Comments extends Component {
           />
         ))}
 
-        <br />
+        <CommentField
+          addComment={addComment}
+          commenterId={commenterId}
+          getUser={getUser}
+          postId={postId}
+        />
       </div>
     );
   }

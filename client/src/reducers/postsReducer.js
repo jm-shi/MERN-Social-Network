@@ -48,6 +48,7 @@ export default (state = initialState, action) => {
             author: action.payload.author,
             authorId: action.payload.authorId,
             avatarColor: action.payload.avatarColor,
+            comments: [],
             likers: action.payload.likers,
             likesCount: action.payload.likesCount,
             text: action.payload.text,
