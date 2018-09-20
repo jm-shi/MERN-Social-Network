@@ -118,21 +118,21 @@ class ProfilePage extends Component {
     } = this.props;
     const userId = match.params.id;
 
-    getUsersYouAreFollowing(userId).then((res) => {
+    getUsersYouAreFollowing(userId).then(res => {
       this.setState({
         following: res.payload.user.following,
         loadingFollowing: false
       });
     });
 
-    getYourFollowers(userId).then((res) => {
+    getYourFollowers(userId).then(res => {
       this.setState({
         followers: res.payload.user.followers,
         loadingFollowers: false
       });
     });
 
-    return retrieveUser(userId).then((res) => {
+    return retrieveUser(userId).then(res => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
@@ -157,19 +157,19 @@ class ProfilePage extends Component {
     this.setState({ modalOpen: false });
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { name, value } = e.target;
     this.setState(() => ({ [name]: value }));
   };
 
-  handleSwitchChange = (e) => {
+  handleSwitchChange = e => {
     const { value } = e.target;
     this.setState({
       [value]: e.target.checked
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { updateUser, signedInUser } = this.props;
     const { bio, email, name, showEmail } = this.state;
@@ -184,7 +184,7 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const { classes, match, signedInUser } = this.props;
+    const { classes, getTheUser, match, signedInUser } = this.props;
     const {
       avatarColor,
       displayedBio,
@@ -233,6 +233,7 @@ class ProfilePage extends Component {
                 author={displayedName}
                 authorId={profileId}
                 avatarColor={avatarColor}
+                getUser={getTheUser}
               />
               <Typography variant="headline">{displayedName}</Typography>
               {showEmailSavedResult ? (
@@ -336,6 +337,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  getTheUser: PropTypes.func.isRequired,
   getUsersYouAreFollowing: PropTypes.func.isRequired,
   getYourFollowers: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -355,6 +357,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getTheUser: id => dispatch(getUser(id)),
   getUsersYouAreFollowing: id => dispatch(getFollowing(id)),
   getYourFollowers: id => dispatch(getFollowers(id)),
   retrieveUser: userId => dispatch(getUser(userId)),

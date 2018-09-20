@@ -24,8 +24,25 @@ import grey from '@material-ui/core/colors/grey';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
 class UserAvatar extends Component {
+  state = {
+    avatarColor: 18,
+    name: ''
+  };
+
+  componentDidMount = () => {
+    const { authorId, getUser } = this.props;
+    getUser(authorId).then((res) => {
+      this.setState({
+        avatarColor: res.payload.user.avatarColor,
+        name: res.payload.user.name
+      });
+    });
+  };
+
   render() {
-    const { author, authorId, avatarColor } = this.props;
+    const { authorId } = this.props;
+    const { avatarColor, name } = this.state;
+
     const colorArr = [
       red,
       pink,
@@ -55,7 +72,7 @@ class UserAvatar extends Component {
             backgroundColor: `${colorArr[avatarColor][800]}`
           }}
         >
-          {author.charAt(0).toUpperCase()}
+          {name.charAt(0).toUpperCase()}
         </Avatar>
       </Link>
     );
@@ -63,9 +80,8 @@ class UserAvatar extends Component {
 }
 
 UserAvatar.propTypes = {
-  author: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
-  avatarColor: PropTypes.number.isRequired
+  getUser: PropTypes.func.isRequired
 };
 
 export default UserAvatar;

@@ -43,7 +43,13 @@ class UserCard extends Component {
   };
 
   render() {
-    const { classes, isFollowing, listedUser, signedInUser } = this.props;
+    const {
+      classes,
+      getUser,
+      isFollowing,
+      listedUser,
+      signedInUser
+    } = this.props;
 
     return (
       <Card>
@@ -52,6 +58,7 @@ class UserCard extends Component {
             author={listedUser.name}
             authorId={listedUser._id}
             avatarColor={listedUser.avatarColor}
+            getUser={getUser}
             key={listedUser._id}
           />
         </div>
@@ -91,6 +98,7 @@ class UserCard extends Component {
 UserCard.propTypes = {
   classes: PropTypes.object.isRequired,
   followUser: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
   unfollowUser: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   listedUser: PropTypes.shape({

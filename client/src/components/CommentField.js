@@ -31,7 +31,6 @@ const styles = theme => ({
 class CommentField extends Component {
   state = {
     avatarColor: 18,
-    loading: true,
     name: '',
     text: ''
   };
@@ -41,7 +40,6 @@ class CommentField extends Component {
     getUser(commenterId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
-        loading: false,
         name: res.payload.user.name
       });
     });
@@ -68,12 +66,10 @@ class CommentField extends Component {
   };
 
   render() {
-    const { classes, commenterId } = this.props;
-    const { avatarColor, loading, name, text } = this.state;
+    const { classes, commenterId, getUser } = this.props;
+    const { avatarColor, name, text } = this.state;
 
-    return loading ? (
-      <div />
-    ) : (
+    return (
       <CardHeader
         className={classes.cardHeader}
         title={
@@ -82,6 +78,7 @@ class CommentField extends Component {
               author={name}
               authorId={commenterId}
               avatarColor={avatarColor}
+              getUser={getUser}
             />
             <TextField
               multiline

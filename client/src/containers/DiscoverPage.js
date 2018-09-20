@@ -73,6 +73,7 @@ export class DiscoverPage extends Component {
       authReducer,
       classes,
       followThisUser,
+      getCurrUser,
       userReducer,
       unfollowThisUser
     } = this.props;
@@ -96,6 +97,7 @@ export class DiscoverPage extends Component {
                       <UserCard
                         isFollowing={following.includes(user._id)}
                         followUser={followThisUser}
+                        getUser={getCurrUser}
                         listedUser={user}
                         signedInUser={authReducer.user}
                         unfollowUser={unfollowThisUser}

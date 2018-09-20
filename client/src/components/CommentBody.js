@@ -31,7 +31,6 @@ const styles = theme => ({
 class CommentBody extends Component {
   state = {
     avatarColor: 18,
-    loading: true,
     name: ''
   };
 
@@ -40,25 +39,23 @@ class CommentBody extends Component {
     getUser(commenterId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
-        loading: false,
         name: res.payload.user.name
       });
     });
   };
 
   render() {
-    const { classes, commenterId, timestamp, text } = this.props;
-    const { avatarColor, loading, name } = this.state;
+    const { classes, commenterId, getUser, timestamp, text } = this.props;
+    const { avatarColor, name } = this.state;
 
-    return loading ? (
-      <div />
-    ) : (
+    return (
       <CardHeader
         avatar={
           <UserAvatar
             author={name}
             authorId={commenterId}
             avatarColor={avatarColor}
+            getUser={getUser}
           />
         }
         title={

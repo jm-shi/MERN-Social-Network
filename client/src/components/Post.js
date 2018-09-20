@@ -72,11 +72,23 @@ const styles = theme => ({
 class Post extends Component {
   state = {
     anchorEl: null,
+    avatarColor: 18,
     expanded: false,
-    modalOpen: false
+    modalOpen: false,
+    name: ''
   };
 
-  handleClick = (event) => {
+  componentDidMount = () => {
+    const { authorId, getUser } = this.props;
+    getUser(authorId).then(res => {
+      this.setState({
+        avatarColor: res.payload.user.avatarColor,
+        name: res.payload.user.name
+      });
+    });
+  };
+
+  handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -100,9 +112,7 @@ class Post extends Component {
     const {
       text,
       _id,
-      author,
       authorId,
-      avatarColor,
       comments,
       likers,
       likesCount,
@@ -115,7 +125,7 @@ class Post extends Component {
       getUser,
       updatePostLikes
     } = this.props;
-    const { anchorEl, expanded, modalOpen } = this.state;
+    const { anchorEl, avatarColor, expanded, modalOpen, name } = this.state;
     const open = Boolean(anchorEl);
     const relativeTime = moment(timestamp).fromNow();
     return (
@@ -123,9 +133,10 @@ class Post extends Component {
         <CardHeader
           avatar={
             <UserAvatar
-              author={author}
+              author={name}
               authorId={authorId}
               avatarColor={avatarColor}
+              getUser={getUser}
             />
           }
           action={
@@ -169,7 +180,7 @@ class Post extends Component {
           }
           title={
             <Link className={classes.link} to={`/profile/${authorId}`}>
-              {author}
+              {name}
             </Link>
           }
           subheader={relativeTime}
@@ -181,9 +192,9 @@ class Post extends Component {
           <div>
             <IconButton
               onClick={() =>
-                (likers.includes(signedInUserId)
+                likers.includes(signedInUserId)
                   ? updatePostLikes('unlike', _id, signedInUserId)
-                  : updatePostLikes('like', _id, signedInUserId))
+                  : updatePostLikes('like', _id, signedInUserId)
               }
               aria-label="Like"
             >
@@ -240,7 +251,7 @@ class Post extends Component {
               <EditPost
                 id={_id}
                 text={text}
-                author={author}
+                author={name}
                 editPost={editPost}
                 handleModalClose={this.handleModalClose}
               />
@@ -255,9 +266,7 @@ class Post extends Component {
 Post.propTypes = {
   _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  author: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
-  avatarColor: PropTypes.number.isRequired,
   comments: PropTypes.array.isRequired,
   likers: PropTypes.array.isRequired,
   likesCount: PropTypes.number.isRequired,
