@@ -32,7 +32,9 @@ class EditModal extends Component {
   render() {
     const {
       _id,
+      isEditingComment,
       classes,
+      commentPostId,
       editPost,
       handleModalClose,
       modalOpen,
@@ -53,15 +55,17 @@ class EditModal extends Component {
             id="modal-title"
             className={classes.spacing}
           >
-            Edit this post
+            {isEditingComment ? 'Edit this comment' : 'Edit this post'}
           </Typography>
           <Typography variant="subheading" id="modal-description">
             <EditPost
-              id={_id}
-              text={text}
               author={name}
+              commentPostId={commentPostId}
               editPost={editPost}
               handleModalClose={handleModalClose}
+              id={_id}
+              isEditingComment={isEditingComment}
+              text={text}
             />
           </Typography>
         </div>
@@ -70,9 +74,16 @@ class EditModal extends Component {
   }
 }
 
+EditModal.defaultProps = {
+  commentPostId: '',
+  isEditingComment: false
+};
+
 EditModal.propTypes = {
   _id: PropTypes.string.isRequired,
+  isEditingComment: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  commentPostId: PropTypes.string,
   editPost: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   modalOpen: PropTypes.bool.isRequired,

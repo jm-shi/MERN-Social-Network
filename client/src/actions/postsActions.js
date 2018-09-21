@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   ADD_COMMENT,
   DELETE_COMMENT,
+  EDIT_COMMENT,
   GET_POSTS,
   CREATE_POST,
   EDIT_POST,
@@ -31,8 +32,14 @@ export const deleteComment = (action, commentId, postId) => dispatch =>
   axios.patch(`/posts/${postId}`, { action, commentId }).then(res =>
     dispatch({
       type: DELETE_COMMENT,
-      payload: res.data,
-      commentId
+      payload: res.data
+    }));
+
+export const editComment = (action, commentId, postId, text) => dispatch =>
+  axios.patch(`/posts/${postId}`, { action, commentId, text }).then(res =>
+    dispatch({
+      type: EDIT_COMMENT,
+      payload: res.data
     }));
 
 export const getPosts = () => dispatch =>

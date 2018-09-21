@@ -11,6 +11,7 @@ class Comments extends Component {
       commenterId,
       comments,
       deleteComment,
+      editComment,
       postId,
       getUser
     } = this.props;
@@ -25,6 +26,7 @@ class Comments extends Component {
             commentId={comment._id}
             commenterId={comment.commenterId}
             deleteComment={deleteComment}
+            editComment={editComment}
             getUser={getUser}
             postId={postId}
             text={comment.text}
@@ -52,6 +54,7 @@ Comments.propTypes = {
   commenterId: PropTypes.string.isRequired,
   comments: PropTypes.array,
   deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired
 };

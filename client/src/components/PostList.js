@@ -44,6 +44,7 @@ class PostList extends Component {
       addComment,
       deleteComment,
       deletePost,
+      editComment,
       editPost,
       getUser,
       posts,
@@ -84,6 +85,9 @@ class PostList extends Component {
                   deleteComment(action, commentId, postId)
                 }
                 deletePost={id => deletePost(id)}
+                editComment={(action, commentId, postId, text) =>
+                  editComment(action, commentId, postId, text)
+                }
                 editPost={(id, text, author) => editPost(id, text, author)}
                 getUser={id => getUser(id)}
                 updatePostLikes={(action, postId, likerId) =>
@@ -115,6 +119,7 @@ PostList.propTypes = {
   addComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -126,7 +131,6 @@ PostList.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
       authorId: PropTypes.string.isRequired,
       comments: PropTypes.array,
       likers: PropTypes.array.isRequired,

@@ -3,6 +3,7 @@ import PostList from '../components/PostList';
 import {
   addComment,
   deleteComment,
+  editComment,
   deletePost,
   getPosts,
   editPost,
@@ -20,6 +21,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addComment(action, commenterId, postId, text, timestamp)),
   deleteComment: (action, commentId, postId) =>
     dispatch(deleteComment(action, commentId, postId)),
+  editComment: (action, commentId, postId, text) =>
+    dispatch(editComment(action, commentId, postId, text)),
   deletePost: id => dispatch(deletePost(id)),
   getFollowing: id => dispatch(getFollowing(id)),
   getPosts: () => dispatch(getPosts()),

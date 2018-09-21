@@ -1,6 +1,7 @@
 import {
   ADD_COMMENT,
   DELETE_COMMENT,
+  EDIT_COMMENT,
   GET_POSTS,
   CREATE_POST,
   EDIT_POST,
@@ -38,6 +39,19 @@ export default (state = initialState, action) => {
         })
       };
     case DELETE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return {
+              ...post,
+              comments: action.payload.comments
+            };
+          }
+          return post;
+        })
+      };
+    case EDIT_COMMENT:
       return {
         ...state,
         posts: state.posts.map((post) => {

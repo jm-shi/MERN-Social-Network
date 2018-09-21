@@ -96,11 +96,12 @@ class Post extends Component {
     const {
       _id,
       addComment,
-      deleteComment,
       authorId,
       classes,
       comments,
+      deleteComment,
       deletePost,
+      editComment,
       editPost,
       getUser,
       likers,
@@ -214,6 +215,7 @@ class Post extends Component {
             comments={comments}
             commenterId={signedInUserId}
             deleteComment={deleteComment}
+            editComment={editComment}
             getUser={getUser}
             postId={_id}
           />
@@ -243,6 +245,7 @@ Post.propTypes = {
   comments: PropTypes.array,
   deleteComment: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   likers: PropTypes.array.isRequired,

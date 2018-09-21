@@ -37,9 +37,22 @@ export class EditPost extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { postText } = this.state;
-    const { id, author, editPost, handleModalClose } = this.props;
+    const {
+      commentPostId,
+      id,
+      isEditingComment,
+      author,
+      editPost,
+      handleModalClose
+    } = this.props;
     if (!postText.trim()) return;
-    editPost(id, postText, author);
+
+    if (isEditingComment) {
+      editPost('editComment', id, commentPostId, postText);
+    } else {
+      editPost(id, postText, author);
+    }
+
     handleModalClose();
   };
 
@@ -78,7 +91,9 @@ export class EditPost extends Component {
 
 EditPost.propTypes = {
   classes: PropTypes.object.isRequired,
+  commentPostId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isEditingComment: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
   editPost: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,

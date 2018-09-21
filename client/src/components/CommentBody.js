@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 
+import EditModal from './EditModal';
 import UserAvatar from './UserAvatar';
 
 const styles = theme => ({
@@ -32,6 +33,7 @@ const styles = theme => ({
 class CommentBody extends Component {
   state = {
     avatarColor: 18,
+    modalOpen: false,
     name: ''
   };
 
@@ -45,18 +47,27 @@ class CommentBody extends Component {
     });
   };
 
+  handleModalOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
     const {
       classes,
       commentId,
       commenterId,
       deleteComment,
+      editComment,
       getUser,
       postId,
       timestamp,
       text
     } = this.props;
-    const { avatarColor, name } = this.state;
+    const { avatarColor, modalOpen, name } = this.state;
 
     return (
       <CardHeader
@@ -80,6 +91,28 @@ class CommentBody extends Component {
             >
               Delete
             </Button>
+            {/* <Button
+              onClick={() =>
+                editComment(
+                  'editComment',
+                  commentId,
+                  postId,
+                  'testing edit comment'
+                )
+              }
+            >
+              Edit
+            </Button> */}
+            <Button onClick={() => this.handleModalOpen()}>Edit</Button>
+            <EditModal
+              _id={commentId}
+              isEditingComment
+              commentPostId={postId}
+              editPost={editComment}
+              handleModalClose={this.handleModalClose}
+              modalOpen={modalOpen}
+              text={text}
+            />
           </div>
         }
         className={classes.cardHeader}
@@ -93,6 +126,7 @@ CommentBody.propTypes = {
   commentId: PropTypes.string.isRequired,
   commenterId: PropTypes.string.isRequired,
   deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,

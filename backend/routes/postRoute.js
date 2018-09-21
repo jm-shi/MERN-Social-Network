@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const newPost = new Post({
-    author: req.body.author || 'Anonymous',
     authorId: req.body.authorId,
     avatarColor: req.body.avatarColor || 0,
     comments: [],
@@ -141,7 +140,7 @@ router.patch('/:id', (req, res) => {
   try {
     return Post.findByIdAndUpdate(
       id,
-      { $set: { text: req.body.text, author: req.body.author } },
+      { $set: { text: req.body.text } },
       { new: true },
       (err, post) => {
         if (err) return res.status(400).send(err);

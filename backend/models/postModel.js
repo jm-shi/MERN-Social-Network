@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const PostSchema = new Schema({
-  author: {
-    type: String,
-    required: true
-  },
   authorId: {
     type: String,
     required: true
