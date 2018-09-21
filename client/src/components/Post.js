@@ -218,6 +218,7 @@ class Post extends Component {
             editComment={editComment}
             getUser={getUser}
             postId={_id}
+            signedInUserId={signedInUserId}
           />
         </Collapse>
 

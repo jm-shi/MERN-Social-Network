@@ -13,7 +13,8 @@ class Comments extends Component {
       deleteComment,
       editComment,
       postId,
-      getUser
+      getUser,
+      signedInUserId
     } = this.props;
 
     return (
@@ -29,6 +30,7 @@ class Comments extends Component {
             editComment={editComment}
             getUser={getUser}
             postId={postId}
+            signedInUserId={signedInUserId}
             text={comment.text}
             timestamp={comment.timestamp}
           />
@@ -56,7 +58,8 @@ Comments.propTypes = {
   deleteComment: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
-  postId: PropTypes.string.isRequired
+  postId: PropTypes.string.isRequired,
+  signedInUserId: PropTypes.string.isRequired
 };
 
 export default Comments;

@@ -10,7 +10,9 @@ ShallowWrapper {
     authorId="123abc"
     avatarColor={7}
     comments={Array []}
+    deleteComment={[Function]}
     deletePost={[Function]}
+    editComment={[Function]}
     editPost={[Function]}
     getUser={[Function]}
     likers={Array []}
@@ -43,11 +45,11 @@ ShallowWrapper {
         "expand": "Post-expand-4",
         "expandOpen": "Post-expandOpen-5",
         "link": "Post-link-3",
-        "paper": "Post-paper-6",
-        "spacing": "Post-spacing-7",
       },
       "comments": Array [],
+      "deleteComment": [Function],
       "deletePost": [Function],
+      "editComment": [Function],
       "editPost": [Function],
       "getUser": [Function],
       "likers": Array [],
@@ -78,11 +80,11 @@ ShallowWrapper {
           "expand": "Post-expand-4",
           "expandOpen": "Post-expandOpen-5",
           "link": "Post-link-3",
-          "paper": "Post-paper-6",
-          "spacing": "Post-spacing-7",
         },
         "comments": Array [],
+        "deleteComment": [Function],
         "deletePost": [Function],
+        "editComment": [Function],
         "editPost": [Function],
         "getUser": [Function],
         "likers": Array [],

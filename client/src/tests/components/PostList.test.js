@@ -6,7 +6,9 @@ it('should render PostList', () => {
   const wrapper = shallow(
     <PostList
       addComment={jest.fn()}
+      deleteComment={jest.fn()}
       deletePost={jest.fn()}
+      editComment={jest.fn()}
       editPost={jest.fn()}
       getPosts={jest.fn(() => Promise.resolve('posts'))}
       getFollowing={jest.fn(() => Promise.resolve('following'))}
