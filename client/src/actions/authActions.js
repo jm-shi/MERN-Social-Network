@@ -53,14 +53,15 @@ export const setCurrentUser = decoded => ({
 });
 
 export const updateCurrentUser = (
+  avatarColor,
   bio,
   email,
   name,
   userId,
   showEmail
-) => (dispatch) => {
+) => dispatch =>
   axios
-    .patch(`/users/${userId}`, { bio, email, name, showEmail })
+    .patch(`/users/${userId}`, { avatarColor, bio, email, name, showEmail })
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
@@ -69,7 +70,6 @@ export const updateCurrentUser = (
       dispatch(setCurrentUser(decoded));
     })
     .catch(err => console.log(err));
-};
 
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('jwtToken');

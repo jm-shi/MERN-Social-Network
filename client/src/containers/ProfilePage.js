@@ -16,6 +16,9 @@ import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
+import MenuItem from '@material-ui/core/MenuItem';
+
+import colors from '../misc/colors';
 import defaultImage from '../images/pebbleBeach.JPG';
 import { updateCurrentUser } from '../actions/authActions';
 import { getFollowers, getFollowing, getUser } from '../actions/userActions';
@@ -86,8 +89,9 @@ const styles = theme => ({
 
 class ProfilePage extends Component {
   state = {
-    avatarColor: 0,
+    avatarColor: 17,
     bio: '',
+    displayedAvatarColor: 17,
     displayedBio: '',
     displayedEmail: '',
     displayedName: '',
@@ -118,24 +122,25 @@ class ProfilePage extends Component {
     } = this.props;
     const userId = match.params.id;
 
-    getUsersYouAreFollowing(userId).then(res => {
+    getUsersYouAreFollowing(userId).then((res) => {
       this.setState({
         following: res.payload.user.following,
         loadingFollowing: false
       });
     });
 
-    getYourFollowers(userId).then(res => {
+    getYourFollowers(userId).then((res) => {
       this.setState({
         followers: res.payload.user.followers,
         loadingFollowers: false
       });
     });
 
-    return retrieveUser(userId).then(res => {
+    return retrieveUser(userId).then((res) => {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
+        displayedAvatarColor: res.payload.user.avatarColor,
         displayedBio: res.payload.user.bio,
         displayedEmail: res.payload.user.email,
         displayedName: res.payload.user.name,
@@ -157,36 +162,51 @@ class ProfilePage extends Component {
     this.setState({ modalOpen: false });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState(() => ({ [name]: value }));
   };
 
-  handleSwitchChange = e => {
+  handleSwitchChange = (e) => {
     const { value } = e.target;
     this.setState({
       [value]: e.target.checked
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { updateUser, signedInUser } = this.props;
-    const { bio, email, name, showEmail } = this.state;
-    updateUser(bio, email, name, signedInUser.userId, showEmail);
-    this.setState({
-      displayedBio: bio,
-      displayedEmail: email,
-      displayedName: name,
-      showEmailSavedResult: showEmail
+    const { avatarColor, bio, email, name, showEmail } = this.state;
+
+    updateUser(
+      avatarColor,
+      bio,
+      email,
+      name,
+      signedInUser.userId,
+      showEmail
+    ).then(() => {
+      this.setState(
+        {
+          displayedAvatarColor: avatarColor,
+          displayedBio: bio,
+          displayedEmail: email,
+          displayedName: name,
+          showEmailSavedResult: showEmail
+        },
+        () => {
+          window.location.reload();
+        }
+      );
     });
-    this.handleModalClose();
   };
 
   render() {
     const { classes, getTheUser, match, signedInUser } = this.props;
     const {
       avatarColor,
+      displayedAvatarColor,
       displayedBio,
       displayedEmail,
       displayedName,
@@ -232,7 +252,7 @@ class ProfilePage extends Component {
               <UserAvatar
                 author={displayedName}
                 authorId={profileId}
-                avatarColor={avatarColor}
+                avatarColor={displayedAvatarColor}
                 getUser={getTheUser}
               />
               <Typography variant="headline">{displayedName}</Typography>
@@ -295,6 +315,23 @@ class ProfilePage extends Component {
                 onChange={this.handleChange}
                 placeholder="What is your name?"
               />
+              <TextField
+                fullWidth
+                select
+                className={classes.textField}
+                value={avatarColor}
+                id="avatarColor"
+                label="Avatar Color"
+                margin="normal"
+                name="avatarColor"
+                onChange={this.handleChange}
+              >
+                {colors.map(color => (
+                  <MenuItem key={color.value} value={color.value}>
+                    {color.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 fullWidth
                 multiline
@@ -361,8 +398,8 @@ const mapDispatchToProps = dispatch => ({
   getUsersYouAreFollowing: id => dispatch(getFollowing(id)),
   getYourFollowers: id => dispatch(getFollowers(id)),
   retrieveUser: userId => dispatch(getUser(userId)),
-  updateUser: (bio, email, name, id, showEmail) =>
-    dispatch(updateCurrentUser(bio, email, name, id, showEmail))
+  updateUser: (avatarColor, bio, email, name, id, showEmail) =>
+    dispatch(updateCurrentUser(avatarColor, bio, email, name, id, showEmail))
 });
 
 export default compose(

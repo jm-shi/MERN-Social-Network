@@ -132,6 +132,7 @@ router.patch('/:id', async (req, res) => {
       { _id: id },
       {
         $set: {
+          avatarColor: req.body.avatarColor,
           bio: req.body.bio || '',
           email: req.body.email,
           name: req.body.name,
