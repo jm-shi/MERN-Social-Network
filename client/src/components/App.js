@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AppRouter from './AppRouter';
+import AppWithRouter from './AppWithRouter';
 
-const App = () => <AppRouter />;
+const App = () => <AppWithRouter />;
 
 export default App;
