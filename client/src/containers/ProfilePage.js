@@ -91,6 +91,7 @@ class ProfilePage extends Component {
   state = {
     avatarColor: 17,
     bio: '',
+    createdAt: 0,
     displayedAvatarColor: 17,
     displayedBio: '',
     displayedEmail: '',
@@ -140,6 +141,7 @@ class ProfilePage extends Component {
       this.setState({
         avatarColor: res.payload.user.avatarColor,
         bio: res.payload.user.bio,
+        createdAt: res.payload.user.createdAt,
         displayedAvatarColor: res.payload.user.avatarColor,
         displayedBio: res.payload.user.bio,
         displayedEmail: res.payload.user.email,
@@ -206,6 +208,7 @@ class ProfilePage extends Component {
     const { classes, getTheUser, match, signedInUser } = this.props;
     const {
       avatarColor,
+      createdAt,
       displayedAvatarColor,
       displayedBio,
       displayedEmail,
@@ -276,7 +279,7 @@ class ProfilePage extends Component {
               </Paper>
               <Paper className={classes.paper}>
                 <Typography variant="display1" className={classes.date}>
-                  {moment(signedInUser.createdAt).format('l')}
+                  {moment(createdAt).format('l')}
                 </Typography>
                 <Typography variant="headline">Joined</Typography>
               </Paper>

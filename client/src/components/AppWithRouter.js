@@ -1,6 +1,6 @@
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+import { Router, Route, Switch, withRouter } from 'react-router-dom';
 import withAnalytics, { initAnalytics } from 'react-with-analytics';
 
 import DiscoverPage from '../containers/DiscoverPage';
@@ -31,9 +31,9 @@ const Root = () => (
 const App = withRouter(withAnalytics(Root));
 
 const AppWithRouter = () => (
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <App />
-  </BrowserRouter>
+  </Router>
 );
 
 export default AppWithRouter;
