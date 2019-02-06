@@ -44,6 +44,30 @@ Profile                    |  Edit
 - Improve code organization
 - Write more tests
 
+## Setup instructions (tested on macOS 10.14 Mojave)
+To run server:
+1. Clone the repository.
+2. `cd` into the directory and run `npm install`.
+3. Run `cd client && npm install`.
+4. Back in the main directory, run `npm start`.
+
+To set up your own database:
+1. Log into or create an [mLab](https://mlab.com/) account.
+	1. Create a new MongoDB deployment.
+  ![Deployment](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/deployment.png) 
+	![Select Provider](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/provider.png) 
+	2. Enter the database and create a new user.
+  ![Add User](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/addUser.png)
+	3. Replace the dbURI in "secrets.js" (located in backend folder) with your MongoDB URI. Replace `<dbuser>` and `<dbpassword>` with the user and password you just created respectively.
+  ![URI](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/uri.png) 
+	![Sample](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/sample.png) 
+2. Log into or create a [Heroku](https://heroku.com/) account. 
+	1. Create a new app in Heroku.
+	![Heroku](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/heroku.png)
+	2. In settings, add config vars for REACT_APP_DB_URI and REACT_APP_JWT_KEY.
+![Heroku Config](https://github.com/jm-shi/MERN-Social-Network/blob/master/demo/herokuConfig.png)
+3. Back in the main directory, run `npm start`.
+
 ## Built With
 
 - [Express.js](https://expressjs.com/) - Backend web framework
