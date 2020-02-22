@@ -13,8 +13,9 @@ class PostList extends Component {
     const { getPosts, getFollowing, user } = this.props;
     getPosts().then(() => {
       getFollowing(user.userId).then((res) => {
+        const following = (res.payload && res.payload.user) ? res.payload.user.following : [];
         this.setState({
-          following: res.payload.user.following,
+          following,
           loading: false
         });
       });
