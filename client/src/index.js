@@ -10,10 +10,7 @@ import setAuthToken from './setAuthToken';
 import { logoutUser, setCurrentUser } from './actions/authActions';
 import './index.css';
 
-const store = createStore();
-
-// Code snippet from Krunal
-// https://appdividend.com/2018/07/18/react-redux-node-mongodb-jwt-authentication/#React_Redux_Node_MongoDB_JWT_Authentication
+const store = createStore()
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwtDecode(localStorage.jwtToken);
