@@ -13,7 +13,7 @@
     "history": "^4.7.2",
     "immutability-helper": "^2.8.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
