@@ -20,7 +20,7 @@
     "react-ga": "^2.5.3",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "5.0.1",
     "react-with-analytics": "0.0.5",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
